@@ -27,6 +27,7 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Sarabun', sans-serif; }
     
+    /* --- ENHANCED MAIN BODY BACKGROUND --- */
     body { 
       background: #0B0F19; 
       background-image: 
@@ -44,6 +45,7 @@
       overflow-x: hidden;
     }
 
+    /* Ambient Glowing Lighting Spheres (Soft & Dynamic) */
     .bg-ambient-orb {
       position: fixed;
       border-radius: 50%;
@@ -87,6 +89,7 @@
       100% { transform: translate(-80px, -60px) scale(1.1); }
     }
 
+    /* Fine Tech Grid Overlay on Background */
     .bg-grid-pattern {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -104,6 +107,7 @@
     .screen-section.active-screen { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
+    /* Elevated Login Box with Backlight Accent */
     .login-wrapper { 
       display: flex; 
       width: 100%; 
@@ -260,6 +264,7 @@
 
     .signup-text { text-align: center; margin-top: 24px; font-size: 13px; color: var(--text-muted); }
     .signup-text a { color: var(--primary-color); font-weight: 600; text-decoration: none; cursor: pointer; }
+    .hint-text { font-size: 12px; color: rgba(255,255,255,0.9); margin-top: 8px; padding: 8px 10px; background: rgba(0,0,0,0.25); border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); }
 
     .app-header { background: var(--surface-color); padding: 12px 24px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
     .brand-title-group { min-width: 140px; }
@@ -316,6 +321,7 @@
     .alert-msg { font-size: 13px; margin-top: 8px; padding: 8px 12px; border-radius: 6px; display: none; line-height: 1.5; }
     .alert-msg.error { color: var(--danger-color); background: #FEF2F2; display: block; }
     .alert-msg.success { color: var(--success-color); background: #ECFDF5; display: block; }
+    .alert-msg.warning { color: var(--warning-color); background: #FFFBEB; display: block; }
 
     .page-content { display: none; }
     .page-content.active { display: block; }
@@ -329,6 +335,41 @@
     .modal-header h3 { font-size: 16px; font-weight: 700; color: var(--text-main); }
     .close-btn { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--text-muted); }
     .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; }
+
+    .tab-switch { display: flex; background: #F1F5F9; padding: 4px; border-radius: var(--radius-sm); margin-bottom: 16px; }
+    .tab-btn { flex: 1; padding: 8px; border: none; background: transparent; font-size: 13px; font-weight: 600; color: var(--text-muted); border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+    .tab-btn.active { background: white; color: var(--primary-color); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+
+    .otp-notification { 
+      position: fixed; 
+      top: 30px; 
+      left: 50%; 
+      transform: translateX(-50%) translateY(-100px); 
+      z-index: 9999; 
+      background: #1E1B4B; 
+      color: #FFF; 
+      padding: 16px 24px; 
+      border-radius: var(--radius-md); 
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3); 
+      border-top: 4px solid var(--primary-color); 
+      width: 90%;
+      max-width: 360px; 
+      opacity: 0; 
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+      pointer-events: none;
+    }
+    .otp-notification.show { 
+      transform: translateX(-50%) translateY(0); 
+      opacity: 1; 
+      pointer-events: auto;
+    }
+    .otp-notification-title { font-size: 13px; color: #94A3B8; font-weight: 600; display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .otp-notification-body { font-size: 14px; line-height: 1.4; text-align: center; }
+    .otp-code-highlight { font-size: 24px; font-weight: 700; color: #818CF8; letter-spacing: 4px; margin-top: 6px; display: block; }
+
+    .timer-badge { text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 10px; }
+    .timer-badge span { font-weight: 700; color: var(--danger-color); }
+    .resend-link { color: var(--primary-color); font-weight: 600; cursor: pointer; text-decoration: underline; margin-left: 4px; }
   </style>
 </head>
 <body>
@@ -338,6 +379,17 @@
   <div class="bg-ambient-orb orb-2"></div>
   <div class="bg-ambient-orb orb-focus-spotlight"></div>
   <div class="bg-grid-pattern"></div>
+
+  <div id="otp-toast" class="otp-notification">
+    <div class="otp-notification-title">
+      <span>💬 SMS แจ้งเตือน</span>
+      <span>เมื่อครู่นี้</span>
+    </div>
+    <div class="otp-notification-body">
+      รหัส OTP สำหรับยืนยันตัวตนของคุณคือ:
+      <span id="toast-otp-code" class="otp-code-highlight">123456</span>
+    </div>
+  </div>
 
   <!-- LOGIN SCREEN -->
   <div id="login-screen" class="screen-section active-screen">
@@ -607,162 +659,111 @@
     </div>
   </div>
 
-  <!-- MODAL: FORGOT PASSWORD -->
-  <div id="forgot-modal" class="modal-overlay">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3>🔑 รีเซ็ตรหัสผ่าน</h3>
-        <button class="close-btn" onclick="closeModal('forgot-modal')">&times;</button>
-      </div>
-      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">กรอกชื่อผู้ใช้หรืออีเมลที่ลงทะเบียนไว้ ระบบจะส่งลิงก์สำหรับรีเซ็ตรหัสผ่านให้คุณ</p>
-      <div class="form-group">
-        <label for="forgot-email">อีเมล / ชื่อผู้ใช้</label>
-        <input type="text" id="forgot-email" class="form-control" placeholder="example@su.ac.th">
-      </div>
-      <div id="forgot-alert" class="alert-msg"></div>
-      <div class="modal-footer">
-        <button class="btn-secondary" onclick="closeModal('forgot-modal')">ยกเลิก</button>
-        <button class="btn-primary" style="width: auto;" onclick="handleForgotPassword()">ส่งข้อมูล</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: REGISTER -->
-  <div id="register-modal" class="modal-overlay">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3>📝 ลงทะเบียนเจ้าหน้าที่ใหม่</h3>
-        <button class="close-btn" onclick="closeModal('register-modal')">&times;</button>
-      </div>
-      <form id="register-form" onsubmit="handleRegister(event)">
-        <div class="form-group">
-          <label for="reg-fullname">ชื่อ-นามสกุล</label>
-          <input type="text" id="reg-fullname" class="form-control" placeholder="กรอกชื่อ-นามสกุล" required>
-        </div>
-        <div class="form-group">
-          <label for="reg-username">ชื่อผู้ใช้ (Username)</label>
-          <input type="text" id="reg-username" class="form-control" placeholder="ตั้งชื่อผู้ใช้" required>
-        </div>
-        <div class="form-group">
-          <label for="reg-email">อีเมลมหาวิทยาลัย</label>
-          <input type="email" id="reg-email" class="form-control" placeholder="example@su.ac.th" required>
-        </div>
-        <div class="form-group">
-          <label for="reg-pass">รหัสผ่าน</label>
-          <input type="password" id="reg-pass" class="form-control" placeholder="กำหนดรหัสผ่าน" required>
-        </div>
-        <div id="reg-alert" class="alert-msg"></div>
-        <div class="modal-footer">
-          <button type="button" class="btn-secondary" onclick="closeModal('register-modal')">ยกเลิก</button>
-          <button type="submit" class="btn-primary" style="width: auto;">ลงทะเบียน</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
+  <!-- SCRIPT ENGINE -->
   <script>
-    // สลับการเปิด/ปิด ตาดูรหัสผ่าน
-    function toggleVisibility(inputId, icon) {
+    // สลับแสดง/ซ่อนรหัสผ่านหรือข้อมูล masked
+    function toggleVisibility(inputId, iconElem) {
       const input = document.getElementById(inputId);
       if (input.type === "password") {
         input.type = "text";
-        icon.textContent = "🙈";
+        iconElem.textContent = "🙈";
       } else {
         input.type = "password";
-        icon.textContent = "👁️";
+        iconElem.textContent = "👁️";
       }
     }
 
-    // จัดการเข้าสู่ระบบแบบฟอร์มหลัก
+    // ระบบจัดการล็อกอิน
     function handleLogin(event) {
       event.preventDefault();
-      const user = document.getElementById('username').value.trim();
-      const pass = document.getElementById('login-pass').value.trim();
-      const errorAlert = document.getElementById('login-error');
+      
+      const usernameInput = document.getElementById('username').value.trim();
+      const passwordInput = document.getElementById('login-pass').value;
+      const errorMsg = document.getElementById('login-error');
 
-      if (!user || !pass) {
-        errorAlert.textContent = "กรุณากรอกข้อมูลให้ครบถ้วน";
-        errorAlert.className = "alert-msg error";
+      if (!usernameInput || !passwordInput) {
+        errorMsg.textContent = "กรุณากรอกชื่อผู้ใช้และรหัสผ่าน";
+        errorMsg.classList.add('error');
         return;
       }
 
-      errorAlert.style.display = 'none';
+      errorMsg.style.display = 'none';
+
+      // 1. ซิงก์รหัสผ่านที่กรอกจริงไปยังส่วนความปลอดภัย (🔒 ความปลอดภัยและการเข้าถึง)
+      document.getElementById('sec-pass').value = passwordInput;
+      
+      // 2. ซิงก์ชื่อผู้ใช้ไปยังข้อมูลผู้ใช้
+      document.getElementById('display-username').textContent = usernameInput;
+
+      // 3. สลับการแสดงผลไปยังหน้าหลัก
       document.getElementById('login-screen').classList.remove('active-screen');
       document.getElementById('app-screen').classList.add('active-screen');
     }
 
-    // เข้าสู่ระบบผ่าน Social Logins
+    // ระบบ Login ผ่าน Social Media
     function loginWithSocial(provider) {
+      const mockUser = provider.toLowerCase() + "_user";
+      const mockPass = "social_" + Math.floor(1000 + Math.random() * 9000);
+
+      document.getElementById('display-username').textContent = mockUser;
+      document.getElementById('sec-pass').value = mockPass;
+
       document.getElementById('login-screen').classList.remove('active-screen');
       document.getElementById('app-screen').classList.add('active-screen');
     }
 
-    // ออกจากระบบ
+    // ระบบสลับเมนูหน้าต่างๆ (Navigation)
+    function switchPage(pageId, pageTitle) {
+      const pages = document.querySelectorAll('.page-content');
+      pages.forEach(page => page.classList.remove('active'));
+
+      const navBtns = document.querySelectorAll('.page-nav-btn');
+      navBtns.forEach(btn => btn.classList.remove('active'));
+
+      const targetPage = document.getElementById('page-' + pageId);
+      if (targetPage) {
+        targetPage.classList.add('active');
+      }
+
+      const activeBtn = document.querySelector(`.page-nav-btn[data-page="${pageId}"]`);
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+      }
+
+      document.getElementById('page-title-display').textContent = pageTitle;
+    }
+
+    // ล็อกเอาต์ออกจากระบบ
     function handleLogout() {
       document.getElementById('app-screen').classList.remove('active-screen');
       document.getElementById('login-screen').classList.add('active-screen');
       document.getElementById('login-form').reset();
     }
 
-    // เปิด-ปิด Modal
+    // ฟังก์ชันเสริมอื่นๆ
+    function updateEmail() {
+      const emailAlert = document.getElementById('email-alert');
+      emailAlert.textContent = "บันทึกอีเมลเรียบร้อยแล้ว";
+      emailAlert.className = "alert-msg success";
+      setTimeout(() => { emailAlert.style.display = 'none'; }, 3000);
+    }
+
     function openForgotPasswordModal() {
-      document.getElementById('forgot-modal').classList.add('active');
+      alert("ระบบได้ส่งลิงก์กู้คืนรหัสผ่านไปยังอีเมลของคุณแล้ว");
     }
 
     function openRegisterModal() {
-      document.getElementById('register-modal').classList.add('active');
+      alert("กรุณาติดต่อผู้ดูแลระบบเพื่อเปิดใช้งานบัญชีเจ้าหน้าที่");
     }
 
-    function closeModal(modalId) {
-      document.getElementById(modalId).classList.remove('active');
-      const alertMsg = document.querySelector(`#${modalId} .alert-msg`);
-      if (alertMsg) alertMsg.style.display = 'none';
+    function editProfile() {
+      alert("เปิดโหมดแก้ไขข้อมูลโปรไฟล์");
     }
 
-    // ส่งข้อมูล ลืมรหัสผ่าน
-    function handleForgotPassword() {
-      const email = document.getElementById('forgot-email').value.trim();
-      const alertMsg = document.getElementById('forgot-alert');
-
-      if (!email) {
-        alertMsg.textContent = "กรุณากรอกอีเมลหรือชื่อผู้ใช้";
-        alertMsg.className = "alert-msg error";
-        return;
-      }
-
-      alertMsg.textContent = "ระบบได้ส่งลิงก์รีเซ็ตรหัสผ่านไปยังอีเมลของคุณแล้ว";
-      alertMsg.className = "alert-msg success";
-      setTimeout(() => {
-        closeModal('forgot-modal');
-        document.getElementById('forgot-email').value = '';
-      }, 1500);
-    }
-
-    // ส่งข้อมูล ลงทะเบียนเจ้าหน้าที่ใหม่
-    function handleRegister(event) {
-      event.preventDefault();
-      const alertMsg = document.getElementById('reg-alert');
-      alertMsg.textContent = "ลงทะเบียนสำเร็จ! กรุณาเข้าสู่ระบบ";
-      alertMsg.className = "alert-msg success";
-      setTimeout(() => {
-        closeModal('register-modal');
-        document.getElementById('register-form').reset();
-      }, 1500);
-    }
-
-    // สลับหน้าใน Navbar
-    function switchPage(pageId, pageTitle) {
-      document.querySelectorAll('.page-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.page-nav-btn').forEach(el => el.classList.remove('active'));
-
-      const targetPage = document.getElementById(`page-${pageId}`);
-      if (targetPage) targetPage.classList.add('active');
-
-      const activeBtn = document.querySelector(`.page-nav-btn[data-page="${pageId}"]`);
-      if (activeBtn) activeBtn.classList.add('active');
-
-      document.getElementById('page-title-display').textContent = pageTitle;
+    function openPasswordModal() {
+      alert("กรุณากรอกรหัสผ่านใหม่ในช่องทางนี้");
     }
   </script>
+
 </body>
 </html>
