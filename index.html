@@ -27,7 +27,6 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Sarabun', sans-serif; }
     
-    /* --- ENHANCED MAIN BODY BACKGROUND --- */
     body { 
       background: #0B0F19; 
       background-image: 
@@ -45,7 +44,6 @@
       overflow-x: hidden;
     }
 
-    /* Ambient Glowing Lighting Spheres (Soft & Dynamic) */
     .bg-ambient-orb {
       position: fixed;
       border-radius: 50%;
@@ -89,7 +87,6 @@
       100% { transform: translate(-80px, -60px) scale(1.1); }
     }
 
-    /* Fine Tech Grid Overlay on Background */
     .bg-grid-pattern {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -107,7 +104,6 @@
     .screen-section.active-screen { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Elevated Login Box with Backlight Accent */
     .login-wrapper { 
       display: flex; 
       width: 100%; 
@@ -264,7 +260,6 @@
 
     .signup-text { text-align: center; margin-top: 24px; font-size: 13px; color: var(--text-muted); }
     .signup-text a { color: var(--primary-color); font-weight: 600; text-decoration: none; cursor: pointer; }
-    .hint-text { font-size: 12px; color: rgba(255,255,255,0.9); margin-top: 8px; padding: 8px 10px; background: rgba(0,0,0,0.25); border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); }
 
     .app-header { background: var(--surface-color); padding: 12px 24px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
     .brand-title-group { min-width: 140px; }
@@ -336,10 +331,6 @@
     .close-btn { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--text-muted); }
     .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; }
 
-    .tab-switch { display: flex; background: #F1F5F9; padding: 4px; border-radius: var(--radius-sm); margin-bottom: 16px; }
-    .tab-btn { flex: 1; padding: 8px; border: none; background: transparent; font-size: 13px; font-weight: 600; color: var(--text-muted); border-radius: 6px; cursor: pointer; transition: all 0.2s; }
-    .tab-btn.active { background: white; color: var(--primary-color); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-
     .otp-notification { 
       position: fixed; 
       top: 30px; 
@@ -366,10 +357,6 @@
     .otp-notification-title { font-size: 13px; color: #94A3B8; font-weight: 600; display: flex; justify-content: space-between; margin-bottom: 6px; }
     .otp-notification-body { font-size: 14px; line-height: 1.4; text-align: center; }
     .otp-code-highlight { font-size: 24px; font-weight: 700; color: #818CF8; letter-spacing: 4px; margin-top: 6px; display: block; }
-
-    .timer-badge { text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 10px; }
-    .timer-badge span { font-weight: 700; color: var(--danger-color); }
-    .resend-link { color: var(--primary-color); font-weight: 600; cursor: pointer; text-decoration: underline; margin-left: 4px; }
   </style>
 </head>
 <body>
@@ -663,39 +650,25 @@
   <div id="password-modal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>🔒 เปลี่ยนรหัสผ่าน</h3>
-        <button class="close-btn" onclick="closePasswordModal()">✕</button>
+        <h3>🔑 เปลี่ยนรหัสผ่าน</h3>
+        <button class="close-btn" onclick="closeModal('password-modal')">&times;</button>
       </div>
-      <form id="change-pass-form" onsubmit="handlePasswordChange(event)">
+      <form onsubmit="saveNewPassword(event)">
         <div class="form-group">
-          <label for="old-pass">รหัสผ่านปัจจุบัน</label>
-          <div class="masked-input-group" style="background: white;">
-            <input type="password" id="old-pass" required placeholder="กรอกรหัสผ่านเดิม">
-            <span class="eye-icon" onclick="toggleVisibility('old-pass', this)">👁️</span>
-          </div>
+          <label>รหัสผ่านปัจจุบัน</label>
+          <input type="password" class="form-control" required>
         </div>
-
         <div class="form-group">
-          <label for="new-pass">รหัสผ่านใหม่</label>
-          <div class="masked-input-group" style="background: white;">
-            <input type="password" id="new-pass" required placeholder="ตั้งรหัสผ่านใหม่">
-            <span class="eye-icon" onclick="toggleVisibility('new-pass', this)">👁️</span>
-          </div>
+          <label>รหัสผ่านใหม่</label>
+          <input type="password" class="form-control" required>
         </div>
-
         <div class="form-group">
-          <label for="confirm-pass">ยืนยันรหัสผ่านใหม่</label>
-          <div class="masked-input-group" style="background: white;">
-            <input type="password" id="confirm-pass" required placeholder="กรอกรหัสผ่านใหม่อีกครั้ง">
-            <span class="eye-icon" onclick="toggleVisibility('confirm-pass', this)">👁️</span>
-          </div>
+          <label>ยืนยันรหัสผ่านใหม่</label>
+          <input type="password" class="form-control" required>
         </div>
-
-        <div id="modal-alert" class="alert-msg"></div>
-
         <div class="modal-footer">
-          <button type="button" class="btn-secondary" onclick="closePasswordModal()">ยกเลิก</button>
-          <button type="submit" class="btn-primary" style="width: auto; padding: 6px 18px;">ยืนยันการเปลี่ยนรหัส</button>
+          <button type="button" class="btn-secondary" onclick="closeModal('password-modal')">ยกเลิก</button>
+          <button type="submit" class="btn-primary" style="width: auto;">บันทึกรหัสผ่าน</button>
         </div>
       </form>
     </div>
@@ -706,52 +679,28 @@
     <div class="modal-card">
       <div class="modal-header">
         <h3>📝 ลงทะเบียนเจ้าหน้าที่ใหม่</h3>
-        <button class="close-btn" onclick="closeRegisterModal()">✕</button>
+        <button class="close-btn" onclick="closeModal('register-modal')">&times;</button>
       </div>
-      <form id="register-form" onsubmit="handleRegister(event)">
+      <form onsubmit="handleRegister(event)">
         <div class="form-group">
-          <label for="reg-staff-id">รหัสพนักงาน/เจ้าหน้าที่ *</label>
-          <input type="text" id="reg-staff-id" class="form-control" placeholder="เช่น STF-2026-010" required>
+          <label>ชื่อ-นามสกุล</label>
+          <input type="text" class="form-control" placeholder="สมชาย ใจดี" required>
         </div>
-
         <div class="form-group">
-          <label for="reg-fullname">ชื่อ-นามสกุล *</label>
-          <input type="text" id="reg-fullname" class="form-control" placeholder="กรอกชื่อและนามสกุลจริง" required>
+          <label>ชื่อผู้ใช้</label>
+          <input type="text" class="form-control" placeholder="somchai.j" required>
         </div>
-
         <div class="form-group">
-          <label for="reg-dept">แผนก / สังกัด *</label>
-          <input type="text" id="reg-dept" class="form-control" placeholder="เช่น ศูนย์เทคโนโลยีการศึกษา" required>
+          <label>อีเมล</label>
+          <input type="email" class="form-control" placeholder="somchai@su.ac.th" required>
         </div>
-
         <div class="form-group">
-          <label for="reg-email">อีเมลองค์กร *</label>
-          <input type="email" id="reg-email" class="form-control" placeholder="example@university.ac.th" required>
+          <label>รหัสผ่าน</label>
+          <input type="password" class="form-control" required>
         </div>
-
-        <div class="form-group">
-          <label for="reg-phone">เบอร์โทรศัพท์มือถือ *</label>
-          <input type="tel" id="reg-phone" class="form-control" placeholder="เช่น 0812345678" maxlength="10" required>
-        </div>
-
-        <div class="form-group">
-          <label for="reg-username">ชื่อผู้ใช้ (Username) *</label>
-          <input type="text" id="reg-username" class="form-control" placeholder="ใช้สำหรับเข้าสู่ระบบ" required>
-        </div>
-
-        <div class="form-group">
-          <label for="reg-pass">รหัสผ่าน *</label>
-          <div class="masked-input-group" style="background: white;">
-            <input type="password" id="reg-pass" required placeholder="อย่างน้อย 4 ตัวอักษร">
-            <span class="eye-icon" onclick="toggleVisibility('reg-pass', this)">👁️</span>
-          </div>
-        </div>
-
-        <div id="reg-modal-alert" class="alert-msg"></div>
-
         <div class="modal-footer">
-          <button type="button" class="btn-secondary" onclick="closeRegisterModal()">ยกเลิก</button>
-          <button type="submit" class="btn-primary" style="width: auto; padding: 6px 18px;">ลงทะเบียน</button>
+          <button type="button" class="btn-secondary" onclick="closeModal('register-modal')">ยกเลิก</button>
+          <button type="submit" class="btn-primary" style="width: auto;">ลงทะเบียน</button>
         </div>
       </form>
     </div>
@@ -761,243 +710,128 @@
   <div id="forgot-modal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>🔑 กู้คืนรหัสผ่าน</h3>
-        <button class="close-btn" onclick="closeForgotPasswordModal()">✕</button>
+        <h3>🔓 ลืมรหัสผ่าน</h3>
+        <button class="close-btn" onclick="closeModal('forgot-modal')">&times;</button>
       </div>
-
-      <div class="tab-switch">
-        <button type="button" class="tab-btn active" id="tab-email-btn" onclick="switchForgotTab('email')">📧 ใช้อีเมล</button>
-        <button type="button" class="tab-btn" id="tab-otp-btn" onclick="switchForgotTab('otp')">📱 ใช้ OTP</button>
-      </div>
-
       <div id="forgot-step-1">
-        <div id="method-email-panel">
-          <div class="form-group">
-            <label for="forgot-email-input">อีเมลที่ลงทะเบียนไว้</label>
-            <input type="email" id="forgot-email-input" class="form-control" placeholder="เช่น admin@example.com">
-          </div>
-          <button type="button" class="btn-primary" onclick="sendEmailRecovery()">ส่งลิงก์ปลดล็อกรหัสผ่าน</button>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">กรอกอีเมลเพื่อรับรหัส OTP ในการรีเซ็ตรหัสผ่าน</p>
+        <div class="form-group">
+          <label>อีเมลที่ลงทะเบียน</label>
+          <input type="email" id="forgot-email" class="form-control" placeholder="admin@example.com" required>
         </div>
-
-        <div id="method-otp-panel" style="display: none;">
-          <div class="form-group">
-            <label for="forgot-phone-input">เบอร์โทรศัพท์มือถือที่ลงทะเบียน</label>
-            <input type="tel" id="forgot-phone-input" class="form-control" placeholder="เช่น 0812345678" maxlength="10">
-          </div>
-          <button type="button" class="btn-primary" onclick="generateOTP()">ขอรับรหัส OTP</button>
-        </div>
+        <button type="button" class="btn-primary" onclick="sendOTP()">ส่งรหัส OTP</button>
       </div>
-
       <div id="forgot-step-2" style="display: none;">
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">ระบบได้ส่งรหัส OTP ไปยังอีเมล/เบอร์โทรศัพท์ของคุณแล้ว</p>
         <div class="form-group">
-          <label for="otp-code-input">กรอกรหัส OTP 6 หลัก</label>
-          <input type="text" id="otp-code-input" class="form-control" placeholder="X X X X X X" maxlength="6" style="text-align: center; letter-spacing: 6px; font-weight: 700; font-size: 20px;">
+          <label>ระบุรหัส OTP (6 หลัก)</label>
+          <input type="text" id="otp-input" class="form-control" placeholder="123456" maxlength="6" style="text-align: center; letter-spacing: 4px; font-size: 18px;">
         </div>
-
-        <button type="button" id="verify-otp-btn" class="btn-primary" onclick="verifyOTP()">ยืนยันรหัส OTP</button>
-
-        <div class="timer-badge">
-          รหัสหมดอายุใน: <span id="countdown-timer">01:00</span>
-          <div id="resend-container" style="display: none; margin-top: 6px;">
-            ไม่ได้รับรหัส? <span class="resend-link" onclick="generateOTP()">ขอรหัสใหม่</span>
-          </div>
-        </div>
+        <button type="button" class="btn-primary" onclick="verifyOTP()">ยืนยัน OTP</button>
       </div>
-
-      <div id="forgot-step-3" style="display: none;">
-        <div class="form-group">
-          <label for="reset-new-pass">ตั้งรหัสผ่านใหม่</label>
-          <div class="masked-input-group" style="background: white;">
-            <input type="password" id="reset-new-pass" placeholder="กรอกรหัสผ่านใหม่">
-            <span class="eye-icon" onclick="toggleVisibility('reset-new-pass', this)">👁️</span>
-          </div>
-        </div>
-        <button type="button" class="btn-primary" onclick="saveNewPassword()">บันทึกรหัสผ่านใหม่</button>
-      </div>
-
-      <div id="forgot-alert" class="alert-msg"></div>
     </div>
   </div>
 
   <script>
-    function initParticles() {
-      const canvas = document.getElementById('hero-canvas');
-      const ctx = canvas.getContext('2d');
-      const container = document.getElementById('hero-container');
+    // --- APP NAVIGATION ---
+    function switchPage(pageId, pageTitle) {
+      document.querySelectorAll('.page-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.page-nav-btn').forEach(el => el.classList.remove('active'));
 
-      function resizeCanvas() {
-        canvas.width = container.offsetWidth;
-        canvas.height = container.offsetHeight;
-      }
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
+      const targetPage = document.getElementById(`page-${pageId}`);
+      if (targetPage) targetPage.classList.add('active');
 
-      const particles = [];
-      const particleCount = 35;
-      const mouse = { x: null, y: null, radius: 100 };
+      const activeBtn = document.querySelector(`.page-nav-btn[data-page="${pageId}"]`);
+      if (activeBtn) activeBtn.classList.add('active');
 
-      container.addEventListener('mousemove', (e) => {
-        const rect = container.getBoundingClientRect();
-        mouse.x = e.clientX - rect.left;
-        mouse.y = e.clientY - rect.top;
-      });
-
-      container.addEventListener('mouseleave', () => {
-        mouse.x = null;
-        mouse.y = null;
-      });
-
-      class Particle {
-        constructor() {
-          this.x = Math.random() * canvas.width;
-          this.y = Math.random() * canvas.height;
-          this.size = Math.random() * 2.5 + 1;
-          this.speedX = (Math.random() - 0.5) * 0.8;
-          this.speedY = (Math.random() - 0.5) * 0.8;
-          this.color = ['#5B48D9', '#818CF8', '#A5B4FC', '#38BDF8'][Math.floor(Math.random() * 4)];
-        }
-
-        update() {
-          this.x += this.speedX;
-          this.y += this.speedY;
-
-          if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-          if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-
-          if (mouse.x !== null && mouse.y !== null) {
-            let dx = mouse.x - this.x;
-            let dy = mouse.y - this.y;
-            let distance = Math.sqrt(dx * dx + dy * dy);
-            if (distance < mouse.radius) {
-              this.x -= (dx / distance) * 2;
-              this.y -= (dy / distance) * 2;
-            }
-          }
-        }
-
-        draw() {
-          ctx.fillStyle = this.color;
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-      }
-
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        for (let a = 0; a < particles.length; a++) {
-          for (let b = a; b < particles.length; b++) {
-            let dx = particles[a].x - particles[b].x;
-            let dy = particles[a].y - particles[b].y;
-            let distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < 90) {
-              ctx.strokeStyle = `rgba(129, 140, 248, ${1 - distance / 90 * 0.7})`;
-              ctx.lineWidth = 0.6;
-              ctx.beginPath();
-              ctx.moveTo(particles[a].x, particles[a].y);
-              ctx.lineTo(particles[b].x, particles[b].y);
-              ctx.stroke();
-            }
-          }
-        }
-
-        particles.forEach(particle => {
-          particle.update();
-          particle.draw();
-        });
-
-        requestAnimationFrame(animate);
-      }
-
-      animate();
+      document.getElementById('page-title-display').innerText = pageTitle;
     }
 
-    window.addEventListener('load', initParticles);
+    // --- LOGIN / LOGOUT ---
+    function handleLogin(e) {
+      e.preventDefault();
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('login-pass').value;
 
-    const initialUsers = {
-      "admin": {
-        password: "12345",
-        name: "ผู้ดูแลระบบ",
-        role: "ผู้ดูแลระบบสูงสุด",
-        staffId: "STF-2026-009",
-        dept: "ศูนย์เทคโนโลยีการศึกษา",
-        email: "admin@example.com",
-        phone: "0812345678"
+      if (user && pass) {
+        document.getElementById('login-screen').classList.remove('active-screen');
+        document.getElementById('app-screen').classList.add('active-screen');
       }
-    };
-
-    function getDatabase() {
-      const saved = localStorage.getItem("systemUsers");
-      return saved ? JSON.parse(saved) : initialUsers;
     }
 
-    function saveDatabase(db) {
-      localStorage.setItem("systemUsers", JSON.stringify(db));
+    function handleLogout() {
+      document.getElementById('app-screen').classList.remove('active-screen');
+      document.getElementById('login-screen').classList.add('active-screen');
     }
 
-    let userDatabase = getDatabase();
-    let currentUserKey = localStorage.getItem("activeLoggedInUser") || "admin";
-    
-    let generatedOTPCode = "";
-    let targetUserKeyForReset = "";
-    let activeForgotMethod = "email";
-    let countdownInterval = null;
-    let timeLeft = 60;
+    function loginWithSocial(provider) {
+      alert(`กำลังเข้าสู่ระบบด้วย ${provider}`);
+      document.getElementById('login-screen').classList.remove('active-screen');
+      document.getElementById('app-screen').classList.add('active-screen');
+    }
 
-    window.addEventListener("DOMContentLoaded", () => {
-      saveDatabase(userDatabase);
-
-      const rememberedUser = localStorage.getItem("rememberedUsername");
-      const rememberedPass = localStorage.getItem("rememberedPassword");
-      const isLoggedIn = localStorage.getItem("isLoggedIn");
-
-      if (rememberedUser && rememberedPass) {
-        document.getElementById("username").value = rememberedUser;
-        document.getElementById("login-pass").value = rememberedPass;
-        document.getElementById("remember-me").checked = true;
-      }
-
-      if (isLoggedIn === "true") {
-        updateProfileUI(currentUserKey);
-        document.getElementById("login-screen").classList.remove("active-screen");
-        document.getElementById("app-screen").classList.add("active-screen");
-      }
-    });
-
-    function toggleVisibility(inputId, eyeBtn) {
+    // --- UI HELPERS ---
+    function toggleVisibility(inputId, iconEl) {
       const input = document.getElementById(inputId);
-      input.type = input.type === "password" ? "text" : "password";
-      eyeBtn.textContent = input.type === "password" ? "👁️" : "🙈";
+      if (input.type === "password") {
+        input.type = "text";
+        iconEl.innerText = "🙈";
+      } else {
+        input.type = "password";
+        iconEl.innerText = "👁️";
+      }
     }
 
-    function isValidEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    function updateEmail() {
+      const alertBox = document.getElementById('email-alert');
+      alertBox.innerText = "บันทึกอีเมลเรียบร้อยแล้ว";
+      alertBox.className = "alert-msg success";
+      setTimeout(() => alertBox.style.display = 'none', 3000);
     }
 
-    function openForgotPasswordModal() {
-      clearInterval(countdownInterval);
-      document.getElementById("forgot-email-input").value = "";
-      document.getElementById("forgot-phone-input").value = "";
-      document.getElementById("otp-code-input").value = "";
-      document.getElementById("reset-new-pass").value = "";
+    function editProfile() {
+      alert("เปิดโหมดแก้ไขข้อมูลส่วนตัว");
+    }
+
+    // --- MODAL CONTROLS ---
+    function openPasswordModal() { document.getElementById('password-modal').classList.add('active'); }
+    function openRegisterModal() { document.getElementById('register-modal').classList.add('active'); }
+    function openForgotPasswordModal() { 
+      document.getElementById('forgot-step-1').style.display = 'block';
+      document.getElementById('forgot-step-2').style.display = 'none';
+      document.getElementById('forgot-modal').classList.add('active'); 
+    }
+    function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+
+    function saveNewPassword(e) {
+      e.preventDefault();
+      alert("เปลี่ยนรหัสผ่านสำเร็จ!");
+      closeModal('password-modal');
+    }
+
+    function handleRegister(e) {
+      e.preventDefault();
+      alert("ลงทะเบียนสำเร็จ! กรุณารอการอนุมัติจากผู้ดูแลระบบ");
+      closeModal('register-modal');
+    }
+
+    // --- OTP FLOW ---
+    function sendOTP() {
+      const randomOTP = Math.floor(100000 + Math.random() * 900000);
+      document.getElementById('toast-otp-code').innerText = randomOTP;
       
-      document.getElementById("forgot-step-1").style.display = "block";
-      document.getElementById("forgot-step-2").style.display = "none";
-      document.getElementById("forgot-step-3").style.display = "none";
-      
-      const alertBox = document.getElementById("forgot-alert");
-      alertBox.style.display = "none";
+      const toast = document.getElementById('otp-toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 6000);
 
-      switchForgotTab("email");
-      document.getElementById("forgot-modal").classList.add("active");
+      document.getElementById('forgot-step-1').style.display = 'none';
+      document.getElementById('forgot-step-2').style.display = 'block';
     }
 
-    function closeForgotPasswordModal() {
-      clearInterval(countdownInterval);
-      document.getElementById("forgot-mod... (18 KB left)
+    function verifyOTP() {
+      alert("ยืนยันตัวตนสำเร็จ กรุณาตั้งรหัสผ่านใหม่");
+      closeModal('forgot-modal');
+    }
+  </script>
+</body>
+</html>
