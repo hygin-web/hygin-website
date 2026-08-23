@@ -27,7 +27,6 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Sarabun', sans-serif; }
     
-    /* --- ENHANCED MAIN BODY BACKGROUND --- */
     body { 
       background: #0B0F19; 
       background-image: 
@@ -45,7 +44,6 @@
       overflow-x: hidden;
     }
 
-    /* Ambient Glowing Lighting Spheres (Soft & Dynamic) */
     .bg-ambient-orb {
       position: fixed;
       border-radius: 50%;
@@ -89,7 +87,6 @@
       100% { transform: translate(-80px, -60px) scale(1.1); }
     }
 
-    /* Fine Tech Grid Overlay on Background */
     .bg-grid-pattern {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -107,7 +104,6 @@
     .screen-section.active-screen { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Elevated Login Box with Backlight Accent */
     .login-wrapper { 
       display: flex; 
       width: 100%; 
@@ -264,7 +260,6 @@
 
     .signup-text { text-align: center; margin-top: 24px; font-size: 13px; color: var(--text-muted); }
     .signup-text a { color: var(--primary-color); font-weight: 600; text-decoration: none; cursor: pointer; }
-    .hint-text { font-size: 12px; color: rgba(255,255,255,0.9); margin-top: 8px; padding: 8px 10px; background: rgba(0,0,0,0.25); border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); }
 
     .app-header { background: var(--surface-color); padding: 12px 24px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
     .brand-title-group { min-width: 140px; }
@@ -321,7 +316,6 @@
     .alert-msg { font-size: 13px; margin-top: 8px; padding: 8px 12px; border-radius: 6px; display: none; line-height: 1.5; }
     .alert-msg.error { color: var(--danger-color); background: #FEF2F2; display: block; }
     .alert-msg.success { color: var(--success-color); background: #ECFDF5; display: block; }
-    .alert-msg.warning { color: var(--warning-color); background: #FFFBEB; display: block; }
 
     .page-content { display: none; }
     .page-content.active { display: block; }
@@ -335,10 +329,6 @@
     .modal-header h3 { font-size: 16px; font-weight: 700; color: var(--text-main); }
     .close-btn { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--text-muted); }
     .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; }
-
-    .tab-switch { display: flex; background: #F1F5F9; padding: 4px; border-radius: var(--radius-sm); margin-bottom: 16px; }
-    .tab-btn { flex: 1; padding: 8px; border: none; background: transparent; font-size: 13px; font-weight: 600; color: var(--text-muted); border-radius: 6px; cursor: pointer; transition: all 0.2s; }
-    .tab-btn.active { background: white; color: var(--primary-color); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
 
     .otp-notification { 
       position: fixed; 
@@ -366,15 +356,10 @@
     .otp-notification-title { font-size: 13px; color: #94A3B8; font-weight: 600; display: flex; justify-content: space-between; margin-bottom: 6px; }
     .otp-notification-body { font-size: 14px; line-height: 1.4; text-align: center; }
     .otp-code-highlight { font-size: 24px; font-weight: 700; color: #818CF8; letter-spacing: 4px; margin-top: 6px; display: block; }
-
-    .timer-badge { text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 10px; }
-    .timer-badge span { font-weight: 700; color: var(--danger-color); }
-    .resend-link { color: var(--primary-color); font-weight: 600; cursor: pointer; text-decoration: underline; margin-left: 4px; }
   </style>
 </head>
 <body>
 
-  <!-- DYNAMIC AMBIENT LIGHTING BACKGROUND ELEMENTS -->
   <div class="bg-ambient-orb orb-1"></div>
   <div class="bg-ambient-orb orb-2"></div>
   <div class="bg-ambient-orb orb-focus-spotlight"></div>
@@ -517,7 +502,7 @@
           <div class="card">
             <div class="card-header">
               <h3>👤 ข้อมูลบัญชีผู้ใช้</h3>
-              <button class="btn-secondary" onclick="editProfile()">✏️ แก้ไขข้อมูล</button>
+              <button class="btn-secondary" onclick="alert('ฟังก์ชันแก้ไขข้อมูลส่วนตัว')">✏️ แก้ไขข้อมูล</button>
             </div>
             <div class="profile-grid">
               <div class="profile-item">
@@ -598,9 +583,8 @@
                 <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 4px;">อีเมลติดต่อระบบ</label>
                 <div style="display: flex; gap: 8px;">
                   <input type="email" id="email-input" class="form-control" value="admin@example.com" style="flex:1;">
-                  <button class="btn-secondary" onclick="updateEmail()">บันทึก</button>
+                  <button class="btn-secondary" onclick="alert('บันทึกอีเมลเรียบร้อย')">บันทึก</button>
                 </div>
-                <div id="email-alert" class="alert-msg"></div>
               </div>
 
               <div>
@@ -663,42 +647,30 @@
   <div id="register-modal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>ลงทะเบียนเจ้าหน้าที่ใหม่</h3>
-        <button class="close-btn" onclick="closeModal('register-modal')">&times;</button>
+        <h3>📝 ลงทะเบียนเจ้าหน้าที่ใหม่</h3>
+        <button class="close-btn" onclick="closeModal('register-modal')">✕</button>
       </div>
-      <form id="register-form" onsubmit="handleRegister(event)">
+      <form onsubmit="handleRegister(event)">
         <div class="form-group">
-          <label for="reg-fullname">ชื่อ-นามสกุล</label>
-          <input type="text" id="reg-fullname" class="form-control" placeholder="เช่น สมชาย ใจดี" required>
+          <label>ชื่อผู้ใช้ / Username</label>
+          <input type="text" id="reg-username" class="form-control" required placeholder="ตั้งชื่อผู้ใช้">
         </div>
         <div class="form-group">
-          <label for="reg-username">ชื่อผู้ใช้ (Username)</label>
-          <input type="text" id="reg-username" class="form-control" placeholder="ตั้งชื่อผู้ใช้สำหรับ Login" required>
+          <label>ชื่อ-นามสกุล แสดงในระบบ</label>
+          <input type="text" id="reg-fullname" class="form-control" required placeholder="เช่น สมชาย ใจดี">
         </div>
         <div class="form-group">
-          <label for="reg-email">อีเมล</label>
-          <input type="email" id="reg-email" class="form-control" placeholder="name@example.com" required>
+          <label>เบอร์โทรศัพท์</label>
+          <input type="tel" id="reg-phone" class="form-control" required placeholder="08XXXXXXXX">
         </div>
         <div class="form-group">
-          <label for="reg-phone">เบอร์โทรศัพท์มือถือ</label>
-          <input type="tel" id="reg-phone" class="form-control" placeholder="0812345678" required>
+          <label>รหัสผ่าน</label>
+          <input type="password" id="reg-password" class="form-control" required placeholder="กำหนดรหัสผ่าน">
         </div>
-        <div class="form-group">
-          <label for="reg-dept">แผนก / สังกัด</label>
-          <input type="text" id="reg-dept" class="form-control" placeholder="เช่น ศูนย์เทคโนโลยีการศึกษา" required>
-        </div>
-        <div class="form-group">
-          <label for="reg-pass">รหัสผ่าน</label>
-          <div class="masked-input-group" style="background: white;">
-            <input type="password" id="reg-pass" placeholder="ตั้งรหัสผ่าน" required>
-            <span class="eye-icon" onclick="toggleVisibility('reg-pass', this)">👁️</span>
-          </div>
-        </div>
-        <div id="reg-error" class="alert-msg error"></div>
-        <div id="reg-success" class="alert-msg success"></div>
+        <div id="reg-msg" class="alert-msg"></div>
         <div class="modal-footer">
           <button type="button" class="btn-secondary" onclick="closeModal('register-modal')">ยกเลิก</button>
-          <button type="submit" class="btn-primary" style="width: auto;">ส่ง OTP ยืนยัน</button>
+          <button type="submit" class="btn-primary" style="width: auto; padding: 6px 16px;">ยืนยันการลงทะเบียน</button>
         </div>
       </form>
     </div>
@@ -708,19 +680,18 @@
   <div id="forgot-modal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>ลืมรหัสผ่าน</h3>
-        <button class="close-btn" onclick="closeModal('forgot-modal')">&times;</button>
+        <h3>🔑 ลืมรหัสผ่าน</h3>
+        <button class="close-btn" onclick="closeModal('forgot-modal')">✕</button>
       </div>
-      <form id="forgot-form" onsubmit="handleForgotPass(event)">
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">กรอกชื่อผู้ใช้หรือเบอร์โทรศัพท์เพื่อรับรหัส OTP สำหรับรีเซ็ตรหัสผ่าน</p>
+      <form onsubmit="handleSendOTP(event)">
         <div class="form-group">
-          <label for="forgot-target">ชื่อผู้ใช้ / เบอร์โทรศัพท์</label>
-          <input type="text" id="forgot-target" class="form-control" placeholder="กรอกข้อมูลที่ลงทะเบียนไว้" required>
+          <label>ระบุชื่อผู้ใช้ หรือ เบอร์โทรศัพท์ที่ลงทะเบียน</label>
+          <input type="text" id="forgot-input" class="form-control" required placeholder="กรอกข้อมูลเพื่อรับรหัส OTP">
         </div>
-        <div id="forgot-alert" class="alert-msg"></div>
+        <div id="forgot-msg" class="alert-msg"></div>
         <div class="modal-footer">
           <button type="button" class="btn-secondary" onclick="closeModal('forgot-modal')">ยกเลิก</button>
-          <button type="submit" class="btn-primary" style="width: auto;">ขอรหัส OTP</button>
+          <button type="submit" class="btn-primary" style="width: auto; padding: 6px 16px;">ขอรับรหัส OTP</button>
         </div>
       </form>
     </div>
@@ -730,24 +701,23 @@
   <div id="otp-modal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>ยืนยันรหัส OTP</h3>
-        <button class="close-btn" onclick="closeModal('otp-modal')">&times;</button>
+        <h3>📲 ยืนยันรหัส OTP (6 หลัก)</h3>
+        <button class="close-btn" onclick="closeModal('otp-modal')">✕</button>
       </div>
-      <form id="otp-form" onsubmit="handleVerifyOTP(event)">
-        <p style="font-size: 13px; color: var(--text-muted); text-align: center; margin-bottom: 16px;">
-          กรอกรหัส 6 หลักที่แสดงในการแจ้งเตือนบนหน้าจอ
-        </p>
+      <form onsubmit="handleVerifyOTP(event)">
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">กรอกรหัส OTP 6 หลักที่ปรากฏบน SMS แจ้งเตือนด้านบน</p>
         <div class="form-group">
-          <input type="text" id="otp-input" class="form-control" style="text-align: center; font-size: 24px; letter-spacing: 8px;" maxlength="6" required placeholder="••••••">
+          <label>รหัส OTP 6 หลัก</label>
+          <input type="text" id="otp-input" class="form-control" maxlength="6" required placeholder="123456" style="letter-spacing: 4px; font-size: 18px; text-align: center;">
         </div>
-        <div id="otp-alert" class="alert-msg"></div>
-        <div class="timer-badge">
-          รหัสหมดอายุใน <span id="otp-timer">60</span> วินาที 
-          <span class="resend-link" onclick="resendOTP()">ส่งอีกครั้ง</span>
+        <div class="form-group">
+          <label>ตั้งรหัสผ่านใหม่</label>
+          <input type="password" id="otp-new-password" class="form-control" required placeholder="กรอกรหัสผ่านใหม่">
         </div>
+        <div id="otp-msg" class="alert-msg"></div>
         <div class="modal-footer">
           <button type="button" class="btn-secondary" onclick="closeModal('otp-modal')">ยกเลิก</button>
-          <button type="submit" class="btn-primary" style="width: auto;">ยืนยัน OTP</button>
+          <button type="submit" class="btn-primary" style="width: auto; padding: 6px 16px;">ยืนยันตั้งรหัสผ่านใหม่</button>
         </div>
       </form>
     </div>
@@ -757,344 +727,262 @@
   <div id="password-modal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>เปลี่ยนรหัสผ่าน</h3>
-        <button class="close-btn" onclick="closeModal('password-modal')">&times;</button>
+        <h3>🔒 เปลี่ยนรหัสผ่าน</h3>
+        <button class="close-btn" onclick="closeModal('password-modal')">✕</button>
       </div>
-      <form id="change-pass-form" onsubmit="handleChangePassword(event)">
+      <form onsubmit="handleChangePassword(event)">
         <div class="form-group">
-          <label for="old-pass">รหัสผ่านปัจจุบัน</label>
-          <input type="password" id="old-pass" class="form-control" required>
+          <label>รหัสผ่านปัจจุบัน</label>
+          <input type="password" id="current-pass" class="form-control" required>
         </div>
         <div class="form-group">
-          <label for="new-pass">รหัสผ่านใหม่</label>
+          <label>รหัสผ่านใหม่</label>
           <input type="password" id="new-pass" class="form-control" required>
         </div>
-        <div class="form-group">
-          <label for="confirm-pass">ยืนยันรหัสผ่านใหม่</label>
-          <input type="password" id="confirm-pass" class="form-control" required>
-        </div>
-        <div id="pass-modal-alert" class="alert-msg"></div>
+        <div id="pwd-msg" class="alert-msg"></div>
         <div class="modal-footer">
           <button type="button" class="btn-secondary" onclick="closeModal('password-modal')">ยกเลิก</button>
-          <button type="submit" class="btn-primary" style="width: auto;">บันทึกรหัสผ่านใหม่</button>
+          <button type="submit" class="btn-primary" style="width: auto; padding: 6px 16px;">บันทึกรหัสใหม่</button>
         </div>
       </form>
     </div>
   </div>
 
   <script>
-    // --- DATABASE & APPLICATION STATE ---
-    const defaultUser = {
-      name: "ผู้ดูแลระบบ",
-      username: "admin",
-      role: "ผู้ดูแลระบบสูงสุด",
-      dept: "ศูนย์เทคโนโลยีการศึกษา",
-      phone: "0812345678",
-      email: "admin@example.com",
-      password: "password123",
-      staffId: "STF-2026-009"
-    };
+    // --- System Accounts Management ---
+    let generatedOTP = "";
+    let forgotAccountTarget = null;
 
-    function loadUsers() {
+    function getAccounts() {
       const stored = localStorage.getItem('hygin_users');
-      if (!stored) {
-        const initialUsers = [defaultUser];
-        localStorage.setItem('hygin_users', JSON.stringify(initialUsers));
-        return initialUsers;
-      }
-      return JSON.parse(stored);
+      if (stored) return JSON.parse(stored);
+      // Default account
+      const defaultUsers = {
+        'admin': { username: 'admin', fullname: 'ผู้ดูแลระบบ', phone: '0812345678', pass: 'adminpassword' }
+      };
+      localStorage.setItem('hygin_users', JSON.stringify(defaultUsers));
+      return defaultUsers;
     }
 
-    function saveUsers(users) {
-      localStorage.setItem('hygin_users', JSON.stringify(users));
+    function getCurrentUser() {
+      return localStorage.getItem('hygin_logged_user') || 'admin';
     }
 
-    let users = loadUsers();
-    let currentUser = null;
-    let generatedOTP = null;
-    let pendingAction = null; // 'REGISTER' or 'FORGOT'
-    let pendingData = null;
-    let otpTimerInterval = null;
-
-    // --- UI HELPER FUNCTIONS ---
-    function toggleVisibility(inputId, icon) {
+    // --- UI Interactions ---
+    function toggleVisibility(inputId, el) {
       const input = document.getElementById(inputId);
-      if (input.type === "password") {
-        input.type = "text";
-        icon.textContent = "🙈";
+      if (input.type === 'password') {
+        input.type = 'text';
+        el.textContent = '🔒';
       } else {
-        input.type = "password";
-        icon.textContent = "👁️";
+        input.type = 'password';
+        el.textContent = '👁️';
       }
     }
 
-    function showAlert(elementId, msg, type = 'error') {
-      const el = document.getElementById(elementId);
-      if (!el) return;
-      el.textContent = msg;
-      el.className = `alert-msg ${type}`;
-      el.style.display = 'block';
+    function switchPage(pageKey, pageTitle) {
+      document.querySelectorAll('.page-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.page-nav-btn').forEach(el => el.classList.remove('active'));
+      
+      const targetPage = document.getElementById('page-' + pageKey);
+      if (targetPage) targetPage.classList.add('active');
+      
+      const btn = document.querySelector(`.page-nav-btn[data-page="${pageKey}"]`);
+      if (btn) btn.classList.add('active');
+
+      document.getElementById('page-title-display').textContent = pageTitle;
     }
 
-    function hideAlert(elementId) {
-      const el = document.getElementById(elementId);
-      if (el) el.style.display = 'none';
-    }
+    function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
+    function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
 
-    function openModal(modalId) {
-      document.getElementById(modalId).classList.add('active');
-    }
-
-    function closeModal(modalId) {
-      document.getElementById(modalId).classList.remove('active');
-    }
-
-    // --- OTP SYSTEM ---
-    function triggerOTP(action, data) {
-      pendingAction = action;
-      pendingData = data;
-      generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
-
-      const toast = document.getElementById('otp-toast');
-      document.getElementById('toast-otp-code').textContent = generatedOTP;
-      toast.classList.add('show');
-
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 7000);
-
-      openModal('otp-modal');
-      startOTPTimer();
-    }
-
-    function startOTPTimer() {
-      let timeLeft = 60;
-      const timerSpan = document.getElementById('otp-timer');
-      timerSpan.textContent = timeLeft;
-      clearInterval(otpTimerInterval);
-
-      otpTimerInterval = setInterval(() => {
-        timeLeft--;
-        timerSpan.textContent = timeLeft;
-        if (timeLeft <= 0) {
-          clearInterval(otpTimerInterval);
-          showAlert('otp-alert', 'รหัส OTP หมดอายุแล้ว กรุณากดส่งอีกครั้ง', 'error');
-        }
-      }, 1000);
-    }
-
-    function resendOTP() {
-      triggerOTP(pendingAction, pendingData);
-      showAlert('otp-alert', 'ส่งรหัส OTP ใหม่เรียบร้อยแล้ว', 'success');
-    }
-
-    function handleVerifyOTP(e) {
-      e.preventDefault();
-      const inputCode = document.getElementById('otp-input').value.trim();
-
-      if (inputCode !== generatedOTP) {
-        showAlert('otp-alert', 'รหัส OTP ไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง', 'error');
-        return;
-      }
-
-      clearInterval(otpTimerInterval);
-      closeModal('otp-modal');
-
-      if (pendingAction === 'REGISTER') {
-        users.push(pendingData);
-        saveUsers(users);
-        closeModal('register-modal');
-        alert('ลงทะเบียนสำเร็จ! กรุณาเข้าสู่ระบบด้วยรหัสผ่านที่คุณตั้งไว้');
-        document.getElementById('username').value = pendingData.username;
-        document.getElementById('login-pass').value = pendingData.password;
-      } else if (pendingAction === 'FORGOT') {
-        closeModal('forgot-modal');
-        alert(`รีเซ็ตรหัสผ่านสำเร็จ! รหัสผ่านของคุณคือ: ${pendingData.password}`);
-        document.getElementById('username').value = pendingData.username;
-        document.getElementById('login-pass').value = pendingData.password;
-      }
-    }
-
-    // --- AUTHENTICATION LOGIC ---
+    // --- Authentication Actions ---
     function handleLogin(e) {
       e.preventDefault();
-      hideAlert('login-error');
+      const userVal = document.getElementById('username').value.trim();
+      const passVal = document.getElementById('login-pass').value;
+      const errBox = document.getElementById('login-error');
 
-      const userInput = document.getElementById('username').value.trim();
-      const passInput = document.getElementById('login-pass').value;
+      const accounts = getAccounts();
+      const acc = accounts[userVal];
 
-      users = loadUsers();
-      const foundUser = users.find(u => u.username === userInput || u.phone === userInput);
+      if (acc && acc.pass === passVal) {
+        errBox.className = 'alert-msg';
+        errBox.style.display = 'none';
 
-      if (!foundUser) {
-        showAlert('login-error', 'ไม่พบบัญชีผู้ใช้นี้ในระบบ กรุณาตรวจสอบอีกครั้ง');
-        return;
+        // Set active session
+        localStorage.setItem('hygin_logged_user', userVal);
+
+        // Update profile section dynamically according to logged user pass
+        document.getElementById('display-username').textContent = acc.username;
+        document.getElementById('display-name').textContent = acc.fullname || 'เจ้าหน้าที่ผู้ใช้งาน';
+        document.getElementById('display-phone').textContent = acc.phone || '08XXXXXXXX';
+        document.getElementById('sec-pass').value = acc.pass;
+
+        // Switch to App Screen
+        document.getElementById('login-screen').classList.remove('active-screen');
+        document.getElementById('app-screen').classList.add('active-screen');
+      } else {
+        errBox.textContent = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+        errBox.className = 'alert-msg error';
       }
-
-      if (foundUser.password !== passInput) {
-        showAlert('login-error', 'รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง');
-        return;
-      }
-
-      currentUser = foundUser;
-      populateProfileData(currentUser);
-
-      document.getElementById('login-screen').classList.remove('active-screen');
-      document.getElementById('app-screen').classList.add('active-screen');
-    }
-
-    function loginWithSocial(provider) {
-      alert(`เข้าสู่ระบบด้วย ${provider} สำเร็จ (จำลองการทำงาน)`);
-      users = loadUsers();
-      currentUser = users[0];
-      populateProfileData(currentUser);
-
-      document.getElementById('login-screen').classList.remove('active-screen');
-      document.getElementById('app-screen').classList.add('active-screen');
     }
 
     function handleLogout() {
-      currentUser = null;
       document.getElementById('app-screen').classList.remove('active-screen');
       document.getElementById('login-screen').classList.add('active-screen');
       document.getElementById('login-pass').value = '';
-      hideAlert('login-error');
     }
 
-    // --- REGISTER & FORGOT PASSWORD MODALS ---
+    function loginWithSocial(provider) {
+      alert(`กำลังเชื่อมต่อระบบล็อกอินด้วย ${provider}...`);
+      document.getElementById('username').value = 'admin';
+      document.getElementById('login-pass').value = getAccounts()['admin'] ? getAccounts()['admin'].pass : 'adminpassword';
+    }
+
+    // --- Registration System ---
     function openRegisterModal() {
-      document.getElementById('register-form').reset();
-      hideAlert('reg-error');
-      hideAlert('reg-success');
+      document.getElementById('reg-msg').style.display = 'none';
       openModal('register-modal');
     }
 
     function handleRegister(e) {
       e.preventDefault();
-      hideAlert('reg-error');
-
-      const fullname = document.getElementById('reg-fullname').value.trim();
-      const username = document.getElementById('reg-username').value.trim();
-      const email = document.getElementById('reg-email').value.trim();
+      const user = document.getElementById('reg-username').value.trim();
+      const name = document.getElementById('reg-fullname').value.trim();
       const phone = document.getElementById('reg-phone').value.trim();
-      const dept = document.getElementById('reg-dept').value.trim();
-      const password = document.getElementById('reg-pass').value;
+      const pass = document.getElementById('reg-password').value;
+      const msgBox = document.getElementById('reg-msg');
 
-      users = loadUsers();
-      if (users.some(u => u.username === username)) {
-        showAlert('reg-error', 'ชื่อผู้ใช้นี้มีผู้ใช้งานแล้ว');
+      const accounts = getAccounts();
+      if (accounts[user]) {
+        msgBox.textContent = 'ชื่อผู้ใช้นี้มีในระบบแล้ว';
+        msgBox.className = 'alert-msg error';
         return;
       }
 
-      const newUser = {
-        name: fullname,
-        username: username,
-        role: "เจ้าหน้าที่",
-        dept: dept,
-        phone: phone,
-        email: email,
-        password: password,
-        staffId: "STF-" + new Date().getFullYear() + "-" + Math.floor(100 + Math.random() * 900)
-      };
+      accounts[user] = { username: user, fullname: name, phone: phone, pass: pass };
+      localStorage.setItem('hygin_users', JSON.stringify(accounts));
 
-      triggerOTP('REGISTER', newUser);
+      msgBox.textContent = 'ลงทะเบียนสำเร็จ! สามารถเข้าสู่ระบบได้ทันที';
+      msgBox.className = 'alert-msg success';
+
+      setTimeout(() => {
+        closeModal('register-modal');
+        document.getElementById('username').value = user;
+        document.getElementById('login-pass').value = pass;
+      }, 1200);
     }
 
+    // --- Forgot Password & OTP Flow ---
     function openForgotPasswordModal() {
-      document.getElementById('forgot-form').reset();
-      hideAlert('forgot-alert');
+      document.getElementById('forgot-msg').style.display = 'none';
       openModal('forgot-modal');
     }
 
-    function handleForgotPass(e) {
+    function handleSendOTP(e) {
       e.preventDefault();
-      hideAlert('forgot-alert');
+      const target = document.getElementById('forgot-input').value.trim();
+      const msgBox = document.getElementById('forgot-msg');
+      const accounts = getAccounts();
 
-      const target = document.getElementById('forgot-target').value.trim();
-      users = loadUsers();
+      let foundAccount = null;
+      for (let k in accounts) {
+        if (accounts[k].username === target || accounts[k].phone === target) {
+          foundAccount = accounts[k];
+          break;
+        }
+      }
 
-      const user = users.find(u => u.username === target || u.phone === target || u.email === target);
-      if (!user) {
-        showAlert('forgot-alert', 'ไม่พบข้อมูลบัญชีผู้ใช้ในระบบ', 'error');
+      if (!foundAccount) {
+        msgBox.textContent = 'ไม่พบข้อมูลบัญชีหรือเบอร์โทรศัพท์นี้ในระบบ';
+        msgBox.className = 'alert-msg error';
         return;
       }
 
-      triggerOTP('FORGOT', user);
+      forgotAccountTarget = foundAccount;
+      generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+      // Close request modal and open OTP Modal
+      closeModal('forgot-modal');
+      
+      // Trigger SMS Toast Notification
+      document.getElementById('toast-otp-code').textContent = generatedOTP;
+      const toast = document.getElementById('otp-toast');
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 6000);
+
+      // Open OTP Verification Screen
+      document.getElementById('otp-msg').style.display = 'none';
+      openModal('otp-modal');
     }
 
-    // --- PROFILE & SECURITY DATA SYNC ---
-    function populateProfileData(user) {
-      document.getElementById('display-name').textContent = user.name;
-      document.getElementById('display-username').textContent = user.username;
-      document.getElementById('display-role').textContent = user.role;
-      document.getElementById('display-dept').textContent = user.dept;
-      document.getElementById('display-phone').textContent = user.phone;
-      document.getElementById('display-staff-id').textContent = user.staffId;
-      document.getElementById('email-input').value = user.email;
+    function handleVerifyOTP(e) {
+      e.preventDefault();
+      const inputOTP = document.getElementById('otp-input').value.trim();
+      const newPass = document.getElementById('otp-new-password').value;
+      const msgBox = document.getElementById('otp-msg');
 
-      // Sync user's entered password with Security Profile field
-      document.getElementById('sec-pass').value = user.password;
-    }
-
-    function updateEmail() {
-      if (!currentUser) return;
-      const newEmail = document.getElementById('email-input').value.trim();
-      if (!newEmail) {
-        showAlert('email-alert', 'กรุณาระบุอีเมล', 'error');
+      if (inputOTP !== generatedOTP) {
+        msgBox.textContent = 'รหัส OTP ไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง';
+        msgBox.className = 'alert-msg error';
         return;
       }
 
-      currentUser.email = newEmail;
-      saveUsers(users);
-      showAlert('email-alert', 'อัปเดตอีเมลติดต่อเรียบร้อยแล้ว', 'success');
-      setTimeout(() => hideAlert('email-alert'), 3000);
+      if (forgotAccountTarget) {
+        const accounts = getAccounts();
+        accounts[forgotAccountTarget.username].pass = newPass;
+        localStorage.setItem('hygin_users', JSON.stringify(accounts));
+
+        msgBox.textContent = 'ตั้งรหัสผ่านใหม่เรียบร้อยแล้ว!';
+        msgBox.className = 'alert-msg success';
+
+        setTimeout(() => {
+          closeModal('otp-modal');
+          document.getElementById('username').value = forgotAccountTarget.username;
+          document.getElementById('login-pass').value = newPass;
+        }, 1200);
+      }
     }
 
+    // --- Profile Security: Change Password ---
     function openPasswordModal() {
-      document.getElementById('change-pass-form').reset();
-      hideAlert('pass-modal-alert');
+      document.getElementById('pwd-msg').style.display = 'none';
+      document.getElementById('current-pass').value = '';
+      document.getElementById('new-pass').value = '';
       openModal('password-modal');
     }
 
     function handleChangePassword(e) {
       e.preventDefault();
-      hideAlert('pass-modal-alert');
-
-      const oldPass = document.getElementById('old-pass').value;
+      const currPass = document.getElementById('current-pass').value;
       const newPass = document.getElementById('new-pass').value;
-      const confirmPass = document.getElementById('confirm-pass').value;
+      const msgBox = document.getElementById('pwd-msg');
 
-      if (oldPass !== currentUser.password) {
-        showAlert('pass-modal-alert', 'รหัสผ่านปัจจุบันไม่ถูกต้อง', 'error');
-        return;
+      const loggedUser = getCurrentUser();
+      const accounts = getAccounts();
+      const acc = accounts[loggedUser];
+
+      if (acc && acc.pass === currPass) {
+        acc.pass = newPass;
+        accounts[loggedUser] = acc;
+        localStorage.setItem('hygin_users', JSON.stringify(accounts));
+
+        document.getElementById('sec-pass').value = newPass;
+
+        msgBox.textContent = 'เปลี่ยนรหัสผ่านสำเร็จ';
+        msgBox.className = 'alert-msg success';
+
+        setTimeout(() => {
+          closeModal('password-modal');
+        }, 1200);
+      } else {
+        msgBox.textContent = 'รหัสผ่านปัจจุบันไม่ถูกต้อง';
+        msgBox.className = 'alert-msg error';
       }
-
-      if (newPass !== confirmPass) {
-        showAlert('pass-modal-alert', 'รหัสผ่านใหม่ทั้งสองช่องไม่ตรงกัน', 'error');
-        return;
-      }
-
-      currentUser.password = newPass;
-      saveUsers(users);
-      populateProfileData(currentUser);
-
-      showAlert('pass-modal-alert', 'เปลี่ยนรหัสผ่านเรียบร้อยแล้ว', 'success');
-      setTimeout(() => {
-        closeModal('password-modal');
-      }, 1200);
-    }
-
-    function editProfile() {
-      alert('คุณสามารถอัปเดตข้อมูลความปลอดภัยและความเป็นส่วนตัวได้ที่แผง "ความปลอดภัยและการเข้าถึง"');
-    }
-
-    function switchPage(pageId, title) {
-      document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.page-nav-btn').forEach(btn => btn.classList.remove('active'));
-
-      document.getElementById('page-' + pageId).classList.add('active');
-      document.querySelector(`[data-page="${pageId}"]`).classList.add('active');
-      document.getElementById('page-title-display').textContent = title;
     }
   </script>
 </body>
