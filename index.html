@@ -71,25 +71,62 @@
     .screen-section.active-screen { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-    .login-wrapper { display: flex; width: 100%; max-width: 920px; min-height: 580px; background: var(--surface-color); border-radius: var(--radius-lg); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 40px rgba(91, 72, 217, 0.2); overflow: hidden; margin: 20px auto; border: 1px solid rgba(255, 255, 255, 0.1); }
+    .login-wrapper { 
+      display: flex; width: 100%; max-width: 920px; min-height: 580px; background: var(--surface-color); 
+      border-radius: var(--radius-lg); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 40px rgba(91, 72, 217, 0.2); 
+      overflow: hidden; margin: 20px auto; border: 1px solid rgba(255, 255, 255, 0.1);
+    }
     
-    .login-hero { flex: 1; position: relative; background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 35%, #2A2272 70%, #5B48D9 100%); color: #FFF; padding: 40px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; z-index: 1; }
-    #hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
-    .hero-tech-grid { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px); background-size: 30px 30px; z-index: 0; mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 80%); -webkit-mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 80%); }
-    
-    .hero-light-sweep { position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.08) 50%, transparent 55%); animation: sweepAnimation 7s infinite ease-in-out; z-index: 2; pointer-events: none; }
+    .login-hero { 
+      flex: 1; position: relative; background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 35%, #2A2272 70%, #5B48D9 100%);
+      color: #FFF; padding: 40px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; z-index: 1;
+    }
+
+    .hero-tech-grid {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 30px 30px; z-index: 0;
+      mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 80%);
+      -webkit-mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 80%);
+    }
+
+    .hero-light-sweep {
+      position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.08) 50%, transparent 55%);
+      animation: sweepAnimation 7s infinite ease-in-out; z-index: 2; pointer-events: none;
+    }
+
     @keyframes sweepAnimation { 0% { transform: translate(-30%, -30%) rotate(0deg); } 50% { transform: translate(15%, 15%) rotate(0deg); } 100% { transform: translate(-30%, -30%) rotate(0deg); } }
 
-    .tech-card { position: absolute; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 14px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; box-shadow: 0 10px 25px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.3); z-index: 2; pointer-events: none; animation: floatCard 5s ease-in-out infinite alternate; }
+    .tech-card {
+      position: absolute; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 14px; padding: 10px 14px; display: flex; align-items: center; gap: 10px;
+      font-size: 13px; font-weight: 500; box-shadow: 0 10px 25px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.3); z-index: 2; pointer-events: none;
+      animation: floatCard 5s ease-in-out infinite alternate;
+    }
     .card-camera { top: 35%; right: 8%; animation-delay: 0s; }
     .card-laptop { top: 54%; left: 6%; animation-delay: -2.5s; }
+
     @keyframes floatCard { 0% { transform: translateY(0px) rotate(0deg); } 100% { transform: translateY(-12px) rotate(3deg); } }
 
     .hero-content-top { z-index: 3; position: relative; }
-    .hero-content-bottom { z-index: 3; position: relative; background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px); padding: 18px 20px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
-    .login-hero .badge { background: rgba(255, 255, 255, 0.18); backdrop-filter: blur(8px); padding: 6px 16px; border-radius: 20px; font-size: 12px; width: fit-content; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 0 15px rgba(91, 72, 217, 0.5); }
+    .hero-content-bottom { 
+      z-index: 3; position: relative; background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      padding: 18px 20px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+
+    .login-hero .badge { 
+      background: rgba(255, 255, 255, 0.18); backdrop-filter: blur(8px); padding: 6px 16px; border-radius: 20px; font-size: 12px; width: fit-content; 
+      display: inline-flex; align-items: center; gap: 6px; font-weight: 600; letter-spacing: 0.5px; border: 1px solid rgba(255,255,255,0.3);
+      box-shadow: 0 0 15px rgba(91, 72, 217, 0.5);
+    }
     .badge-dot { width: 6px; height: 6px; background: #34D399; border-radius: 50%; box-shadow: 0 0 8px #34D399; }
-    .login-hero h1 { font-size: 28px; margin: 18px 0; line-height: 1.35; font-weight: 700; background: linear-gradient(180deg, #FFFFFF 0%, #E0E7FF 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3)); }
+
+    .login-hero h1 { 
+      font-size: 28px; margin: 18px 0; line-height: 1.35; font-weight: 700;
+      background: linear-gradient(180deg, #FFFFFF 0%, #E0E7FF 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+    }
     .login-hero .credits { font-size: 12px; opacity: 0.95; line-height: 1.7; }
 
     .login-form-container { flex: 1.1; padding: 40px; display: flex; flex-direction: column; justify-content: center; background: #FFFFFF; }
@@ -105,8 +142,6 @@
 
     .btn-primary { width: 100%; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(91, 72, 217, 0.25); }
     .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(91, 72, 217, 0.35); }
-    .btn-secondary { padding: 6px 12px; background: #F1F5F9; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 13px; cursor: pointer; font-weight: 500; transition: all 0.2s; }
-    .btn-secondary:hover { background: #E2E8F0; }
 
     .divider { display: flex; align-items: center; text-align: center; margin: 24px 0; color: var(--text-muted); font-size: 13px; }
     .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #E2E8F0; }
@@ -135,22 +170,31 @@
     .nav-btn:hover { background: #E2E8F0; }
     .nav-btn.active { background: var(--primary-color); color: white; box-shadow: 0 2px 8px rgba(91, 72, 217, 0.3); }
     .nav-btn.logout { background: #1E1B4B; color: white; }
+    .nav-btn.logout:hover { background: #121033; }
 
     .profile-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 820px) { .profile-layout { grid-template-columns: 1fr; } .login-wrapper { flex-direction: column; } }
+
     .card { background: var(--surface-color); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow-sm); margin-bottom: 20px; }
     .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid #F1F5F9; padding-bottom: 10px; }
     .card-header h3 { font-size: 16px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
 
     .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px; }
+    @media (max-width: 480px) { .profile-grid { grid-template-columns: 1fr; } }
     .profile-item label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 2px; }
     .profile-item p { font-size: 14px; font-weight: 600; color: var(--text-main); word-break: break-all; }
+
     .status-badge { display: inline-block; padding: 2px 10px; background: var(--primary-light); color: var(--primary-color); border-radius: 12px; font-size: 12px; font-weight: 600; }
     .status-badge.active { background: #DCFCE7; color: #16A34A; }
 
     .staff-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
-    .stat-box { background: #F8FAFC; border: 1px solid var(--border-color); padding: 12px 8px; border-radius: var(--radius-md); text-align: center; }
+    .stat-box { background: #F8FAFC; border: 1px solid var(--border-color); padding: 12px 8px; border-radius: var(--radius-md); text-align: center; transition: transform 0.2s; }
+    .stat-box:hover { transform: translateY(-2px); }
     .stat-box .number { font-size: 20px; font-weight: 700; color: var(--primary-color); }
     .stat-box .label { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+    .btn-secondary { padding: 6px 12px; background: #F1F5F9; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 13px; cursor: pointer; font-weight: 500; transition: all 0.2s; }
+    .btn-secondary:hover { background: #E2E8F0; }
 
     .masked-input-group { display: flex; align-items: center; background: #F8FAFC; border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 6px 12px; }
     .masked-input-group input { border: none; background: transparent; width: 100%; font-size: 13px; font-weight: 600; color: var(--text-main); outline: none; }
@@ -171,6 +215,7 @@
     .page-content.active { display: block; }
     .placeholder-panel { padding: 40px; text-align: center; background: white; border-radius: var(--radius-lg); color: var(--text-muted); box-shadow: var(--shadow-sm); }
 
+    /* Modal Styling */
     .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.25s ease; }
     .modal-overlay.active { opacity: 1; visibility: visible; }
     .modal-card { background: var(--surface-color); border-radius: var(--radius-lg); width: 100%; max-width: 440px; padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); transform: translateY(12px); transition: all 0.25s ease; max-height: 90vh; overflow-y: auto; }
@@ -180,11 +225,27 @@
     .close-btn { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--text-muted); }
     .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; }
 
-    .otp-notification { position: fixed; top: 30px; left: 50%; transform: translateX(-50%) translateY(-100px); z-index: 9999; background: #1E1B4B; color: #FFF; padding: 16px 24px; border-radius: var(--radius-md); box-shadow: 0 12px 30px rgba(0,0,0,0.3); border-top: 4px solid var(--primary-color); width: 90%; max-width: 360px; opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; }
+    /* OTP Toast Notice */
+    .otp-notification { 
+      position: fixed; top: 30px; left: 50%; transform: translateX(-50%) translateY(-100px); 
+      z-index: 9999; background: #1E1B4B; color: #FFF; padding: 16px 24px; border-radius: var(--radius-md); 
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3); border-top: 4px solid var(--primary-color); width: 90%; max-width: 360px; 
+      opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none;
+    }
     .otp-notification.show { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: auto; }
     .otp-notification-title { font-size: 13px; color: #94A3B8; font-weight: 600; display: flex; justify-content: space-between; margin-bottom: 6px; }
     .otp-notification-body { font-size: 14px; line-height: 1.4; text-align: center; }
     .otp-code-highlight { font-size: 24px; font-weight: 700; color: #818CF8; letter-spacing: 4px; margin-top: 6px; display: block; }
+
+    /* Lock Panel Design for Security Section */
+    .security-locked-panel {
+      text-align: center;
+      padding: 30px 20px;
+      background: #F8FAFC;
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-md);
+    }
+    .security-locked-panel .lock-icon { font-size: 36px; margin-bottom: 8px; }
   </style>
 </head>
 <body>
@@ -194,13 +255,14 @@
   <div class="bg-ambient-orb orb-focus-spotlight"></div>
   <div class="bg-grid-pattern"></div>
 
+  <!-- OTP Notification Toast -->
   <div id="otp-toast" class="otp-notification">
     <div class="otp-notification-title">
-      <span>💬 SMS แจ้งเตือน</span>
+      <span>💬 SMS / Email แจ้งเตือน</span>
       <span>เมื่อครู่นี้</span>
     </div>
     <div class="otp-notification-body">
-      รหัส OTP สำหรับยืนยันตัวตนของคุณคือ:
+      รหัส OTP สำหรับยืนยันรหัสผ่านคือ:
       <span id="toast-otp-code" class="otp-code-highlight">123456</span>
     </div>
   </div>
@@ -209,15 +271,21 @@
   <div id="login-screen" class="screen-section active-screen">
     <div class="login-wrapper">
       <div class="login-hero" id="hero-container">
-        <canvas id="hero-canvas"></canvas>
         <div class="hero-tech-grid"></div>
         <div class="hero-light-sweep"></div>
-        <div class="tech-card card-camera"><span>📷</span> <span>กล้อง/เลนส์พร้อมใช้งาน</span></div>
-        <div class="tech-card card-laptop"><span>💻</span> <span>ระบบติดตามงานซ่อม</span></div>
+
+        <div class="tech-card card-camera">
+          <span>📷</span> <span>กล้อง/เลนส์พร้อมใช้งาน</span>
+        </div>
+        <div class="tech-card card-laptop">
+          <span>💻</span> <span>ระบบติดตามงานซ่อม</span>
+        </div>
+
         <div class="hero-content-top">
           <div class="badge"><span class="badge-dot"></span> มหาวิทยาลัยศิลปากร - ระบบงานอุปกรณ์</div>
           <h1>ระบบยืม-คืนอุปกรณ์<br>และติดตามงานซ่อม</h1>
         </div>
+        
         <div class="hero-content-bottom credits">
           <p><strong>ผู้พัฒนา:</strong></p>
           <p>ศิริมา วรนาม 671310031</p>
@@ -233,19 +301,20 @@
         <form id="login-form" onsubmit="handleLogin(event)">
           <div class="form-group">
             <label for="username">ชื่อผู้ใช้ / รหัสพนักงาน</label>
-            <input type="text" id="username" class="form-control" placeholder="กรอกชื่อผู้ใช้หรือรหัสพนักงาน" required>
+            <input type="text" id="username" class="form-control" placeholder="กรอกชื่อผู้ใช้หรือรหัสพนักงาน" required autocomplete="username">
           </div>
+          
           <div class="form-group">
             <label for="login-pass">รหัสผ่าน</label>
             <div class="masked-input-group" style="background: white; padding: 8px 12px;">
-              <input type="password" id="login-pass" placeholder="กรอกรหัสผ่าน" required>
+              <input type="password" id="login-pass" placeholder="กรอกรหัสผ่าน" required autocomplete="current-password">
               <span class="eye-icon" onclick="toggleVisibility('login-pass', this)">👁️</span>
             </div>
           </div>
 
-          <div id="login-error" class="alert-msg error" style="display:none;"></div>
+          <div id="login-error" class="alert-msg error"></div>
 
-          <div class="login-actions" style="margin-top: 10px;">
+          <div class="login-actions">
             <label><input type="checkbox" id="remember-me"> จำฉันไว้ในระบบ</label>
             <a onclick="openForgotPasswordModal()">ลืมรหัสผ่าน?</a>
           </div>
@@ -254,10 +323,22 @@
         </form>
 
         <div class="divider"><span>หรือเข้าสู่ระบบด้วย</span></div>
+
         <div class="social-login">
-          <button class="social-btn">Google</button>
-          <button class="social-btn">Facebook</button>
+          <button class="social-btn" onclick="loginWithSocial('Google')">
+            <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.11-6.72-4.96H1.29v3.15C3.26 21.3 7.31 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.61H1.29c-.8 1.6-1.29 3.41-1.29 5.39s.49 3.79 1.29 5.39l3.99-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.61l3.99 3.15c.95-2.85 3.6-4.96 6.72-4.96z"/></svg>
+            Google
+          </button>
+          <button class="social-btn" onclick="loginWithSocial('Facebook')">
+            <svg viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Facebook
+          </button>
+          <button class="social-btn" onclick="loginWithSocial('X')">
+            <svg viewBox="0 0 24 24" fill="#000000"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            X
+          </button>
         </div>
+
         <div class="signup-text">ยังไม่มีบัญชีเจ้าหน้าที่? <a onclick="openRegisterModal()">ลงทะเบียนใช้งาน</a></div>
       </div>
     </div>
@@ -270,9 +351,11 @@
         <div class="brand-subtitle">ระบบงานทรัพย์สิน</div>
         <div class="brand-title" id="page-title-display">โปรไฟล์</div>
       </div>
+
       <div class="header-search">
         <input type="text" placeholder="ค้นหาเลขที่ยืม / นักศึกษา / asset tag / เจ้าหน้าที่">
       </div>
+
       <nav class="nav-actions">
         <button class="nav-btn page-nav-btn" data-page="borrow" onclick="switchPage('borrow', 'ยืมอุปกรณ์')">ยืมอุปกรณ์</button>
         <button class="nav-btn page-nav-btn" data-page="return" onclick="switchPage('return', 'รับคืน')">รับคืน</button>
@@ -282,9 +365,26 @@
       </nav>
     </header>
 
-    <div id="page-borrow" class="page-content"><div class="placeholder-panel"><h2>📤 การยืมอุปกรณ์</h2></div></div>
-    <div id="page-return" class="page-content"><div class="placeholder-panel"><h2>📥 การรับคืนอุปกรณ์</h2></div></div>
-    <div id="page-payment" class="page-content"><div class="placeholder-panel"><h2>💰 การรับเงิน / ค่าปรับ</h2></div></div>
+    <div id="page-borrow" class="page-content">
+      <div class="placeholder-panel">
+        <h2>📤 การยืมอุปกรณ์</h2>
+        <p style="margin-top: 10px;">แบบฟอร์มและรายการอุปกรณ์สำหรับบันทึกการยืมจะแสดงที่นี่</p>
+      </div>
+    </div>
+
+    <div id="page-return" class="page-content">
+      <div class="placeholder-panel">
+        <h2>📥 การรับคืนอุปกรณ์</h2>
+        <p style="margin-top: 10px;">รายการที่ต้องรับคืนและแบบฟอร์มตรวจสอบสภาพจะแสดงที่นี่</p>
+      </div>
+    </div>
+
+    <div id="page-payment" class="page-content">
+      <div class="placeholder-panel">
+        <h2>💰 การรับเงิน / ค่าปรับ</h2>
+        <p style="margin-top: 10px;">รายการค่าปรับและการบันทึกการชำระเงินจะแสดงที่นี่</p>
+      </div>
+    </div>
 
     <div id="page-profile" class="page-content active">
       <div class="profile-layout">
@@ -292,66 +392,109 @@
           <div class="card">
             <div class="card-header">
               <h3>👤 ข้อมูลบัญชีผู้ใช้</h3>
+              <button class="btn-secondary" onclick="editProfile()">✏️ แก้ไขข้อมูล</button>
             </div>
             <div class="profile-grid">
-              <div class="profile-item"><label>ชื่อแสดง</label><p id="display-name">-</p></div>
-              <div class="profile-item"><label>ชื่อผู้ใช้</label><p id="display-username">-</p></div>
-              <div class="profile-item"><label>บทบาท/สิทธิ์</label><p id="display-role">-</p></div>
-              <div class="profile-item"><label>แผนก / สังกัด</label><p id="display-dept">-</p></div>
-              <div class="profile-item"><label>เบอร์โทรศัพท์มือถือ</label><p id="display-phone">-</p></div>
-              <div class="profile-item"><label>สถานะบัญชี</label><p><span class="status-badge active">ใช้งานปกติ</span></p></div>
+              <div class="profile-item">
+                <label>ชื่อแสดง</label>
+                <p id="display-name">ผู้ดูแลระบบ</p>
+              </div>
+              <div class="profile-item">
+                <label>ชื่อผู้ใช้</label>
+                <p id="display-username">admin</p>
+              </div>
+              <div class="profile-item">
+                <label>บทบาท/สิทธิ์</label>
+                <p id="display-role">ผู้ดูแลระบบสูงสุด</p>
+              </div>
+              <div class="profile-item">
+                <label>แผนก / สังกัด</label>
+                <p id="display-dept">ศูนย์เทคโนโลยีการศึกษา</p>
+              </div>
+              <div class="profile-item">
+                <label>เบอร์โทรศัพท์มือถือ</label>
+                <p id="display-phone">0812345678</p>
+              </div>
+              <div class="profile-item">
+                <label>สถานะบัญชี</label>
+                <p><span class="status-badge active">ใช้งานปกติ</span></p>
+              </div>
             </div>
           </div>
 
           <div class="card">
-            <div class="card-header"><h3>📦 ข้อมูลปฏิบัติงานยืม-คืนอุปกรณ์</h3></div>
-            <div class="profile-grid" style="margin-bottom: 16px;">
-              <div class="profile-item"><label>รหัสประจำตัวเจ้าหน้าที่</label><p id="display-staff-id">-</p></div>
-              <div class="profile-item"><label>คลังอุปกรณ์ที่ดูแล</label><p>คลังกลาง (โสตทัศนูปกรณ์)</p></div>
-              <div class="profile-item"><label>สิทธิ์การอนุมัติยืม</label><p><span class="status-badge">อนุมัติได้สูงสุด 5 รายการ</span></p></div>
-              <div class="profile-item"><label>การเข้าถึงพื้นที่คลัง</label><p>Keycard / Finger Scan</p></div>
+            <div class="card-header">
+              <h3>📦 ข้อมูลปฏิบัติงานยืม-คืนอุปกรณ์</h3>
             </div>
+            <div class="profile-grid" style="margin-bottom: 16px;">
+              <div class="profile-item">
+                <label>รหัสประจำตัวเจ้าหน้าที่</label>
+                <p id="display-staff-id">STF-2026-009</p>
+              </div>
+              <div class="profile-item">
+                <label>คลังอุปกรณ์ที่ดูแล</label>
+                <p>คลังกลาง (โสตทัศนูปกรณ์)</p>
+              </div>
+              <div class="profile-item">
+                <label>สิทธิ์การอนุมัติยืม</label>
+                <p><span class="status-badge">อนุมัติได้สูงสุด 5 รายการ</span></p>
+              </div>
+              <div class="profile-item">
+                <label>การเข้าถึงพื้นที่คลัง</label>
+                <p>Keycard / Finger Scan</p>
+              </div>
+            </div>
+
             <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px; font-weight: 600;">สรุปสถิติงานวันนี้</div>
             <div class="staff-stats">
-              <div class="stat-box"><div class="number">14</div><div class="label">อนุมัติการยืม</div></div>
-              <div class="stat-box"><div class="number" style="color: var(--success-color);">9</div><div class="label">ตรวจรับคืน</div></div>
-              <div class="stat-box"><div class="number" style="color: var(--warning-color);">1</div><div class="label">แจ้งอุปกรณ์ซ่อม</div></div>
+              <div class="stat-box">
+                <div class="number">14</div>
+                <div class="label">อนุมัติการยืม</div>
+              </div>
+              <div class="stat-box">
+                <div class="number" style="color: var(--success-color);">9</div>
+                <div class="label">ตรวจรับคืน</div>
+              </div>
+              <div class="stat-box">
+                <div class="number" style="color: var(--warning-color);">1</div>
+                <div class="label">แจ้งอุปกรณ์ซ่อม</div>
+              </div>
             </div>
           </div>
         </div>
 
         <div>
-          <!-- SECURITY SECTION -->
+          <!-- SECURITY CARD WITH PRIVACY PROTECTION -->
           <div class="card">
             <div class="card-header">
               <h3>🔒 ความปลอดภัยและการเข้าถึง</h3>
-            </div>
-            
-            <!-- Locked State -->
-            <div id="security-locked-view" style="display: flex; flex-direction: column; align-items: center; padding: 20px 10px; text-align: center; background: #F8FAFC; border-radius: var(--radius-sm); border: 1px dashed var(--border-color);">
-              <div style="font-size: 32px; margin-bottom: 10px;">🛡️</div>
-              <h4 style="margin-bottom: 6px; color: var(--text-main); font-size: 14px;">เนื้อหาส่วนนี้ถูกล็อคเพื่อความปลอดภัย</h4>
-              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">กรุณากรอกรหัสผ่านบัญชีของคุณเพื่อเปิดดู</p>
-              <div style="display: flex; gap: 8px; width: 100%; max-width: 250px;">
-                <input type="password" id="security-unlock-pass" class="form-control" placeholder="รหัสผ่านของคุณ">
-                <button class="btn-primary" onclick="unlockSecurity()" style="width: auto; padding: 8px 16px;">ปลดล็อค</button>
-              </div>
+              <button class="btn-secondary" id="sec-toggle-btn" onclick="requestSecurityAccess()">🔓 ยืนยันปลดล็อกข้อมูล</button>
             </div>
 
-            <!-- Unlocked State -->
+            <!-- LOCKED STATE -->
+            <div id="security-locked-view" class="security-locked-panel">
+              <div class="lock-icon">🛡️</div>
+              <h4 style="font-size: 14px; margin-bottom: 4px;">ข้อมูลความปลอดภัยถูกล็อกอยู่</h4>
+              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">เพื่อป้องกันการเข้าถึงจากบุคคลอื่น กรุณายืนยันรหัสผ่านเพื่อเข้าชมหรือแก้ไข</p>
+              <button class="btn-secondary" onclick="requestSecurityAccess()" style="background: var(--primary-light); color: var(--primary-color); border: none; font-weight: 600;">ปลดล็อกความปลอดภัย</button>
+            </div>
+
+            <!-- UNLOCKED SECURE CONTENT -->
             <div id="security-unlocked-view" style="display: none; flex-direction: column; gap: 16px;">
               <div>
                 <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 4px;">อีเมลติดต่อระบบ (Gmail)</label>
                 <div style="display: flex; gap: 8px;">
-                  <input type="email" id="email-input" class="form-control" readonly style="flex:1; background:#f1f5f9; color:var(--text-muted);">
+                  <input type="email" id="email-input" class="form-control" value="admin@example.com" style="flex:1;">
+                  <button class="btn-secondary" onclick="updateEmail()">บันทึก</button>
                 </div>
+                <div id="email-alert" class="alert-msg"></div>
               </div>
 
               <div>
-                <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 4px;">รหัสผ่าน</label>
+                <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 4px;">รหัสผ่านบัญชี</label>
                 <div style="display: flex; gap: 8px;">
                   <div class="masked-input-group" style="flex:1;">
-                    <input type="password" id="sec-pass" readonly>
+                    <input type="password" id="sec-pass" value="••••••" readonly>
                     <span class="eye-icon" onclick="toggleVisibility('sec-pass', this)">👁️</span>
                   </div>
                   <button class="btn-secondary" onclick="openPasswordModal()">เปลี่ยน</button>
@@ -360,28 +503,45 @@
 
               <div class="profile-grid" style="margin-top: 4px; border-top: 1px solid #F1F5F9; padding-top: 12px;">
                 <div class="profile-item" style="grid-column: span 2;">
-                  <label>IP Address ล่าสุด</label>
+                  <label>IP Address ล่าสุด (เพื่อความปลอดภัย)</label>
                   <div class="masked-input-group" style="margin-top: 4px; max-width: 260px;">
                     <input type="password" id="ip-address" value="192.168.1.105" readonly>
                     <span class="eye-icon" onclick="toggleVisibility('ip-address', this)">👁️</span>
                   </div>
                 </div>
-                <div class="profile-item"><label>เข้าสู่ระบบล่าสุด</label><p style="font-size: 13px;">วันนี้, 09:15 น.</p></div>
-                <div class="profile-item"><label>บราวเซอร์ / อุปกรณ์</label><p style="font-size: 13px;">Chrome 128 (Windows)</p></div>
+                <div class="profile-item">
+                  <label>เข้าสู่ระบบล่าสุด</label>
+                  <p style="font-size: 13px;">วันนี้, 09:15 น.</p>
+                </div>
+                <div class="profile-item">
+                  <label>บราวเซอร์ / อุปกรณ์</label>
+                  <p style="font-size: 13px;">Chrome 128 (Windows)</p>
+                </div>
               </div>
-              
-              <button class="btn-secondary" onclick="lockSecurity()" style="align-self: flex-start; margin-top: 8px; color:var(--danger-color); border-color:var(--danger-color); background: #fef2f2;">🔒 ซ่อนและล็อคข้อมูลอีกครั้ง</button>
             </div>
           </div>
 
           <div class="card">
-            <div class="card-header"><h3>📋 ประวัติทำรายการล่าสุด</h3></div>
+            <div class="card-header">
+              <h3>📋 ประวัติทำรายการล่าสุด</h3>
+            </div>
             <div class="activity-log">
-              <div class="log-row"><span class="log-action">📥 รับคืน: กล้อง Sony A7IV (EQ-042)</span><span class="log-time">10:42 น.</span></div>
-              <div class="log-row"><span class="log-action">📤 อนุมัติยืม: ขาตั้งกล้อง Manfrotto</span><span class="log-time">09:15 น.</span></div>
+              <div class="log-row">
+                <span class="log-action">📥 รับคืน: กล้อง Sony A7IV (EQ-042)</span>
+                <span class="log-time">10:42 น.</span>
+              </div>
+              <div class="log-row">
+                <span class="log-action">📤 อนุมัติยืม: ขาตั้งกล้อง Manfrotto</span>
+                <span class="log-time">09:15 น.</span>
+              </div>
+              <div class="log-row">
+                <span class="log-action">🔧 ส่งซ่อม: ไมโครโฟนไร้สาย (EQ-018)</span>
+                <span class="log-time">เมื่อวาน</span>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -390,72 +550,93 @@
   <div id="register-modal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>📝 ลงทะเบียนเจ้าหน้าที่ใหม่</h3>
+        <h3>ลงทะเบียนใช้งานระบบ</h3>
         <button class="close-btn" onclick="closeModal('register-modal')">✕</button>
       </div>
-      <form onsubmit="handleRegister(event)">
+      <form id="register-form" onsubmit="handleRegister(event)">
         <div class="form-group">
           <label>ชื่อ-นามสกุล</label>
-          <input type="text" id="reg-name" class="form-control" required>
+          <input type="text" id="reg-fullname" class="form-control" placeholder="กรอกชื่อและนามสกุล" required>
         </div>
         <div class="form-group">
-          <label>ชื่อผู้ใช้ (Username)</label>
-          <input type="text" id="reg-username" class="form-control" required>
-        </div>
-        <div class="form-group">
-          <label>อีเมล (ต้องเป็น Gmail)</label>
+          <label>Gmail สำหรับยืนยันตัวตน</label>
           <input type="email" id="reg-email" class="form-control" placeholder="example@gmail.com" required>
         </div>
         <div class="form-group">
-          <label>รหัสผ่าน</label>
-          <div class="masked-input-group" style="background: white;">
-            <input type="password" id="reg-pass" required>
-            <span class="eye-icon" onclick="toggleVisibility('reg-pass', this)">👁️</span>
-          </div>
+          <label>เบอร์โทรศัพท์</label>
+          <input type="tel" id="reg-phone" class="form-control" placeholder="08XXXXXXXX" required>
         </div>
+        <div class="form-group">
+          <label>ชื่อผู้ใช้ / รหัสพนักงาน</label>
+          <input type="text" id="reg-username" class="form-control" placeholder="ตั้งชื่อผู้ใช้สำหรับเข้าสู่ระบบ" required>
+        </div>
+        <div class="form-group">
+          <label>รหัสผ่าน</label>
+          <input type="password" id="reg-password" class="form-control" placeholder="กำหนดรหัสผ่าน" required>
+        </div>
+        <div id="reg-alert" class="alert-msg"></div>
         <div class="modal-footer">
           <button type="button" class="btn-secondary" onclick="closeModal('register-modal')">ยกเลิก</button>
-          <button type="submit" class="btn-primary" style="width:auto; padding:8px 24px;">สมัครใช้งาน</button>
+          <button type="submit" class="btn-primary" style="width: auto; padding: 8px 20px;">ลงทะเบียน</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- MODAL: FORGOT PASSWORD -->
+  <!-- MODAL: FORGOT PASSWORD (WITH OTP) -->
   <div id="forgot-modal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>🔑 ลืมรหัสผ่าน</h3>
+        <h3>🔑 กู้คืนรหัสผ่านด้วย Gmail</h3>
         <button class="close-btn" onclick="closeModal('forgot-modal')">✕</button>
       </div>
       
+      <!-- STEP 1: Request OTP -->
       <div id="forgot-step-1">
-        <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">กรุณากรอก Gmail ที่ลงทะเบียนไว้ ระบบจะส่ง OTP ไปเพื่อยืนยันตัวตน</p>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">กรอก Gmail ที่คุณลงทะเบียนไว้เพื่อรับรหัส OTP สำหรับยืนยันตัวตน</p>
         <div class="form-group">
           <label>Gmail ของคุณ</label>
-          <input type="email" id="forgot-email" class="form-control" placeholder="example@gmail.com">
+          <input type="email" id="forgot-email" class="form-control" placeholder="example@gmail.com" required>
         </div>
+        <div id="forgot-alert-1" class="alert-msg"></div>
         <div class="modal-footer">
-          <button class="btn-primary" onclick="requestOTP()">ขอรับรหัส OTP</button>
+          <button type="button" class="btn-secondary" onclick="closeModal('forgot-modal')">ยกเลิก</button>
+          <button type="button" class="btn-primary" style="width: auto; padding: 8px 20px;" onclick="sendForgotOTP()">ส่งรหัส OTP</button>
         </div>
       </div>
 
-      <div id="forgot-step-2" style="display:none;">
-        <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">เราได้จำลองการส่งรหัส OTP (ดูที่ด้านบนจอ) กรุณานำรหัสมากรอกด้านล่าง</p>
+      <!-- STEP 2: Enter OTP & Show Password -->
+      <div id="forgot-step-2" style="display: none;">
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">ระบบส่งรหัส OTP ไปที่ Gmail ของคุณแล้ว กรุณากรอกรหัส 6 หลักด้านล่าง</p>
         <div class="form-group">
-          <label>รหัส OTP 6 หลัก</label>
-          <input type="text" id="forgot-otp" class="form-control" maxlength="6" style="text-align: center; letter-spacing: 4px; font-weight: bold; font-size: 18px;">
+          <label>รหัส OTP (6 หลัก)</label>
+          <input type="text" id="forgot-otp-input" class="form-control" placeholder="123456" maxlength="6" style="text-align: center; letter-spacing: 4px; font-size: 18px; font-weight: bold;">
         </div>
+        <div id="forgot-alert-2" class="alert-msg"></div>
         <div class="modal-footer">
-          <button class="btn-primary" onclick="verifyOTP()">ตรวจสอบรหัส</button>
+          <button type="button" class="btn-secondary" onclick="closeModal('forgot-modal')">ปิด</button>
+          <button type="button" class="btn-primary" style="width: auto; padding: 8px 20px;" onclick="verifyForgotOTP()">ยืนยันรหัส</button>
         </div>
       </div>
+    </div>
+  </div>
 
-      <div id="forgot-step-3" style="display:none; text-align: center; padding: 10px 0;">
-        <div style="font-size: 40px; margin-bottom: 10px;">✅</div>
-        <h4 style="color: var(--success-color); margin-bottom: 10px;">ยืนยันสำเร็จ</h4>
-        <p style="font-size:14px; color:var(--text-muted);">รหัสผ่านของคุณคือ:</p>
-        <div style="background: #F1F5F9; padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 18px; font-weight: bold; color: var(--primary-color);" id="forgot-show-pass"></div>
+  <!-- MODAL: UNLOCK SECURITY ACCESS -->
+  <div id="unlock-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>🔒 ยืนยันตัวตนเพื่อปลดล็อก</h3>
+        <button class="close-btn" onclick="closeModal('unlock-modal')">✕</button>
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">กรุณากรอกรหัสผ่านบัญชีปัจจุบันของคุณเพื่อเข้าถึงเมนูความปลอดภัย</p>
+      <div class="form-group">
+        <label>รหัสผ่านปัจจุบัน</label>
+        <input type="password" id="unlock-pass-input" class="form-control" placeholder="กรอกรหัสผ่านของคุณ">
+      </div>
+      <div id="unlock-alert" class="alert-msg"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeModal('unlock-modal')">ยกเลิก</button>
+        <button type="button" class="btn-primary" style="width: auto; padding: 8px 20px;" onclick="verifyUnlockSecurity()">ปลดล็อก</button>
       </div>
     </div>
   </div>
@@ -464,240 +645,331 @@
   <div id="password-modal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>🔒 เปลี่ยนรหัสผ่าน</h3>
+        <h3>เปลี่ยนรหัสผ่าน</h3>
         <button class="close-btn" onclick="closeModal('password-modal')">✕</button>
       </div>
-      <form onsubmit="handleChangePassword(event)">
+      <form id="change-pass-form" onsubmit="handleChangePassword(event)">
         <div class="form-group">
-          <label>รหัสผ่านเดิม</label>
+          <label>รหัสผ่านปัจจุบัน</label>
           <input type="password" id="old-pass" class="form-control" required>
         </div>
         <div class="form-group">
           <label>รหัสผ่านใหม่</label>
-          <div class="masked-input-group" style="background: white;">
-            <input type="password" id="new-pass" required>
-            <span class="eye-icon" onclick="toggleVisibility('new-pass', this)">👁️</span>
-          </div>
+          <input type="password" id="new-pass" class="form-control" required>
         </div>
+        <div class="form-group">
+          <label>ยืนยันรหัสผ่านใหม่</label>
+          <input type="password" id="confirm-pass" class="form-control" required>
+        </div>
+        <div id="pass-alert" class="alert-msg"></div>
         <div class="modal-footer">
           <button type="button" class="btn-secondary" onclick="closeModal('password-modal')">ยกเลิก</button>
-          <button type="submit" class="btn-primary" style="width:auto; padding:8px 24px;">บันทึกรหัสผ่าน</button>
+          <button type="submit" class="btn-primary" style="width: auto; padding: 8px 20px;">บันทึกรหัสใหม่</button>
         </div>
       </form>
     </div>
   </div>
 
   <script>
-    // จำลองฐานข้อมูลผู้ใช้เริ่มต้น
-    let usersDB = {
-      'admin': {
-        password: 'admin',
-        email: 'admin@gmail.com',
-        name: 'ผู้ดูแลระบบ',
-        role: 'ผู้ดูแลระบบสูงสุด',
-        phone: '0812345678',
-        dept: 'ศูนย์เทคโนโลยีการศึกษา',
-        staffId: 'STF-2026-009'
+    // System Users Database (Persisted via LocalStorage)
+    const DEFAULT_USERS = [
+      {
+        username: "admin",
+        password: "4321",
+        fullname: "ผู้ดูแลระบบ",
+        email: "admin@example.com",
+        phone: "0812345678",
+        role: "ผู้ดูแลระบบสูงสุด",
+        dept: "ศูนย์เทคโนโลยีการศึกษา",
+        staffId: "STF-2026-009"
       }
-    };
-    
+    ];
+
+    function getUsers() {
+      const stored = localStorage.getItem('system_users');
+      return stored ? JSON.parse(stored) : DEFAULT_USERS;
+    }
+
+    function saveUsers(users) {
+      localStorage.setItem('system_users', JSON.stringify(users));
+    }
+
+    // Initialize Database if Empty
+    if (!localStorage.getItem('system_users')) {
+      saveUsers(DEFAULT_USERS);
+    }
+
     let currentUser = null;
-    let tempOTP = '';
-    let tempForgotEmail = '';
+    let generatedOTP = null;
+    let targetForgotUser = null;
+    let isSecurityUnlocked = false;
 
-    // การเปลี่ยนหน้าจอแท็บ
-    function switchPage(pageId, title) {
-      document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-      document.getElementById('page-' + pageId).classList.add('active');
-      document.querySelectorAll('.page-nav-btn').forEach(btn => btn.classList.remove('active'));
-      document.querySelector(`[data-page="${pageId}"]`).classList.add('active');
-      document.getElementById('page-title-display').innerText = title;
-    }
-
-    // ฟังก์ชันเปิด/ปิดตารหัสผ่าน
-    function toggleVisibility(inputId, icon) {
-      const input = document.getElementById(inputId);
-      if(input.type === 'password') {
-        input.type = 'text';
-        icon.innerText = '🔒';
-      } else {
-        input.type = 'password';
-        icon.innerText = '👁️';
-      }
-    }
-
-    // ฟังก์ชันปิด Modal
-    function closeModal(id) {
-      document.getElementById(id).classList.remove('active');
-    }
-
-    // เข้าสู่ระบบ (Login)
+    // LOGIN SYSTEM
     function handleLogin(e) {
       e.preventDefault();
-      const user = document.getElementById('username').value.trim();
-      const pass = document.getElementById('login-pass').value;
-      const errorMsg = document.getElementById('login-error');
+      const userVal = document.getElementById('username').value.trim();
+      const passVal = document.getElementById('login-pass').value;
+      const errorDiv = document.getElementById('login-error');
 
-      if(usersDB[user] && usersDB[user].password === pass) {
-        currentUser = user;
-        errorMsg.style.display = 'none';
+      const users = getUsers();
+      const match = users.find(u => u.username === userVal && u.password === passVal);
+
+      if (match) {
+        currentUser = match;
+        errorDiv.className = 'alert-msg';
+        errorDiv.style.display = 'none';
+
+        // Load profile values safely
+        document.getElementById('display-name').innerText = currentUser.fullname;
+        document.getElementById('display-username').innerText = currentUser.username;
+        document.getElementById('display-dept').innerText = currentUser.dept || "ศูนย์เทคโนโลยีการศึกษา";
+        document.getElementById('display-phone').innerText = currentUser.phone;
+        document.getElementById('display-staff-id').innerText = currentUser.staffId || "STF-2026-010";
+        document.getElementById('email-input').value = currentUser.email;
+
+        // Security values setup (Masked)
+        document.getElementById('sec-pass').value = currentUser.password;
+        
+        // Lock Security Section on new login
+        lockSecuritySection();
+
+        // Switch Screen
         document.getElementById('login-screen').classList.remove('active-screen');
         document.getElementById('app-screen').classList.add('active-screen');
-        loadProfile(); // โหลดข้อมูลผู้ใช้
       } else {
-        errorMsg.innerText = 'ชื่อผู้ใช้ หรือ รหัสผ่าน ไม่ถูกต้อง';
-        errorMsg.style.display = 'block';
+        errorDiv.className = 'alert-msg error';
+        errorDiv.innerText = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง';
       }
     }
 
-    // ออกจากระบบ
     function handleLogout() {
       currentUser = null;
+      document.getElementById('login-form').reset();
+      document.getElementById('login-error').style.display = 'none';
       document.getElementById('app-screen').classList.remove('active-screen');
       document.getElementById('login-screen').classList.add('active-screen');
-      document.getElementById('login-form').reset();
-      lockSecurity(); // ล็อคความปลอดภัยเสมอเมื่อออก
-      switchPage('profile', 'โปรไฟล์'); // รีเซ็ตหน้ากลับมาหน้าโปรไฟล์
     }
 
-    // สมัครใช้งานใหม่ (Register)
-    function openRegisterModal() { document.getElementById('register-modal').classList.add('active'); }
+    // REGISTER SYSTEM (NO OTP REQUIRED)
+    function openRegisterModal() {
+      document.getElementById('register-form').reset();
+      document.getElementById('reg-alert').style.display = 'none';
+      document.getElementById('register-modal').classList.add('active');
+    }
+
     function handleRegister(e) {
       e.preventDefault();
-      const user = document.getElementById('reg-username').value.trim();
-      const pass = document.getElementById('reg-pass').value;
+      const fullname = document.getElementById('reg-fullname').value.trim();
       const email = document.getElementById('reg-email').value.trim();
-      const name = document.getElementById('reg-name').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const username = document.getElementById('reg-username').value.trim();
+      const password = document.getElementById('reg-password').value;
+      const alertDiv = document.getElementById('reg-alert');
 
-      // บังคับลงท้าย gmail
-      if(!email.toLowerCase().endsWith('@gmail.com')) {
-        alert('กรุณาใช้อีเมล @gmail.com เท่านั้น');
+      const users = getUsers();
+      if (users.some(u => u.username === username)) {
+        alertDiv.className = 'alert-msg error';
+        alertDiv.innerText = 'ชื่อผู้ใช้นี้มีในระบบแล้ว กรุณใช้ชื่ออื่น';
         return;
       }
 
-      if(usersDB[user]) {
-        alert('ชื่อผู้ใช้นี้มีอยู่ในระบบแล้ว กรุณาใช้ชื่ออื่น');
-        return;
-      }
-
-      // บันทึกเข้า Memory DB
-      usersDB[user] = {
-        password: pass,
+      const newUser = {
+        username: username,
+        password: password,
+        fullname: fullname,
         email: email,
-        name: name,
-        role: 'เจ้าหน้าที่ (ลงทะเบียนใหม่)',
-        phone: '-',
-        dept: '-',
-        staffId: 'STF-' + Math.floor(Math.random()*10000)
+        phone: phone,
+        role: "เจ้าหน้าที่ปฏิบัติการ",
+        dept: "ศูนย์เทคโนโลยีการศึกษา",
+        staffId: "STF-2026-" + Math.floor(100 + Math.random() * 900)
       };
-      
-      alert('ลงทะเบียนสำเร็จ! คุณสามารถนำข้อมูลนี้ไปเข้าสู่ระบบได้ทันที');
+
+      users.push(newUser);
+      saveUsers(users);
+
+      alert('ลงทะเบียนเรียบร้อยแล้ว! สามารถเข้าสู่ระบบด้วยชื่อผู้ใช้และรหัสผ่านที่คุณตั้งไว้');
       closeModal('register-modal');
-      e.target.reset(); // ล้างฟอร์ม
+      
+      // Auto-fill login form
+      document.getElementById('username').value = username;
+      document.getElementById('login-pass').value = password;
     }
 
-    // ลืมรหัสผ่าน
+    // FORGOT PASSWORD SYSTEM (WITH OTP)
     function openForgotPasswordModal() {
-      document.getElementById('forgot-modal').classList.add('active');
+      document.getElementById('forgot-email').value = '';
+      document.getElementById('forgot-alert-1').style.display = 'none';
       document.getElementById('forgot-step-1').style.display = 'block';
       document.getElementById('forgot-step-2').style.display = 'none';
-      document.getElementById('forgot-step-3').style.display = 'none';
-      document.getElementById('forgot-email').value = '';
-      document.getElementById('forgot-otp').value = '';
+      document.getElementById('forgot-modal').classList.add('active');
     }
 
-    function requestOTP() {
+    function sendForgotOTP() {
       const email = document.getElementById('forgot-email').value.trim();
-      let foundUser = null;
-      for(let u in usersDB) {
-        if(usersDB[u].email === email) { foundUser = u; break; }
+      const alertDiv = document.getElementById('forgot-alert-1');
+      const users = getUsers();
+
+      const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+
+      if (!user) {
+        alertDiv.className = 'alert-msg error';
+        alertDiv.innerText = 'ไม่พบบัญชีที่เชื่อมโยงกับ Gmail นี้ในระบบ';
+        return;
       }
 
-      if(foundUser) {
-        tempForgotEmail = email;
-        tempOTP = Math.floor(100000 + Math.random() * 900000).toString(); // สุ่มรหัส 6 หลัก
-        
-        // จำลองการส่ง OTP
-        document.getElementById('toast-otp-code').innerText = tempOTP;
-        const toast = document.getElementById('otp-toast');
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 6000);
+      targetForgotUser = user;
+      generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
 
-        document.getElementById('forgot-step-1').style.display = 'none';
-        document.getElementById('forgot-step-2').style.display = 'block';
+      // Show Toast Notification mimicking OTP SMS/Email
+      document.getElementById('toast-otp-code').innerText = generatedOTP;
+      const toast = document.getElementById('otp-toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 8000);
+
+      document.getElementById('forgot-step-1').style.display = 'none';
+      document.getElementById('forgot-step-2').style.display = 'block';
+      document.getElementById('forgot-alert-2').style.display = 'none';
+    }
+
+    function verifyForgotOTP() {
+      const inputOTP = document.getElementById('forgot-otp-input').value.trim();
+      const alertDiv = document.getElementById('forgot-alert-2');
+
+      if (inputOTP === generatedOTP) {
+        alertDiv.className = 'alert-msg success';
+        alertDiv.innerText = `ยืนยันตัวตนสำเร็จ! รหัสผ่านของคุณคือ: [ ${targetForgotUser.password} ]`;
       } else {
-        alert('ไม่พบ Gmail นี้ในระบบ');
+        alertDiv.className = 'alert-msg error';
+        alertDiv.innerText = 'รหัส OTP ไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง';
       }
     }
 
-    function verifyOTP() {
-      const otpInput = document.getElementById('forgot-otp').value.trim();
-      if(otpInput === tempOTP) {
-        let foundUser = null;
-        for(let u in usersDB) {
-          if(usersDB[u].email === tempForgotEmail) { foundUser = usersDB[u]; break; }
-        }
-        document.getElementById('forgot-step-2').style.display = 'none';
-        document.getElementById('forgot-step-3').style.display = 'block';
-        document.getElementById('forgot-show-pass').innerText = foundUser.password;
-      } else {
-        alert('รหัส OTP ไม่ถูกต้อง');
-      }
-    }
-
-    // โหลดข้อมูลเข้าโปรไฟล์เมื่อ Login 
-    function loadProfile() {
-      const u = usersDB[currentUser];
-      document.getElementById('display-name').innerText = u.name;
-      document.getElementById('display-username').innerText = currentUser;
-      document.getElementById('display-role').innerText = u.role;
-      document.getElementById('display-phone').innerText = u.phone;
-      document.getElementById('display-dept').innerText = u.dept;
-      document.getElementById('display-staff-id').innerText = u.staffId;
-      
-      // ส่วนความปลอดภัย
-      document.getElementById('email-input').value = u.email;
-      document.getElementById('sec-pass').value = u.password;
-      
-      // ล็อคเนื้อหาไว้เสมอเมื่อโหลด
-      lockSecurity();
-    }
-
-    // ความปลอดภัย (ล็อค - ปลดล็อค)
-    function lockSecurity() {
-      document.getElementById('security-locked-view').style.display = 'flex';
+    // SECURITY SECTION LOCK & UNLOCK
+    function lockSecuritySection() {
+      isSecurityUnlocked = false;
+      document.getElementById('security-locked-view').style.display = 'block';
       document.getElementById('security-unlocked-view').style.display = 'none';
-      document.getElementById('security-unlock-pass').value = '';
-      document.getElementById('sec-pass').type = 'password'; // รีเซ็ตให้ปิดตา
-      document.getElementById('ip-address').type = 'password';
+      document.getElementById('sec-toggle-btn').innerText = '🔓 ยืนยันปลดล็อกข้อมูล';
     }
 
-    function unlockSecurity() {
-      const pass = document.getElementById('security-unlock-pass').value;
-      if(pass === usersDB[currentUser].password) {
+    function requestSecurityAccess() {
+      if (isSecurityUnlocked) {
+        lockSecuritySection();
+        return;
+      }
+      document.getElementById('unlock-pass-input').value = '';
+      document.getElementById('unlock-alert').style.display = 'none';
+      document.getElementById('unlock-modal').classList.add('active');
+    }
+
+    function verifyUnlockSecurity() {
+      const pass = document.getElementById('unlock-pass-input').value;
+      const alertDiv = document.getElementById('unlock-alert');
+
+      if (pass === currentUser.password) {
+        isSecurityUnlocked = true;
+        closeModal('unlock-modal');
         document.getElementById('security-locked-view').style.display = 'none';
         document.getElementById('security-unlocked-view').style.display = 'flex';
+        document.getElementById('sec-toggle-btn').innerText = '🔒 ซ่อนข้อมูลความปลอดภัย';
       } else {
-        alert('รหัสผ่านไม่ถูกต้อง ไม่สามารถเปิดดูข้อมูลได้');
+        alertDiv.className = 'alert-msg error';
+        alertDiv.innerText = 'รหัสผ่านไม่ถูกต้อง';
       }
     }
 
-    // เปลี่ยนรหัสผ่านในระบบ
-    function openPasswordModal() { document.getElementById('password-modal').classList.add('active'); }
+    // UPDATE PROFILE EMAIL & PASSWORD
+    function updateEmail() {
+      const newEmail = document.getElementById('email-input').value.trim();
+      const alertDiv = document.getElementById('email-alert');
+
+      if (!newEmail || !newEmail.includes('@')) {
+        alertDiv.className = 'alert-msg error';
+        alertDiv.innerText = 'กรุณากรอกอีเมลที่ถูกต้อง';
+        return;
+      }
+
+      const users = getUsers();
+      const u = users.find(x => x.username === currentUser.username);
+      if (u) {
+        u.email = newEmail;
+        currentUser.email = newEmail;
+        saveUsers(users);
+        alertDiv.className = 'alert-msg success';
+        alertDiv.innerText = 'อัปเดตอีเมลเรียบร้อยแล้ว';
+        setTimeout(() => alertDiv.style.display = 'none', 3000);
+      }
+    }
+
+    function openPasswordModal() {
+      document.getElementById('change-pass-form').reset();
+      document.getElementById('pass-alert').style.display = 'none';
+      document.getElementById('password-modal').classList.add('active');
+    }
+
     function handleChangePassword(e) {
       e.preventDefault();
       const oldP = document.getElementById('old-pass').value;
       const newP = document.getElementById('new-pass').value;
-      
-      if(oldP === usersDB[currentUser].password) {
-        usersDB[currentUser].password = newP;
-        document.getElementById('sec-pass').value = newP; // โชว์ในหน้าจอหลักอัปเดตตาม
-        alert('เปลี่ยนรหัสผ่านสำเร็จ! รหัสผ่านใหม่จะถูกใช้งานในครั้งถัดไปที่คุณ Login');
-        closeModal('password-modal');
-        e.target.reset();
-      } else {
-        alert('รหัสผ่านเดิมไม่ถูกต้อง');
+      const confP = document.getElementById('confirm-pass').value;
+      const alertDiv = document.getElementById('pass-alert');
+
+      if (oldP !== currentUser.password) {
+        alertDiv.className = 'alert-msg error';
+        alertDiv.innerText = 'รหัสผ่านปัจจุบันไม่ถูกต้อง';
+        return;
       }
+
+      if (newP !== confP) {
+        alertDiv.className = 'alert-msg error';
+        alertDiv.innerText = 'รหัสผ่านใหม่ไม่ตรงกัน';
+        return;
+      }
+
+      const users = getUsers();
+      const u = users.find(x => x.username === currentUser.username);
+      if (u) {
+        u.password = newP;
+        currentUser.password = newP;
+        saveUsers(users);
+
+        document.getElementById('sec-pass').value = newP;
+        alert('เปลี่ยนรหัสผ่านสำเร็จ!');
+        closeModal('password-modal');
+      }
+    }
+
+    // UI & HELPER FUNCTIONS
+    function toggleVisibility(inputId, iconEl) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        iconEl.innerText = '🙈';
+      } else {
+        input.type = 'password';
+        iconEl.innerText = '👁️';
+      }
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+    }
+
+    function switchPage(pageKey, pageTitle) {
+      document.querySelectorAll('.page-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.page-nav-btn').forEach(el => el.classList.remove('active'));
+
+      document.getElementById('page-' + pageKey).classList.add('active');
+      document.querySelector(`[data-page="${pageKey}"]`).classList.add('active');
+      document.getElementById('page-title-display').innerText = pageTitle;
+    }
+
+    function loginWithSocial(provider) {
+      alert(`กำลังเชื่อมต่อเข้าสู่ระบบด้วย ${provider}... (ระบบจำลอง)`);
+    }
+
+    function editProfile() {
+      alert('ฟังก์ชันแก้ไขข้อมูลส่วนตัวพื้นฐาน');
     }
   </script>
 </body>
