@@ -158,8 +158,8 @@
       width: 100%; padding: 10px 14px; background: var(--surface-color-dark); border: 1px solid var(--border-color); border-radius: var(--radius-sm); 
       font-size: 14px; color: var(--text-main); transition: all 0.25s; 
     }
+    .form-control::placeholder { color: rgba(148, 163, 184, 0.4); }
     .form-control:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.25); }
-    .form-control.error { border-color: var(--danger-color); }
 
     .login-actions { display: flex; justify-content: space-between; align-items: center; font-size: 13px; margin-bottom: 24px; color: var(--text-muted); }
     .login-actions label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
@@ -237,7 +237,7 @@
     }
     .stat-box:hover { transform: translateY(-2px); border-color: var(--primary-color); }
     .stat-box .number { font-size: 22px; font-weight: 700; color: var(--warning-color); }
-    .stat-box .label { font-size: 11px; color: var(--text-muted); mt-1; }
+    .stat-box .label { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
 
     .btn-secondary { 
       padding: 6px 14px; background: var(--surface-hover); border: 1px solid var(--border-color); 
@@ -247,9 +247,14 @@
 
     .masked-input-group { 
       display: flex; align-items: center; background: var(--surface-color-dark); 
-      border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 6px 12px; 
+      border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 6px 12px; transition: all 0.25s;
     }
-    .masked-input-group input { border: none; background: transparent; width: 100%; font-size: 13px; font-weight: 500; color: var(--text-main); outline: none; }
+    .masked-input-group:focus-within {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.25);
+    }
+    .masked-input-group input { border: none; background: transparent; width: 100%; font-size: 14px; font-weight: 500; color: var(--text-main); outline: none; }
+    .masked-input-group input::placeholder { color: rgba(148, 163, 184, 0.4); }
     .eye-icon { cursor: pointer; user-select: none; font-size: 14px; color: var(--text-muted); margin-left: 8px; transition: color 0.2s; }
     .eye-icon:hover { color: var(--text-main); }
 
@@ -262,7 +267,9 @@
     .log-action { font-weight: 500; color: var(--text-main); }
     .log-time { color: var(--text-muted); font-size: 11px; }
 
-    .alert-msg { font-size: 13px; margin-top: 8px; padding: 8px 12px; border-radius: 6px; display: none; line-height: 1.5; }
+    /* ALERT MESSAGES (ซ่อนเมื่อไม่มีข้อความอัตโนมัติ) */
+    .alert-msg { font-size: 13px; margin-top: 8px; margin-bottom: 8px; padding: 8px 12px; border-radius: 6px; display: none; line-height: 1.5; }
+    .alert-msg:empty { display: none !important; }
     .alert-msg.error { color: #FCA5A5; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); display: block; }
     .alert-msg.success { color: #6EE7B7; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); display: block; }
 
@@ -273,13 +280,13 @@
     /* MODAL STYLES */
     .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 10, 20, 0.75); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.25s ease; }
     .modal-overlay.active { opacity: 1; visibility: visible; }
-    .modal-card { background: var(--surface-color); border-radius: var(--radius-lg); width: 100%; max-width: 440px; padding: 24px; box-shadow: var(--shadow-md); border: 1px solid var(--border-color); transform: translateY(12px); transition: all 0.25s ease; max-height: 90vh; overflow-y: auto; }
+    .modal-card { background: var(--surface-color); border-radius: var(--radius-lg); width: 100%; max-width: 480px; padding: 24px; box-shadow: var(--shadow-md); border: 1px solid var(--border-color); transform: translateY(12px); transition: all 0.25s ease; max-height: 90vh; overflow-y: auto; }
     .modal-overlay.active .modal-card { transform: translateY(0); }
     .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color-light); }
-    .modal-header h3 { font-size: 16px; font-weight: 600; color: var(--text-main); }
+    .modal-header h3 { font-size: 16px; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
     .close-btn { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--text-muted); }
     .close-btn:hover { color: var(--text-main); }
-    .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; }
+    .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; padding-top: 12px; border-top: 1px solid var(--border-color-light); }
 
     /* COLLAPSIBLE ACCORDION */
     .collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, opacity 0.2s ease; opacity: 0; }
@@ -363,7 +370,8 @@
             </div>
           </div>
 
-          <div id="login-error" class="alert-msg error"></div>
+          <!-- ลบ class error ออกเพื่อซ่อนกล่องข้อความเปล่า -->
+          <div id="login-error" class="alert-msg"></div>
 
           <div class="login-actions">
             <label><input type="checkbox" id="remember-me"> จำฉันไว้ในระบบ</label>
@@ -538,10 +546,9 @@
 
                 <div>
                   <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 4px;">รหัสผ่านบัญชีปัจจุบัน</label>
-                  <div style="display: flex; gap: 8px;">
-                    <div class="masked-input-group" style="flex:1;">
-                      <input type="password" id="sec-pass" value="••••••" readonly>
-                      <span class="eye-icon" onclick="toggleVisibility('sec-pass', this)">👁️</span>
+                  <div style="display: flex; gap: 8px; align-items: center;">
+                    <div class="form-control" style="flex: 1; display: flex; align-items: center; color: var(--text-muted); font-size: 13.5px; background: var(--surface-color-dark);">
+                      อัปเดตเมื่อวันที่ 10 ก.ย. 2026
                     </div>
                     <button class="btn-secondary" onclick="openPasswordModal()">เปลี่ยน</button>
                   </div>
@@ -583,152 +590,327 @@
                 <span class="log-time">09:15 น.</span>
               </div>
               <div class="log-row">
-                <span class="log-action"><span style="color: #F59E0B;">🔧 ส่งซ่อม:</span> ไมโครโฟนไร้สาย (EQ-018)</span>
-                <span class="log-time">เมื่อวาน</span>
+                <span class="log-action"><span style="color: #F59E0B;">🔧 ส่งซ่อม:</span> ไฟสปอตไลท์ LED 100W (EQ-108)</span>
+                <span class="log-time">เมื่อวาน, 15:30 น.</span>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 
-  <!-- MODAL: REGISTER -->
-  <div id="register-modal" class="modal-overlay">
+  <!-- MODAL: EDIT PROFILE -->
+  <div id="modal-edit-profile" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>📝 ลงทะเบียนเจ้าหน้าที่ใหม่</h3>
-        <button class="close-btn" onclick="closeModal('register-modal')">✕</button>
+        <h3>✏️ แก้ไขข้อมูลส่วนตัว</h3>
+        <button class="close-btn" onclick="closeModal('modal-edit-profile')">✕</button>
       </div>
-      <form onsubmit="handleRegister(event)">
+      <form onsubmit="saveProfileEdit(event)">
         <div class="form-group">
-          <label>ชื่อผู้ใช้ (Username)</label>
-          <input type="text" id="reg-username" class="form-control" placeholder="เช่น user4321" required>
+          <label>ชื่อแสดง</label>
+          <input type="text" id="edit-name" class="form-control" required>
         </div>
         <div class="form-group">
-          <label>Gmail</label>
-          <input type="email" id="reg-email" class="form-control" placeholder="example@gmail.com" required>
+          <label>แผนก / สังกัด</label>
+          <input type="text" id="edit-dept" class="form-control" required>
         </div>
         <div class="form-group">
-          <label>รหัสผ่าน</label>
-          <input type="password" id="reg-pass" class="form-control" placeholder="ระบุรหัสผ่าน" required>
+          <label>เบอร์โทรศัพท์มือถือ</label>
+          <input type="tel" id="edit-phone" class="form-control" required>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn-secondary" onclick="closeModal('register-modal')">ยกเลิก</button>
-          <button type="submit" class="btn-primary" style="width: auto;">ลงทะเบียน</button>
+          <button type="button" class="btn-secondary" onclick="closeModal('modal-edit-profile')">ยกเลิก</button>
+          <button type="submit" class="btn-primary" style="width: auto; padding: 6px 16px;">บันทึกข้อมูล</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: CHANGE PASSWORD -->
+  <div id="modal-change-pass" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>🔒 เปลี่ยนรหัสผ่าน</h3>
+        <button class="close-btn" onclick="closeModal('modal-change-pass')">✕</button>
+      </div>
+      <form onsubmit="savePasswordChange(event)">
+        <div class="form-group">
+          <label>รหัสผ่านปัจจุบัน</label>
+          <input type="password" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>รหัสผ่านใหม่</label>
+          <input type="password" class="form-control" required minlength="6">
+        </div>
+        <div class="form-group">
+          <label>ยืนยันรหัสผ่านใหม่</label>
+          <input type="password" class="form-control" required minlength="6">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('modal-change-pass')">ยกเลิก</button>
+          <button type="submit" class="btn-primary" style="width: auto; padding: 6px 16px;">อัปเดตรหัสผ่าน</button>
         </div>
       </form>
     </div>
   </div>
 
   <!-- MODAL: FORGOT PASSWORD -->
-  <div id="forgot-modal" class="modal-overlay">
+  <div id="modal-forgot-password" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
         <h3>🔑 ลืมรหัสผ่าน</h3>
-        <button class="close-btn" onclick="closeModal('forgot-modal')">✕</button>
+        <button class="close-btn" onclick="closeModal('modal-forgot-password')">✕</button>
       </div>
-      <form onsubmit="handleForgotPassword(event)">
+      <div>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">กรอกเบอร์โทรศัพท์ที่ลงทะเบียนไว้ ระบบจะส่งรหัส OTP เพื่อยืนยันตัวตน</p>
         <div class="form-group">
-          <label>ระบุอีเมลบัญชีของคุณ</label>
-          <input type="email" id="forgot-email" class="form-control" placeholder="example@gmail.com" required>
+          <label>เบอร์โทรศัพท์</label>
+          <input type="tel" id="forgot-phone" class="form-control" placeholder="08XXXXXXXX" required>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn-secondary" onclick="closeModal('forgot-modal')">ยกเลิก</button>
-          <button type="submit" class="btn-primary" style="width: auto;">ส่งรหัส OTP</button>
+          <button type="button" class="btn-secondary" onclick="closeModal('modal-forgot-password')">ยกเลิก</button>
+          <button type="button" class="btn-primary" style="width: auto; padding: 6px 16px;" onclick="triggerOtp()">ขอรับรหัส OTP</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: REGISTER -->
+  <div id="modal-register" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>📄 ลงทะเบียนเจ้าหน้าที่ใหม่</h3>
+        <button class="close-btn" onclick="closeModal('modal-register')">✕</button>
+      </div>
+      <form onsubmit="handleRegister(event)">
+        <div class="form-group">
+          <label>ชื่อ-นามสกุล <span style="font-weight: 400; color: var(--text-muted);">(ชื่อแสดง)</span></label>
+          <input type="text" class="form-control" placeholder="เช่น นายสมชาย ใจดี" required>
+        </div>
+        <div class="form-group">
+          <label>ชื่อผู้ใช้ / รหัสพนักงาน</label>
+          <input type="text" class="form-control" placeholder="ตั้งชื่อผู้ใช้สำหรับ Login" required>
+        </div>
+        <div class="form-group">
+          <label>อีเมล Gmail <span style="font-weight: 400; color: var(--text-muted);">(สำหรับรับรหัสผ่าน)</span></label>
+          <input type="email" class="form-control" placeholder="example@gmail.com" required>
+        </div>
+        <div class="form-group">
+          <label>รหัสผ่าน</label>
+          <div class="masked-input-group">
+            <input type="password" id="reg-pass" placeholder="กำหนดรหัสผ่าน" required minlength="6">
+            <span class="eye-icon" onclick="toggleVisibility('reg-pass', this)">👁️</span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('modal-register')">ยกเลิก</button>
+          <button type="submit" class="btn-primary" style="width: auto; padding: 8px 20px;">ยืนยันลงทะเบียน</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- SCRIPT LOGIC -->
   <script>
-    function toggleVisibility(inputId, iconElem) {
+    /* Global Functions & Event Handlers */
+    
+    // Toggle Password/Text Input Visibility
+    function toggleVisibility(inputId, iconEl) {
       const input = document.getElementById(inputId);
-      if (input.type === "password") {
-        input.type = "text";
-        iconElem.textContent = "🙈";
+      if (!input) return;
+      if (input.type === 'password') {
+        input.type = 'text';
+        iconEl.textContent = '🙈';
       } else {
-        input.type = "password";
-        iconElem.textContent = "👁️";
+        input.type = 'password';
+        iconEl.textContent = '👁️';
       }
     }
 
-    function toggleSecuritySection() {
-      const content = document.getElementById('security-collapsible');
-      const icon = document.getElementById('security-toggle-icon');
-      if (content.classList.contains('open')) {
-        content.classList.remove('open');
-        icon.textContent = '▼ เปิดดู';
-      } else {
-        content.classList.add('open');
-        icon.textContent = '▲ ซ่อน';
-      }
+    // Screen Switcher (Login <-> App)
+    function switchScreen(screenId) {
+      document.querySelectorAll('.screen-section').forEach(s => s.classList.remove('active-screen'));
+      const target = document.getElementById(screenId);
+      if (target) target.classList.add('active-screen');
     }
 
-    function switchPage(pageKey, pageTitle) {
-      document.querySelectorAll('.page-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.page-nav-btn').forEach(btn => btn.classList.remove('active'));
+    // App Navigation Pages Switcher
+    function switchPage(pageId, pageTitle) {
+      document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.page-nav-btn').forEach(b => b.classList.remove('active'));
 
-      const targetPage = document.getElementById('page-' + pageKey);
-      if (targetPage) targetPage.classList.add('active');
+      const selectedPage = document.getElementById('page-' + pageId);
+      if (selectedPage) selectedPage.classList.add('active');
 
-      const targetBtn = document.querySelector(`.page-nav-btn[data-page="${pageKey}"]`);
-      if (targetBtn) targetBtn.classList.add('active');
+      const navBtn = document.querySelector(`.page-nav-btn[data-page="${pageId}"]`);
+      if (navBtn) navBtn.classList.add('active');
 
       document.getElementById('page-title-display').textContent = pageTitle;
     }
 
+    // Security Accordion Toggle
+    function toggleSecuritySection() {
+      const content = document.getElementById('security-collapsible');
+      const icon = document.getElementById('security-toggle-icon');
+      content.classList.toggle('open');
+      if (content.classList.contains('open')) {
+        icon.textContent = '▲ ซ่อน';
+      } else {
+        icon.textContent = '▼ เปิดดู';
+      }
+    }
+
+    // Login Handler
     function handleLogin(e) {
       e.preventDefault();
-      document.getElementById('login-screen').classList.remove('active-screen');
-      document.getElementById('app-screen').classList.add('active-screen');
+      const usernameVal = document.getElementById('username').value;
+      if (usernameVal) {
+        document.getElementById('display-name').textContent = usernameVal;
+        document.getElementById('display-username').textContent = usernameVal;
+        switchScreen('app-screen');
+      }
     }
 
-    function handleLogout() {
-      document.getElementById('app-screen').classList.remove('active-screen');
-      document.getElementById('login-screen').classList.add('active-screen');
-    }
-
-    function openRegisterModal() { document.getElementById('register-modal').classList.add('active'); }
-    function openForgotPasswordModal() { document.getElementById('forgot-modal').classList.add('active'); }
-    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-    function handleRegister(e) {
-      e.preventDefault();
-      alert('ลงทะเบียนสำเร็จ!');
-      closeModal('register-modal');
-    }
-
-    function handleForgotPassword(e) {
-      e.preventDefault();
-      closeModal('forgot-modal');
-      const toast = document.getElementById('otp-toast');
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 5000);
-    }
-
+    // Social Login Simulation
     function loginWithSocial(provider) {
-      document.getElementById('login-screen').classList.remove('active-screen');
-      document.getElementById('app-screen').classList.add('active-screen');
+      document.getElementById('display-name').textContent = provider.toLowerCase() + '_user';
+      document.getElementById('display-username').textContent = provider.toLowerCase() + '_user';
+      switchScreen('app-screen');
     }
 
+    // Logout Handler
+    function handleLogout() {
+      switchScreen('login-screen');
+      document.getElementById('login-form').reset();
+      const loginErr = document.getElementById('login-error');
+      loginErr.textContent = '';
+      loginErr.className = 'alert-msg';
+    }
+
+    // Email Update Action
     function updateEmail() {
-      const alertBox = document.getElementById('email-alert');
-      alertBox.textContent = 'บันทึกอีเมลเรียบร้อยแล้ว';
-      alertBox.className = 'alert-msg success';
-      setTimeout(() => { alertBox.style.display = 'none'; }, 3000);
+      const emailVal = document.getElementById('email-input').value;
+      const alertEl = document.getElementById('email-alert');
+      if (emailVal && emailVal.includes('@')) {
+        alertEl.className = 'alert-msg success';
+        alertEl.textContent = 'บันทึกอีเมลสำเร็จเรียบร้อยแล้ว';
+      } else {
+        alertEl.className = 'alert-msg error';
+        alertEl.textContent = 'กรุณากรอกอีเมลให้ถูกต้อง';
+      }
+      setTimeout(() => { alertEl.textContent = ''; alertEl.className = 'alert-msg'; }, 3000);
     }
 
-    function openPasswordModal() {
-      alert('ระบบส่งลิงก์เปลี่ยนรหัสผ่านไปยังอีเมลของคุณแล้ว');
+    // Modal Control Functions
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.add('active');
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.remove('active');
     }
 
     function editProfile() {
-      alert('เปิดโหมดแก้ไขข้อมูลโปรไฟล์');
+      document.getElementById('edit-name').value = document.getElementById('display-name').textContent;
+      document.getElementById('edit-dept').value = document.getElementById('display-dept').textContent;
+      document.getElementById('edit-phone').value = document.getElementById('display-phone').textContent;
+      openModal('modal-edit-profile');
+    }
+
+    function saveProfileEdit(e) {
+      e.preventDefault();
+      document.getElementById('display-name').textContent = document.getElementById('edit-name').value;
+      document.getElementById('display-dept').textContent = document.getElementById('edit-dept').value;
+      document.getElementById('display-phone').textContent = document.getElementById('edit-phone').value;
+      closeModal('modal-edit-profile');
+    }
+
+    function openPasswordModal() {
+      openModal('modal-change-pass');
+    }
+
+    function savePasswordChange(e) {
+      e.preventDefault();
+      alert('เปลี่ยนรหัสผ่านสำเร็จ!');
+      closeModal('modal-change-pass');
+    }
+
+    function openForgotPasswordModal() {
+      openModal('modal-forgot-password');
+    }
+
+    function triggerOtp() {
+      const phoneInput = document.getElementById('forgot-phone').value;
+      if (!phoneInput) {
+        alert('กรุณากรอกเบอร์โทรศัพท์');
+        return;
+      }
+      closeModal('modal-forgot-password');
+      
+      // Random 6-digit OTP Simulation
+      const randomOtp = Math.floor(100000 + Math.random() * 900000);
+      document.getElementById('toast-otp-code').textContent = randomOtp;
+      
+      const toast = document.getElementById('otp-toast');
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 5000);
+    }
+
+    function openRegisterModal() {
+      openModal('modal-register');
+    }
+
+    function handleRegister(e) {
+      e.preventDefault();
+      alert('ลงทะเบียนเรียบร้อยแล้ว รอการอนุมัติสิทธิ์จากผู้ดูแลระบบ');
+      closeModal('modal-register');
+    }
+
+    /* Hero Ambient Particle Canvas Effect */
+    const canvas = document.getElementById('hero-canvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let width = canvas.width = canvas.offsetWidth;
+      let height = canvas.height = canvas.offsetHeight;
+
+      window.addEventListener('resize', () => {
+        if (canvas) {
+          width = canvas.width = canvas.offsetWidth;
+          height = canvas.height = canvas.offsetHeight;
+        }
+      });
+
+      const particles = Array.from({ length: 25 }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 2 + 1,
+        dx: (Math.random() - 0.5) * 0.5,
+        dy: (Math.random() - 0.5) * 0.5,
+        alpha: Math.random() * 0.5 + 0.2
+      }));
+
+      function animateCanvas() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => {
+          p.x += p.dx;
+          p.y += p.dy;
+          if (p.x < 0 || p.x > width) p.dx *= -1;
+          if (p.y < 0 || p.y > height) p.dy *= -1;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(165, 180, 252, ${p.alpha})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(animateCanvas);
+      }
+      animateCanvas();
     }
   </script>
 </body>
 </html>
-
