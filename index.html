@@ -27,6 +27,7 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Sarabun', sans-serif; }
     
+    /* --- ENHANCED MAIN BODY BACKGROUND --- */
     body { 
       background: #0B0F19; 
       background-image: 
@@ -44,6 +45,7 @@
       overflow-x: hidden;
     }
 
+    /* Ambient Glowing Lighting Spheres (Soft & Dynamic) */
     .bg-ambient-orb {
       position: fixed;
       border-radius: 50%;
@@ -52,17 +54,51 @@
       z-index: 0;
       opacity: 0.6;
     }
-    .orb-1 { width: 450px; height: 450px; background: #5B48D9; top: -100px; left: -100px; animation: floatOrb1 18s ease-in-out infinite alternate; }
-    .orb-2 { width: 500px; height: 500px; background: #2A2272; bottom: -150px; right: -100px; animation: floatOrb2 22s ease-in-out infinite alternate; }
-    .orb-focus-spotlight { width: 600px; height: 600px; background: rgba(91, 72, 217, 0.12); top: 50%; left: 50%; transform: translate(-50%, -50%); filter: blur(140px); }
+    .orb-1 {
+      width: 450px;
+      height: 450px;
+      background: #5B48D9;
+      top: -100px;
+      left: -100px;
+      animation: floatOrb1 18s ease-in-out infinite alternate;
+    }
+    .orb-2 {
+      width: 500px;
+      height: 500px;
+      background: #2A2272;
+      bottom: -150px;
+      right: -100px;
+      animation: floatOrb2 22s ease-in-out infinite alternate;
+    }
+    .orb-focus-spotlight {
+      width: 600px;
+      height: 600px;
+      background: rgba(91, 72, 217, 0.12);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      filter: blur(140px);
+    }
 
-    @keyframes floatOrb1 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(60px, 80px) scale(1.15); } }
-    @keyframes floatOrb2 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-80px, -60px) scale(1.1); } }
+    @keyframes floatOrb1 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(60px, 80px) scale(1.15); }
+    }
+    @keyframes floatOrb2 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(-80px, -60px) scale(1.1); }
+    }
 
+    /* Fine Tech Grid Overlay on Background */
     .bg-grid-pattern {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 40px 40px; pointer-events: none; z-index: 0;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
       mask-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.8) 20%, transparent 80%);
       -webkit-mask-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.8) 20%, transparent 80%);
     }
@@ -71,34 +107,134 @@
     .screen-section.active-screen { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
+    /* Elevated Login Box with Backlight Accent */
     .login-wrapper { 
-      display: flex; width: 100%; max-width: 920px; min-height: 580px; 
-      background: var(--surface-color); border-radius: var(--radius-lg); 
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 40px rgba(91, 72, 217, 0.2); 
-      overflow: hidden; margin: 20px auto; border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex; 
+      width: 100%; 
+      max-width: 920px; 
+      min-height: 580px; 
+      background: var(--surface-color); 
+      border-radius: var(--radius-lg); 
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(91, 72, 217, 0.2); 
+      overflow: hidden; 
+      margin: 20px auto; 
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     .login-hero { 
-      flex: 1; position: relative;
+      flex: 1; 
+      position: relative;
       background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 35%, #2A2272 70%, #5B48D9 100%);
-      color: #FFF; padding: 40px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; z-index: 1;
+      color: #FFF; 
+      padding: 40px; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: space-between; 
+      overflow: hidden;
+      z-index: 1;
     }
 
-    #hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
-    .hero-tech-grid { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px); background-size: 30px 30px; z-index: 0; mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 80%); -webkit-mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 80%); }
-    .hero-light-sweep { position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.08) 50%, transparent 55%); animation: sweepAnimation 7s infinite ease-in-out; z-index: 2; pointer-events: none; }
-    @keyframes sweepAnimation { 0% { transform: translate(-30%, -30%) rotate(0deg); } 50% { transform: translate(15%, 15%) rotate(0deg); } 100% { transform: translate(-30%, -30%) rotate(0deg); } }
+    #hero-canvas {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
 
-    .tech-card { position: absolute; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 14px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; box-shadow: 0 10px 25px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.3); z-index: 2; pointer-events: none; animation: floatCard 5s ease-in-out infinite alternate; }
+    .hero-tech-grid {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 30px 30px;
+      z-index: 0;
+      mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 80%);
+      -webkit-mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 80%);
+    }
+
+    .hero-light-sweep {
+      position: absolute;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.08) 50%, transparent 55%);
+      animation: sweepAnimation 7s infinite ease-in-out;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    @keyframes sweepAnimation {
+      0% { transform: translate(-30%, -30%) rotate(0deg); }
+      50% { transform: translate(15%, 15%) rotate(0deg); }
+      100% { transform: translate(-30%, -30%) rotate(0deg); }
+    }
+
+    .tech-card {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 14px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.3);
+      z-index: 2;
+      pointer-events: none;
+      animation: floatCard 5s ease-in-out infinite alternate;
+    }
     .card-camera { top: 35%; right: 8%; animation-delay: 0s; }
     .card-laptop { top: 54%; left: 6%; animation-delay: -2.5s; }
-    @keyframes floatCard { 0% { transform: translateY(0px) rotate(0deg); } 100% { transform: translateY(-12px) rotate(3deg); } }
+
+    @keyframes floatCard {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-12px) rotate(3deg); }
+    }
 
     .hero-content-top { z-index: 3; position: relative; }
-    .hero-content-bottom { z-index: 3; position: relative; background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 18px 20px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
-    .login-hero .badge { background: rgba(255, 255, 255, 0.18); backdrop-filter: blur(8px); padding: 6px 16px; border-radius: 20px; font-size: 12px; width: fit-content; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; letter-spacing: 0.5px; border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 0 15px rgba(91, 72, 217, 0.5); }
+    .hero-content-bottom { 
+      z-index: 3; 
+      position: relative; 
+      background: rgba(255, 255, 255, 0.08); 
+      backdrop-filter: blur(16px); 
+      -webkit-backdrop-filter: blur(16px);
+      padding: 18px 20px; 
+      border-radius: 16px; 
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+
+    .login-hero .badge { 
+      background: rgba(255, 255, 255, 0.18); 
+      backdrop-filter: blur(8px); 
+      padding: 6px 16px; 
+      border-radius: 20px; 
+      font-size: 12px; 
+      width: fit-content; 
+      display: inline-flex; 
+      align-items: center;
+      gap: 6px;
+      font-weight: 600; 
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(255,255,255,0.3);
+      box-shadow: 0 0 15px rgba(91, 72, 217, 0.5);
+    }
     .badge-dot { width: 6px; height: 6px; background: #34D399; border-radius: 50%; box-shadow: 0 0 8px #34D399; }
-    .login-hero h1 { font-size: 28px; margin: 18px 0; line-height: 1.35; font-weight: 700; background: linear-gradient(180deg, #FFFFFF 0%, #E0E7FF 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3)); }
+
+    .login-hero h1 { 
+      font-size: 28px; 
+      margin: 18px 0; 
+      line-height: 1.35; 
+      font-weight: 700;
+      background: linear-gradient(180deg, #FFFFFF 0%, #E0E7FF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+    }
     .login-hero .credits { font-size: 12px; opacity: 0.95; line-height: 1.7; }
 
     .login-form-container { flex: 1.1; padding: 40px; display: flex; flex-direction: column; justify-content: center; background: #FFFFFF; }
@@ -108,16 +244,13 @@
     .form-control:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(91, 72, 217, 0.15); }
     .form-control.error { border-color: var(--danger-color); }
 
-    .login-actions { display: flex; justify-content: space-between; align-items: center; font-size: 13px; margin-bottom: 24px; }
-    .login-actions label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+    .login-actions { display: flex; justify-content: flex-end; align-items: center; font-size: 13px; margin-bottom: 24px; }
     .login-actions a { color: var(--primary-color); text-decoration: none; font-weight: 600; cursor: pointer; }
     .login-actions a:hover { text-decoration: underline; }
 
     .btn-primary { width: 100%; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(91, 72, 217, 0.25); }
     .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(91, 72, 217, 0.35); }
-    
-    .btn-success { background: var(--success-color); color: white; padding: 12px; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; width: 100%;}
-    .btn-success:hover { background: #059669; }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
 
     .divider { display: flex; align-items: center; text-align: center; margin: 24px 0; color: var(--text-muted); font-size: 13px; }
     .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #E2E8F0; }
@@ -186,6 +319,7 @@
     .alert-msg { font-size: 13px; margin-top: 8px; padding: 8px 12px; border-radius: 6px; display: none; line-height: 1.5; }
     .alert-msg.error { color: var(--danger-color); background: #FEF2F2; display: block; }
     .alert-msg.success { color: var(--success-color); background: #ECFDF5; display: block; }
+    .alert-msg.warning { color: var(--warning-color); background: #FFFBEB; display: block; }
 
     .page-content { display: none; }
     .page-content.active { display: block; }
@@ -201,34 +335,58 @@
     .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; }
 
     .otp-notification { 
-      position: fixed; top: 30px; left: 50%; transform: translateX(-50%) translateY(-100px); 
-      z-index: 9999; background: #1E1B4B; color: #FFF; padding: 16px 24px; 
-      border-radius: var(--radius-md); box-shadow: 0 12px 30px rgba(0,0,0,0.3); 
-      border-top: 4px solid var(--primary-color); width: 90%; max-width: 360px; 
-      opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none;
+      position: fixed; 
+      top: 30px; 
+      left: 50%; 
+      transform: translateX(-50%) translateY(-100px); 
+      z-index: 9999; 
+      background: #1E1B4B; 
+      color: #FFF; 
+      padding: 16px 24px; 
+      border-radius: var(--radius-md); 
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3); 
+      border-top: 4px solid var(--primary-color); 
+      width: 90%;
+      max-width: 360px; 
+      opacity: 0; 
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+      pointer-events: none;
     }
-    .otp-notification.show { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: auto; }
+    .otp-notification.show { 
+      transform: translateX(-50%) translateY(0); 
+      opacity: 1; 
+      pointer-events: auto;
+    }
     .otp-notification-title { font-size: 13px; color: #94A3B8; font-weight: 600; display: flex; justify-content: space-between; margin-bottom: 6px; }
     .otp-notification-body { font-size: 14px; line-height: 1.4; text-align: center; }
     .otp-code-highlight { font-size: 24px; font-weight: 700; color: #818CF8; letter-spacing: 4px; margin-top: 6px; display: block; }
+
+    .result-box {
+      background: #F8FAFC;
+      border: 1px dashed var(--primary-color);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      margin-top: 12px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
 
-  <!-- AMBIENT LIGHTING -->
+  <!-- DYNAMIC AMBIENT LIGHTING BACKGROUND ELEMENTS -->
   <div class="bg-ambient-orb orb-1"></div>
   <div class="bg-ambient-orb orb-2"></div>
   <div class="bg-ambient-orb orb-focus-spotlight"></div>
   <div class="bg-grid-pattern"></div>
 
-  <!-- OTP NOTIFICATION TOAST -->
+  <!-- OTP NOTIFICATION TOAST (FOR FORGOT PASSWORD ONLY) -->
   <div id="otp-toast" class="otp-notification">
     <div class="otp-notification-title">
-      <span>💬 อีเมลแจ้งเตือน OTP</span>
+      <span>💬 แจ้งเตือนรหัส OTP</span>
       <span>เมื่อครู่นี้</span>
     </div>
     <div class="otp-notification-body">
-      รหัส OTP สำหรับยืนยันลืมรหัสผ่านคือ:
+      รหัส OTP สำหรับกู้คืนรหัสผ่านของคุณคือ:
       <span id="toast-otp-code" class="otp-code-highlight">123456</span>
     </div>
   </div>
@@ -241,8 +399,12 @@
         <div class="hero-tech-grid"></div>
         <div class="hero-light-sweep"></div>
 
-        <div class="tech-card card-camera"><span>📷</span> <span>กล้อง/เลนส์พร้อมใช้งาน</span></div>
-        <div class="tech-card card-laptop"><span>💻</span> <span>ระบบติดตามงานซ่อม</span></div>
+        <div class="tech-card card-camera">
+          <span>📷</span> <span>กล้อง/เลนส์พร้อมใช้งาน</span>
+        </div>
+        <div class="tech-card card-laptop">
+          <span>💻</span> <span>ระบบติดตามงานซ่อม</span>
+        </div>
 
         <div class="hero-content-top">
           <div class="badge"><span class="badge-dot"></span> มหาวิทยาลัยศิลปากร - ระบบงานอุปกรณ์</div>
@@ -284,7 +446,22 @@
           <button type="submit" id="login-btn" class="btn-primary">เข้าสู่ระบบ</button>
         </form>
 
-        <div class="divider"><span>หรือ</span></div>
+        <div class="divider"><span>หรือเข้าสู่ระบบด้วย</span></div>
+
+        <div class="social-login">
+          <button class="social-btn" onclick="loginWithSocial('Google')">
+            <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.11-6.72-4.96H1.29v3.15C3.26 21.3 7.31 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.61H1.29c-.8 1.6-1.29 3.41-1.29 5.39s.49 3.79 1.29 5.39l3.99-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.61l3.99 3.15c.95-2.85 3.6-4.96 6.72-4.96z"/></svg>
+            Google
+          </button>
+          <button class="social-btn" onclick="loginWithSocial('Facebook')">
+            <svg viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Facebook
+          </button>
+          <button class="social-btn" onclick="loginWithSocial('X')">
+            <svg viewBox="0 0 24 24" fill="#000000"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            X
+          </button>
+        </div>
 
         <div class="signup-text">ยังไม่มีบัญชีเจ้าหน้าที่? <a onclick="openRegisterModal()">ลงทะเบียนใช้งาน</a></div>
       </div>
@@ -299,11 +476,39 @@
         <div class="brand-title" id="page-title-display">โปรไฟล์</div>
       </div>
 
+      <div class="header-search">
+        <input type="text" placeholder="ค้นหาเลขที่ยืม / นักศึกษา / asset tag / เจ้าหน้าที่">
+      </div>
+
       <nav class="nav-actions">
-        <button class="nav-btn page-nav-btn active" data-page="profile">โปรไฟล์</button>
-        <button class="nav-btn logout" onclick="handleLogout()">ออกจากระบบ</button>
+        <button class="nav-btn page-nav-btn" data-page="borrow" onclick="switchPage('borrow', 'ยืมอุปกรณ์')">ยืมอุปกรณ์</button>
+        <button class="nav-btn page-nav-btn" data-page="return" onclick="switchPage('return', 'รับคืน')">รับคืน</button>
+        <button class="nav-btn page-nav-btn" data-page="payment" onclick="switchPage('payment', 'รับเงิน')">รับเงิน</button>
+        <button class="nav-btn page-nav-btn active" data-page="profile" onclick="switchPage('profile', 'โปรไฟล์')">โปรไฟล์</button>
+        <button class="nav-btn logout" onclick="handleLogout()">Logout</button>
       </nav>
     </header>
+
+    <div id="page-borrow" class="page-content">
+      <div class="placeholder-panel">
+        <h2>📤 การยืมอุปกรณ์</h2>
+        <p style="margin-top: 10px;">แบบฟอร์มและรายการอุปกรณ์สำหรับบันทึกการยืมจะแสดงที่นี่</p>
+      </div>
+    </div>
+
+    <div id="page-return" class="page-content">
+      <div class="placeholder-panel">
+        <h2>📥 การรับคืนอุปกรณ์</h2>
+        <p style="margin-top: 10px;">รายการที่ต้องรับคืนและแบบฟอร์มตรวจสอบสภาพจะแสดงที่นี่</p>
+      </div>
+    </div>
+
+    <div id="page-payment" class="page-content">
+      <div class="placeholder-panel">
+        <h2>💰 การรับเงิน / ค่าปรับ</h2>
+        <p style="margin-top: 10px;">รายการค่าปรับและการบันทึกการชำระเงินจะแสดงที่นี่</p>
+      </div>
+    </div>
 
     <div id="page-profile" class="page-content active">
       <div class="profile-layout">
@@ -311,15 +516,28 @@
           <div class="card">
             <div class="card-header">
               <h3>👤 ข้อมูลบัญชีผู้ใช้</h3>
+              <button class="btn-secondary" onclick="editProfile()">✏️ แก้ไขข้อมูล</button>
             </div>
             <div class="profile-grid">
+              <div class="profile-item">
+                <label>ชื่อแสดง</label>
+                <p id="display-name">ผู้ดูแลระบบ</p>
+              </div>
               <div class="profile-item">
                 <label>ชื่อผู้ใช้</label>
                 <p id="display-username">admin</p>
               </div>
               <div class="profile-item">
                 <label>บทบาท/สิทธิ์</label>
-                <p id="display-role">เจ้าหน้าที่</p>
+                <p id="display-role">ผู้ดูแลระบบสูงสุด</p>
+              </div>
+              <div class="profile-item">
+                <label>แผนก / สังกัด</label>
+                <p id="display-dept">ศูนย์เทคโนโลยีการศึกษา</p>
+              </div>
+              <div class="profile-item">
+                <label>เบอร์โทรศัพท์มือถือ</label>
+                <p id="display-phone">0812345678</p>
               </div>
               <div class="profile-item">
                 <label>สถานะบัญชี</label>
@@ -327,46 +545,78 @@
               </div>
             </div>
           </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>📦 ข้อมูลปฏิบัติงานยืม-คืนอุปกรณ์</h3>
+            </div>
+            <div class="profile-grid" style="margin-bottom: 16px;">
+              <div class="profile-item">
+                <label>รหัสประจำตัวเจ้าหน้าที่</label>
+                <p id="display-staff-id">STF-2026-009</p>
+              </div>
+              <div class="profile-item">
+                <label>คลังอุปกรณ์ที่ดูแล</label>
+                <p>คลังกลาง (โสตทัศนูปกรณ์)</p>
+              </div>
+              <div class="profile-item">
+                <label>สิทธิ์การอนุมัติยืม</label>
+                <p><span class="status-badge">อนุมัติได้สูงสุด 5 รายการ</span></p>
+              </div>
+              <div class="profile-item">
+                <label>การเข้าถึงพื้นที่คลัง</label>
+                <p>Keycard / Finger Scan</p>
+              </div>
+            </div>
+
+            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px; font-weight: 600;">สรุปสถิติงานวันนี้</div>
+            <div class="staff-stats">
+              <div class="stat-box">
+                <div class="number">14</div>
+                <div class="label">อนุมัติการยืม</div>
+              </div>
+              <div class="stat-box">
+                <div class="number" style="color: var(--success-color);">9</div>
+                <div class="label">ตรวจรับคืน</div>
+              </div>
+              <div class="stat-box">
+                <div class="number" style="color: var(--warning-color);">1</div>
+                <div class="label">แจ้งอุปกรณ์ซ่อม</div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div>
-          <!-- ความปลอดภัยและการเข้าถึง (ถูกซ่อนและล็อก) -->
           <div class="card">
             <div class="card-header">
               <h3>🔒 ความปลอดภัยและการเข้าถึง</h3>
             </div>
-            
-            <!-- ส่วนที่แสดงตอนยังไม่ปลดล็อก -->
-            <div id="security-locked-view" style="text-align: center; padding: 30px 10px;">
-              <div style="font-size: 30px; margin-bottom: 10px;">🔐</div>
-              <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 16px;">ข้อมูลในส่วนนี้ถูกซ่อนไว้เพื่อความปลอดภัย<br>กรุณายืนยันรหัสผ่านเพื่อเข้าถึง</p>
-              <button class="btn-primary" style="width: auto; padding: 8px 20px;" onclick="openUnlockSecurityModal()">คลิกเพื่อปลดล็อกข้อมูลส่วนนี้</button>
-            </div>
-
-            <!-- ส่วนที่แสดงหลังปลดล็อกสำเร็จ -->
-            <div id="security-unlocked-view" style="display: none; flex-direction: column; gap: 16px;">
+            <div style="display: flex; flex-direction: column; gap: 16px;">
               <div>
-                <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 4px;">อีเมลติดต่อระบบ (Gmail)</label>
+                <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 4px;">อีเมลติดต่อระบบ</label>
                 <div style="display: flex; gap: 8px;">
-                  <input type="email" id="email-input" class="form-control" readonly style="flex:1; background: #F8FAFC; cursor: not-allowed;">
+                  <input type="email" id="email-input" class="form-control" value="admin@example.com" style="flex:1;">
+                  <button class="btn-secondary" onclick="updateEmail()">บันทึก</button>
                 </div>
+                <div id="email-alert" class="alert-msg"></div>
               </div>
 
               <div>
-                <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 4px;">รหัสผ่านปัจจุบัน</label>
+                <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 4px;">รหัสผ่าน</label>
                 <div style="display: flex; gap: 8px;">
                   <div class="masked-input-group" style="flex:1;">
-                    <!-- รหัสจะถูกซ่อนไว้เสมอแบบ Password -->
-                    <input type="password" id="sec-pass" readonly>
+                    <!-- Defaults password input set to hidden text type and value updated dynamically -->
+                    <input type="password" id="sec-pass" value="12345" readonly>
                     <span class="eye-icon" onclick="toggleVisibility('sec-pass', this)">👁️</span>
                   </div>
-                  <button class="btn-secondary" onclick="openPasswordModal()">เปลี่ยนรหัสผ่าน</button>
+                  <button class="btn-secondary" onclick="openPasswordModal()">เปลี่ยน</button>
                 </div>
               </div>
 
               <div class="profile-grid" style="margin-top: 4px; border-top: 1px solid #F1F5F9; padding-top: 12px;">
                 <div class="profile-item" style="grid-column: span 2;">
-                  <label>IP Address ล่าสุด</label>
+                  <label>IP Address ล่าสุด (เพื่อความปลอดภัย)</label>
                   <div class="masked-input-group" style="margin-top: 4px; max-width: 260px;">
                     <input type="password" id="ip-address" value="192.168.1.105" readonly>
                     <span class="eye-icon" onclick="toggleVisibility('ip-address', this)">👁️</span>
@@ -374,11 +624,33 @@
                 </div>
                 <div class="profile-item">
                   <label>เข้าสู่ระบบล่าสุด</label>
-                  <p style="font-size: 13px;">เพิ่งเข้าสู่ระบบ</p>
+                  <p style="font-size: 13px;">วันนี้, 09:15 น.</p>
+                </div>
+                <div class="profile-item">
+                  <label>บราวเซอร์ / อุปกรณ์</label>
+                  <p style="font-size: 13px;">Chrome 128 (Windows)</p>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <button class="btn-secondary" style="margin-top: 10px; width: 100%; color: var(--danger-color);" onclick="lockSecurity()">ซ่อนข้อมูลอีกครั้ง</button>
+          <div class="card">
+            <div class="card-header">
+              <h3>📋 ประวัติทำรายการล่าสุด</h3>
+            </div>
+            <div class="activity-log">
+              <div class="log-row">
+                <span class="log-action">📥 รับคืน: กล้อง Sony A7IV (EQ-042)</span>
+                <span class="log-time">10:42 น.</span>
+              </div>
+              <div class="log-row">
+                <span class="log-action">📤 อนุมัติยืม: ขาตั้งกล้อง Manfrotto</span>
+                <span class="log-time">09:15 น.</span>
+              </div>
+              <div class="log-row">
+                <span class="log-action">🔧 ส่งซ่อม: ไมโครโฟนไร้สาย (EQ-018)</span>
+                <span class="log-time">เมื่อวาน</span>
+              </div>
             </div>
           </div>
         </div>
@@ -391,26 +663,37 @@
   <div id="register-modal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>📝 ลงทะเบียนใช้งาน</h3>
-        <button class="close-btn" onclick="closeModal('register-modal')">×</button>
+        <h3>📝 ลงทะเบียนเจ้าหน้าที่ใหม่</h3>
+        <button class="close-btn" onclick="closeModal('register-modal')">&times;</button>
       </div>
-      <form onsubmit="handleRegister(event)">
+      <form id="register-form" onsubmit="handleRegister(event)">
         <div class="form-group">
-          <label>ชื่อผู้ใช้ (Username)</label>
-          <input type="text" id="reg-username" class="form-control" required>
+          <label for="reg-name">ชื่อ - นามสกุล</label>
+          <input type="text" id="reg-name" class="form-control" placeholder="เช่น นายสมชาย ใจดี" required>
         </div>
         <div class="form-group">
-          <label>อีเมล (Gmail) สำหรับกู้รหัส</label>
+          <label for="reg-username">ชื่อผู้ใช้ (Username)</label>
+          <input type="text" id="reg-username" class="form-control" placeholder="กรอกชื่อผู้ใช้สำหรับล็อกอิน" required>
+        </div>
+        <div class="form-group">
+          <label for="reg-email">อีเมล (Gmail)</label>
           <input type="email" id="reg-email" class="form-control" placeholder="example@gmail.com" required>
         </div>
         <div class="form-group">
-          <label>รหัสผ่าน</label>
-          <input type="password" id="reg-pass" class="form-control" required>
+          <label for="reg-phone">เบอร์โทรศัพท์</label>
+          <input type="tel" id="reg-phone" class="form-control" placeholder="08XXXXXXXX" required>
         </div>
-        <div id="reg-alert" class="alert-msg"></div>
+        <div class="form-group">
+          <label for="reg-password">รหัสผ่าน</label>
+          <div class="masked-input-group">
+            <input type="password" id="reg-password" class="form-control" placeholder="ตั้งรหัสผ่าน" required style="border:none;">
+            <span class="eye-icon" onclick="toggleVisibility('reg-password', this)">👁️</span>
+          </div>
+        </div>
+        <div id="reg-error" class="alert-msg error"></div>
         <div class="modal-footer">
           <button type="button" class="btn-secondary" onclick="closeModal('register-modal')">ยกเลิก</button>
-          <button type="submit" class="btn-primary" style="width: auto;">สมัครใช้งาน</button>
+          <button type="submit" class="btn-primary" style="width: auto;">ยืนยันลงทะเบียน</button>
         </div>
       </form>
     </div>
@@ -420,66 +703,42 @@
   <div id="forgot-modal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>ลืมรหัสผ่าน</h3>
-        <button class="close-btn" onclick="closeModal('forgot-modal')">×</button>
+        <h3>🔑 ลืมรหัสผ่าน</h3>
+        <button class="close-btn" onclick="closeModal('forgot-modal')">&times;</button>
       </div>
-      
-      <!-- ขั้นตอนที่ 1: ขออีเมล -->
+
+      <!-- Step 1: Request OTP -->
       <div id="forgot-step-1">
-        <p style="font-size: 14px; margin-bottom: 15px; color: var(--text-muted);">กรุณากรอก Gmail ที่ใช้ลงทะเบียน ระบบจะส่งรหัส OTP ไปเพื่อยืนยัน</p>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">กรุณากรอกชื่อผู้ใช้หรือ Gmail ที่ใช้ลงทะเบียนเพื่อขอรับรหัส OTP ในการดูรหัสผ่าน</p>
         <div class="form-group">
-          <label>อีเมล (Gmail)</label>
-          <input type="email" id="forgot-email" class="form-control">
+          <label for="forgot-input">ชื่อผู้ใช้ หรือ Gmail</label>
+          <input type="text" id="forgot-input" class="form-control" placeholder="กรอก username หรือ gmail" required>
         </div>
         <div id="forgot-error-1" class="alert-msg error"></div>
         <div class="modal-footer">
-          <button type="button" class="btn-primary" onclick="requestOTP()">ขอรับรหัส OTP</button>
+          <button type="button" class="btn-secondary" onclick="closeModal('forgot-modal')">ยกเลิก</button>
+          <button type="button" class="btn-primary" style="width: auto;" onclick="requestForgotOTP()">ขอรับรหัส OTP</button>
         </div>
       </div>
 
-      <!-- ขั้นตอนที่ 2: กรอก OTP -->
+      <!-- Step 2: Verify OTP & Show Password -->
       <div id="forgot-step-2" style="display: none;">
-        <p style="font-size: 14px; margin-bottom: 15px; color: var(--text-muted);">กรุณานำรหัส 6 หลักจากการแจ้งเตือนมากรอกเพื่อดูรหัสผ่านของคุณ</p>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">เราได้ส่งรหัส OTP 6 หลักไปที่การแจ้งเตือนแล้ว กรุณากรอกรหัสเพื่อเปิดดูรหัสผ่าน</p>
         <div class="form-group">
-          <label>รหัส OTP</label>
-          <input type="text" id="forgot-otp-input" class="form-control" maxlength="6" style="text-align: center; font-size: 20px; letter-spacing: 5px;">
+          <label for="forgot-otp-input">รหัส OTP 6 หลัก</label>
+          <input type="text" id="forgot-otp-input" class="form-control" placeholder="กรอก OTP 6 หลัก" maxlength="6">
         </div>
         <div id="forgot-error-2" class="alert-msg error"></div>
+        
+        <div id="forgot-result" class="result-box" style="display: none;">
+          <div style="font-size: 12px; color: var(--text-muted);">รหัสผ่านของคุณคือ:</div>
+          <div id="retrieved-password" style="font-size: 22px; font-weight: 700; color: var(--primary-color); letter-spacing: 2px; margin-top: 4px;"></div>
+        </div>
+
         <div class="modal-footer">
-          <button type="button" class="btn-primary" onclick="verifyOTP()">ยืนยัน OTP</button>
+          <button type="button" id="forgot-back-btn" class="btn-secondary" onclick="closeModal('forgot-modal')">ปิด</button>
+          <button type="button" id="forgot-verify-btn" class="btn-primary" style="width: auto;" onclick="verifyForgotOTP()">ยืนยันรหัส OTP</button>
         </div>
-      </div>
-
-      <!-- ขั้นตอนที่ 3: แสดงรหัสผ่าน -->
-      <div id="forgot-step-3" style="display: none; text-align: center;">
-        <div style="font-size: 40px; margin-bottom: 10px;">✅</div>
-        <p style="font-size: 14px; color: var(--text-muted);">รหัสผ่านของคุณคือ:</p>
-        <div id="revealed-password" style="font-size: 24px; font-weight: bold; color: var(--primary-color); margin: 15px 0; padding: 10px; background: var(--primary-light); border-radius: 8px;"></div>
-        <div class="modal-footer" style="justify-content: center;">
-          <button type="button" class="btn-success" onclick="closeModal('forgot-modal')">กลับไปเข้าสู่ระบบ</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: UNLOCK SECURITY -->
-  <div id="unlock-modal" class="modal-overlay">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3>🔐 ปลดล็อกข้อมูลความปลอดภัย</h3>
-        <button class="close-btn" onclick="closeModal('unlock-modal')">×</button>
-      </div>
-      <div class="form-group">
-        <label>กรุณากรอกรหัสผ่านของคุณเพื่อยืนยันตัวตน</label>
-        <div class="masked-input-group" style="background: white;">
-          <input type="password" id="unlock-pass" placeholder="รหัสผ่านปัจจุบัน">
-          <span class="eye-icon" onclick="toggleVisibility('unlock-pass', this)">👁️</span>
-        </div>
-      </div>
-      <div id="unlock-error" class="alert-msg error"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn-secondary" onclick="closeModal('unlock-modal')">ยกเลิก</button>
-        <button type="button" class="btn-primary" style="width: auto;" onclick="confirmUnlock()">ปลดล็อก</button>
       </div>
     </div>
   </div>
@@ -488,223 +747,290 @@
   <div id="password-modal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>เปลี่ยนรหัสผ่าน</h3>
-        <button class="close-btn" onclick="closeModal('password-modal')">×</button>
+        <h3>🔒 เปลี่ยนรหัสผ่าน</h3>
+        <button class="close-btn" onclick="closeModal('password-modal')">&times;</button>
       </div>
-      <div class="form-group">
-        <label>รหัสผ่านปัจจุบัน</label>
-        <input type="password" id="old-pass" class="form-control">
-      </div>
-      <div class="form-group">
-        <label>รหัสผ่านใหม่</label>
-        <input type="password" id="new-pass" class="form-control">
-      </div>
-      <div id="pwd-alert" class="alert-msg"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn-secondary" onclick="closeModal('password-modal')">ยกเลิก</button>
-        <button type="button" class="btn-primary" style="width: auto;" onclick="changePassword()">บันทึกรหัสผ่าน</button>
-      </div>
+      <form id="change-pass-form" onsubmit="handleChangePassword(event)">
+        <div class="form-group">
+          <label for="curr-pass">รหัสผ่านปัจจุบัน</label>
+          <input type="password" id="curr-pass" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="new-pass">รหัสผ่านใหม่</label>
+          <input type="password" id="new-pass" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm-pass">ยืนยันรหัสผ่านใหม่</label>
+          <input type="password" id="confirm-pass" class="form-control" required>
+        </div>
+        <div id="pass-modal-error" class="alert-msg error"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('password-modal')">ยกเลิก</button>
+          <button type="submit" class="btn-primary" style="width: auto;">บันทึกรหัสผ่านใหม่</button>
+        </div>
+      </form>
     </div>
   </div>
 
-  <!-- JAVASCRIPT LOGIC -->
   <script>
-    // Mock Database using LocalStorage
-    let usersDB = JSON.parse(localStorage.getItem('hyginUsers')) || [];
+    // System Users Database (In-Memory Data Store)
+    const usersDatabase = [
+      {
+        name: "ผู้ดูแลระบบ",
+        username: "admin",
+        email: "admin@example.com",
+        phone: "0812345678",
+        password: "12345",
+        role: "ผู้ดูแลระบบสูงสุด",
+        dept: "ศูนย์เทคโนโลยีการศึกษา",
+        staffId: "STF-2026-009"
+      }
+    ];
+
     let currentUser = null;
-    let generatedOTP = null;
-    let emailBeingRecovered = null;
+    let generatedOTP = "";
+    let targetUserForOTP = null;
 
-    // Toggle Password Visibility
-    function toggleVisibility(inputId, icon) {
+    // Toggle Input Visibility (Eye Icon)
+    function toggleVisibility(inputId, iconEl) {
       const input = document.getElementById(inputId);
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon.textContent = '🙈';
+      if (input.type === "password") {
+        input.type = "text";
+        iconEl.textContent = "🙈";
       } else {
-        input.type = 'password';
-        icon.textContent = '👁️';
+        input.type = "password";
+        iconEl.textContent = "👁️";
       }
     }
 
-    // Modal Control
-    function openModal(id) { document.getElementById(id).classList.add('active'); }
-    function closeModal(id) { 
-      document.getElementById(id).classList.remove('active'); 
-      // Clear forms
-      const inputs = document.getElementById(id).querySelectorAll('input');
-      inputs.forEach(input => input.value = '');
-      const alerts = document.getElementById(id).querySelectorAll('.alert-msg');
-      alerts.forEach(alert => alert.style.display = 'none');
+    // Modal Handlers
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
     }
 
-    // Register System (No OTP required)
-    function openRegisterModal() { openModal('register-modal'); }
-    function handleRegister(e) {
-      e.preventDefault();
-      const user = document.getElementById('reg-username').value.trim();
-      const email = document.getElementById('reg-email').value.trim();
-      const pass = document.getElementById('reg-pass').value;
-      const alertBox = document.getElementById('reg-alert');
-
-      if(usersDB.find(u => u.username === user)) {
-        alertBox.textContent = 'ชื่อผู้ใช้นี้มีในระบบแล้ว';
-        alertBox.className = 'alert-msg error';
-        return;
-      }
-      
-      usersDB.push({ username: user, email: email, password: pass });
-      localStorage.setItem('hyginUsers', JSON.stringify(usersDB));
-      
-      alertBox.textContent = 'ลงทะเบียนสำเร็จ! กำลังปิดหน้าต่าง...';
-      alertBox.className = 'alert-msg success';
-      setTimeout(() => closeModal('register-modal'), 1500);
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+      // Reset error messages inside modal
+      const errs = document.querySelectorAll(`#${id} .alert-msg`);
+      errs.forEach(e => { e.style.display = 'none'; e.textContent = ''; });
     }
 
-    // Login System
+    // Navigation & Screen Control
+    function switchScreen(screenId) {
+      document.querySelectorAll('.screen-section').forEach(s => s.classList.remove('active-screen'));
+      document.getElementById(screenId).classList.add('active-screen');
+    }
+
+    function switchPage(pageKey, pageTitle) {
+      document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.page-nav-btn').forEach(b => b.classList.remove('active'));
+      
+      document.getElementById(`page-${pageKey}`).classList.add('active');
+      document.querySelector(`[data-page="${pageKey}"]`).classList.add('active');
+      document.getElementById('page-title-display').textContent = pageTitle;
+    }
+
+    // User Login
     function handleLogin(e) {
       e.preventDefault();
-      const user = document.getElementById('username').value.trim();
-      const pass = document.getElementById('login-pass').value;
-      const alertBox = document.getElementById('login-error');
+      const userVal = document.getElementById('username').value.trim();
+      const passVal = document.getElementById('login-pass').value;
+      const errorDiv = document.getElementById('login-error');
 
-      const foundUser = usersDB.find(u => u.username === user && u.password === pass);
+      const foundUser = usersDatabase.find(u => 
+        (u.username === userVal || u.email === userVal) && u.password === passVal
+      );
 
       if (foundUser) {
         currentUser = foundUser;
-        document.getElementById('login-screen').classList.remove('active-screen');
-        document.getElementById('app-screen').classList.add('active-screen');
-        setupProfile();
+        errorDiv.style.display = 'none';
+        updateProfileUI();
+        switchScreen('app-screen');
       } else {
-        alertBox.textContent = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง (หากยังไม่มีบัญชี โปรดลงทะเบียน)';
-        alertBox.style.display = 'block';
+        errorDiv.textContent = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง';
+        errorDiv.style.display = 'block';
       }
     }
 
+    // Update Profile Screen UI with logged in user data
+    function updateProfileUI() {
+      if (!currentUser) return;
+      document.getElementById('display-name').textContent = currentUser.name;
+      document.getElementById('display-username').textContent = currentUser.username;
+      document.getElementById('display-role').textContent = currentUser.role || "เจ้าหน้าที่ปฏิบัติการ";
+      document.getElementById('display-dept').textContent = currentUser.dept || "ศูนย์เทคโนโลยีการศึกษา";
+      document.getElementById('display-phone').textContent = currentUser.phone;
+      document.getElementById('display-staff-id').textContent = currentUser.staffId || "STF-2026-012";
+      document.getElementById('email-input').value = currentUser.email;
+
+      // Update safety password field strictly with user's actual password
+      const secPassInput = document.getElementById('sec-pass');
+      secPassInput.value = currentUser.password;
+      secPassInput.type = "password"; // Enforce masked view initially
+    }
+
+    // Logout Action
     function handleLogout() {
       currentUser = null;
-      document.getElementById('app-screen').classList.remove('active-screen');
-      document.getElementById('login-screen').classList.add('active-screen');
       document.getElementById('login-form').reset();
-      lockSecurity(); // ล็อกหน้าจอความปลอดภัยเสมอเมื่อออก
+      switchScreen('login-screen');
     }
 
-    // Set Profile Data
-    function setupProfile() {
-      if(!currentUser) return;
-      document.getElementById('display-username').textContent = currentUser.username;
-      document.getElementById('email-input').value = currentUser.email;
-      // ให้ sec-pass เก็บค่ารหัสของคนล็อกอินปัจจุบัน แต่ปิดตาไว้เสมอ
-      const secPass = document.getElementById('sec-pass');
-      secPass.value = currentUser.password;
-      secPass.type = 'password'; 
+    // Registration Handler
+    function openRegisterModal() {
+      document.getElementById('register-form').reset();
+      document.getElementById('reg-error').style.display = 'none';
+      openModal('register-modal');
     }
 
-    // Security Section: Unlock and Lock
-    function openUnlockSecurityModal() {
-      openModal('unlock-modal');
-    }
-    
-    function confirmUnlock() {
-      const passInput = document.getElementById('unlock-pass').value;
-      const alertBox = document.getElementById('unlock-error');
-      
-      if (passInput === currentUser.password) {
-        closeModal('unlock-modal');
-        document.getElementById('security-locked-view').style.display = 'none';
-        document.getElementById('security-unlocked-view').style.display = 'flex';
-      } else {
-        alertBox.textContent = 'รหัสผ่านไม่ถูกต้อง';
-        alertBox.style.display = 'block';
-      }
-    }
+    function handleRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const username = document.getElementById('reg-username').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const password = document.getElementById('reg-password').value;
+      const errorDiv = document.getElementById('reg-error');
 
-    function lockSecurity() {
-      document.getElementById('security-locked-view').style.display = 'block';
-      document.getElementById('security-unlocked-view').style.display = 'none';
-    }
-
-    // Change Password
-    function openPasswordModal() { openModal('password-modal'); }
-    function changePassword() {
-      const oldPass = document.getElementById('old-pass').value;
-      const newPass = document.getElementById('new-pass').value;
-      const alertBox = document.getElementById('pwd-alert');
-
-      if (oldPass !== currentUser.password) {
-        alertBox.textContent = 'รหัสผ่านปัจจุบันไม่ถูกต้อง';
-        alertBox.className = 'alert-msg error';
-        return;
-      }
-      if (newPass.length < 4) {
-        alertBox.textContent = 'รหัสผ่านใหม่ต้องมีอย่างน้อย 4 ตัว';
-        alertBox.className = 'alert-msg error';
+      // Check duplicate
+      const duplicate = usersDatabase.find(u => u.username === username || u.email === email);
+      if (duplicate) {
+        errorDiv.textContent = 'ชื่อผู้ใช้หรือ Gmail นี้มีอยู่ในระบบแล้ว';
+        errorDiv.style.display = 'block';
         return;
       }
 
-      // Update in DB and current session
-      currentUser.password = newPass;
-      const userIndex = usersDB.findIndex(u => u.username === currentUser.username);
-      if(userIndex !== -1) usersDB[userIndex].password = newPass;
-      localStorage.setItem('hyginUsers', JSON.stringify(usersDB));
+      const newUser = {
+        name,
+        username,
+        email,
+        phone,
+        password,
+        role: "เจ้าหน้าที่ปฏิบัติงาน",
+        dept: "ศูนย์เทคโนโลยีการศึกษา",
+        staffId: `STF-2026-0${Math.floor(10 + Math.random() * 90)}`
+      };
 
-      // Update UI
-      document.getElementById('sec-pass').value = newPass;
-      
-      alertBox.textContent = 'เปลี่ยนรหัสผ่านสำเร็จ';
-      alertBox.className = 'alert-msg success';
-      setTimeout(() => closeModal('password-modal'), 1500);
+      usersDatabase.push(newUser);
+      closeModal('register-modal');
+
+      // Auto login after successful registration
+      currentUser = newUser;
+      updateProfileUI();
+      switchScreen('app-screen');
     }
 
-    // Forgot Password Flow
-    function openForgotPasswordModal() { 
+    // Forgot Password OTP Process
+    function openForgotPasswordModal() {
       document.getElementById('forgot-step-1').style.display = 'block';
       document.getElementById('forgot-step-2').style.display = 'none';
-      document.getElementById('forgot-step-3').style.display = 'none';
-      openModal('forgot-modal'); 
+      document.getElementById('forgot-input').value = '';
+      document.getElementById('forgot-otp-input').value = '';
+      document.getElementById('forgot-error-1').style.display = 'none';
+      document.getElementById('forgot-error-2').style.display = 'none';
+      document.getElementById('forgot-result').style.display = 'none';
+      document.getElementById('forgot-verify-btn').style.display = 'inline-block';
+      document.getElementById('forgot-back-btn').textContent = 'ยกเลิก';
+      openModal('forgot-modal');
     }
 
-    function requestOTP() {
-      const email = document.getElementById('forgot-email').value.trim();
-      const alertBox = document.getElementById('forgot-error-1');
-      const user = usersDB.find(u => u.email === email);
+    function requestForgotOTP() {
+      const inputVal = document.getElementById('forgot-input').value.trim();
+      const errDiv = document.getElementById('forgot-error-1');
 
-      if (!user) {
-        alertBox.textContent = 'ไม่พบอีเมลนี้ในระบบ กรุณาตรวจสอบ';
-        alertBox.style.display = 'block';
+      targetUserForOTP = usersDatabase.find(u => u.username === inputVal || u.email === inputVal);
+      if (!targetUserForOTP) {
+        errDiv.textContent = 'ไม่พบบัญชีผู้ใช้หรือ Gmail นี้ในระบบ';
+        errDiv.style.display = 'block';
         return;
       }
 
-      // Mock sending OTP
+      errDiv.style.display = 'none';
+
+      // Generate 6 Digit Random OTP
       generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
-      emailBeingRecovered = user.email;
       
-      alertBox.style.display = 'none';
+      // Trigger Notification Toast
+      document.getElementById('toast-otp-code').textContent = generatedOTP;
+      const toast = document.getElementById('otp-toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 6000);
+
+      // Transition to Step 2
       document.getElementById('forgot-step-1').style.display = 'none';
       document.getElementById('forgot-step-2').style.display = 'block';
-
-      // Show OTP Notification
-      const toast = document.getElementById('otp-toast');
-      document.getElementById('toast-otp-code').textContent = generatedOTP;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 8000);
     }
 
-    function verifyOTP() {
-      const inputOTP = document.getElementById('forgot-otp-input').value;
-      const alertBox = document.getElementById('forgot-error-2');
+    function verifyForgotOTP() {
+      const inputOTP = document.getElementById('forgot-otp-input').value.trim();
+      const errDiv = document.getElementById('forgot-error-2');
 
-      if (inputOTP === generatedOTP) {
-        alertBox.style.display = 'none';
-        const user = usersDB.find(u => u.email === emailBeingRecovered);
-        
-        document.getElementById('forgot-step-2').style.display = 'none';
-        document.getElementById('forgot-step-3').style.display = 'block';
-        document.getElementById('revealed-password').textContent = user.password;
+      if (inputOTP === generatedOTP && generatedOTP !== "") {
+        errDiv.style.display = 'none';
+        document.getElementById('retrieved-password').textContent = targetUserForOTP.password;
+        document.getElementById('forgot-result').style.display = 'block';
+        document.getElementById('forgot-verify-btn').style.display = 'none';
+        document.getElementById('forgot-back-btn').textContent = 'ปิดหน้าต่าง';
       } else {
-        alertBox.textContent = 'รหัส OTP ไม่ถูกต้อง';
-        alertBox.style.display = 'block';
+        errDiv.textContent = 'รหัส OTP ไม่ถูกต้อง กรุณาตรวจสอบจากการแจ้งเตือนแล้วลองอีกครั้ง';
+        errDiv.style.display = 'block';
       }
+    }
+
+    // Security & Password Change Functions
+    function openPasswordModal() {
+      document.getElementById('change-pass-form').reset();
+      document.getElementById('pass-modal-error').style.display = 'none';
+      openModal('password-modal');
+    }
+
+    function handleChangePassword(e) {
+      e.preventDefault();
+      const currPass = document.getElementById('curr-pass').value;
+      const newPass = document.getElementById('new-pass').value;
+      const confirmPass = document.getElementById('confirm-pass').value;
+      const errDiv = document.getElementById('pass-modal-error');
+
+      if (currPass !== currentUser.password) {
+        errDiv.textContent = 'รหัสผ่านปัจจุบันไม่ถูกต้อง';
+        errDiv.style.display = 'block';
+        return;
+      }
+
+      if (newPass !== confirmPass) {
+        errDiv.textContent = 'รหัสผ่านใหม่และการยืนยันรหัสผ่านไม่ตรงกัน';
+        errDiv.style.display = 'block';
+        return;
+      }
+
+      // Update Account Password
+      currentUser.password = newPass;
+      updateProfileUI();
+      closeModal('password-modal');
+      alert('เปลี่ยนรหัสผ่านเรียบร้อยแล้ว');
+    }
+
+    function updateEmail() {
+      const emailVal = document.getElementById('email-input').value.trim();
+      const alertDiv = document.getElementById('email-alert');
+      if (emailVal && currentUser) {
+        currentUser.email = emailVal;
+        alertDiv.textContent = 'อัปเดตอีเมลเรียบร้อยแล้ว';
+        alertDiv.className = 'alert-msg success';
+        setTimeout(() => alertDiv.style.display = 'none', 3000);
+      }
+    }
+
+    function editProfile() {
+      const newName = prompt('แก้ไขชื่อแสดง:', currentUser.name);
+      if (newName && newName.trim()) {
+        currentUser.name = newName.trim();
+        updateProfileUI();
+      }
+    }
+
+    function loginWithSocial(provider) {
+      alert(`จำลองการเข้าสู่ระบบด้วย ${provider}`);
     }
   </script>
 </body>
