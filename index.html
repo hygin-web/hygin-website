@@ -267,7 +267,7 @@
     .log-action { font-weight: 500; color: var(--text-main); }
     .log-time { color: var(--text-muted); font-size: 11px; }
 
-    /* ALERT MESSAGES (ซ่อนเมื่อไม่มีข้อความอัตโนมัติ) */
+    /* ALERT MESSAGES */
     .alert-msg { font-size: 13px; margin-top: 8px; margin-bottom: 8px; padding: 8px 12px; border-radius: 6px; display: none; line-height: 1.5; }
     .alert-msg:empty { display: none !important; }
     .alert-msg.error { color: #FCA5A5; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); display: block; }
@@ -370,7 +370,6 @@
             </div>
           </div>
 
-          <!-- ลบ class error ออกเพื่อซ่อนกล่องข้อความเปล่า -->
           <div id="login-error" class="alert-msg"></div>
 
           <div class="login-actions">
@@ -687,15 +686,15 @@
       <form onsubmit="handleRegister(event)">
         <div class="form-group">
           <label>ชื่อ-นามสกุล <span style="font-weight: 400; color: var(--text-muted);">(ชื่อแสดง)</span></label>
-          <input type="text" class="form-control" placeholder="เช่น นายสมชาย ใจดี" required>
+          <input type="text" id="reg-fullname" class="form-control" placeholder="เช่น นายสมชาย ใจดี" required>
         </div>
         <div class="form-group">
           <label>ชื่อผู้ใช้ / รหัสพนักงาน</label>
-          <input type="text" class="form-control" placeholder="ตั้งชื่อผู้ใช้สำหรับ Login" required>
+          <input type="text" id="reg-username" class="form-control" placeholder="ตั้งชื่อผู้ใช้สำหรับ Login" required>
         </div>
         <div class="form-group">
           <label>อีเมล Gmail <span style="font-weight: 400; color: var(--text-muted);">(สำหรับรับรหัสผ่าน)</span></label>
-          <input type="email" class="form-control" placeholder="example@gmail.com" required>
+          <input type="email" id="reg-email" class="form-control" placeholder="example@gmail.com" required>
         </div>
         <div class="form-group">
           <label>รหัสผ่าน</label>
@@ -713,8 +712,28 @@
   </div>
 
   <script>
-    /* Global Functions & Event Handlers */
+    /* Global Helper Functions */
     
+    // ดึงรายชื่อผู้ใช้ที่ลงทะเบียนทั้งหมด
+    function getUsersDB() {
+      const saved = localStorage.getItem('app_users_db');
+      return saved ? JSON.parse(saved) : {};
+    }
+
+    // โหลดข้อมูลเข้าสู่ระบบที่บันทึกไว้ (ถ้ามี)
+    document.addEventListener('DOMContentLoaded', () => {
+      loadSavedCredentials();
+    });
+
+    function loadSavedCredentials() {
+      const isRemembered = localStorage.getItem('remember_me') === 'true';
+      if (isRemembered) {
+        document.getElementById('username').value = localStorage.getItem('remember_user') || '';
+        document.getElementById('login-pass').value = localStorage.getItem('remember_pass') || '';
+        document.getElementById('remember-me').checked = true;
+      }
+    }
+
     // Toggle Password/Text Input Visibility
     function toggleVisibility(inputId, iconEl) {
       const input = document.getElementById(inputId);
@@ -761,15 +780,52 @@
       }
     }
 
-    // Login Handler
+    // Login Handler (พร้อมระบบตรวจสอบรหัสผ่าน)
     function handleLogin(e) {
       e.preventDefault();
-      const usernameVal = document.getElementById('username').value;
-      if (usernameVal) {
-        document.getElementById('display-name').textContent = usernameVal;
-        document.getElementById('display-username').textContent = usernameVal;
-        switchScreen('app-screen');
+      const usernameVal = document.getElementById('username').value.trim();
+      const passVal = document.getElementById('login-pass').value;
+      const rememberMe = document.getElementById('remember-me').checked;
+      const errorMsgEl = document.getElementById('login-error');
+
+      const usersDB = getUsersDB();
+      let matchedUser = null;
+
+      // ตรวจสอบกับบัญชีใน DB หรือบัญชีทดสอบเริ่มต้น
+      if (usersDB[usernameVal] && usersDB[usernameVal].password === passVal) {
+        matchedUser = usersDB[usernameVal];
+      } else if (usernameVal === 'google_user' && passVal === '123456') {
+        matchedUser = { fullname: 'google_user', username: 'google_user' };
       }
+
+      // หากรหัสผ่านหรือชื่อผู้ใช้ไม่ถูกต้อง ให้แสดง error และห้ามเข้าสู่ระบบ
+      if (!matchedUser) {
+        errorMsgEl.textContent = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง กรุณาตรวจสอบและลองใหม่อีกครั้ง';
+        errorMsgEl.className = 'alert-msg error';
+        return;
+      }
+
+      // ล้างข้อความแจ้งเตือนเมื่อล็อกอินผ่าน
+      errorMsgEl.textContent = '';
+      errorMsgEl.className = 'alert-msg';
+
+      // บันทึก หรือ ลบ ข้อมูลการจำรหัสผ่าน
+      if (rememberMe) {
+        localStorage.setItem('remember_me', 'true');
+        localStorage.setItem('remember_user', usernameVal);
+        localStorage.setItem('remember_pass', passVal);
+      } else {
+        localStorage.removeItem('remember_me');
+        localStorage.removeItem('remember_user');
+        localStorage.removeItem('remember_pass');
+      }
+
+      // อัปเดต UI โปรไฟล์
+      document.getElementById('display-name').textContent = matchedUser.fullname || usernameVal;
+      document.getElementById('display-username').textContent = usernameVal;
+      if (matchedUser.email) document.getElementById('email-input').value = matchedUser.email;
+
+      switchScreen('app-screen');
     }
 
     // Social Login Simulation
@@ -782,10 +838,20 @@
     // Logout Handler
     function handleLogout() {
       switchScreen('login-screen');
-      document.getElementById('login-form').reset();
+      
       const loginErr = document.getElementById('login-error');
       loginErr.textContent = '';
       loginErr.className = 'alert-msg';
+
+      // ตรวจสอบว่าเปิด 'จำฉันไว้ในระบบ' หรือไม่
+      const isRemembered = localStorage.getItem('remember_me') === 'true';
+      if (isRemembered) {
+        document.getElementById('username').value = localStorage.getItem('remember_user') || '';
+        document.getElementById('login-pass').value = localStorage.getItem('remember_pass') || '';
+        document.getElementById('remember-me').checked = true;
+      } else {
+        document.getElementById('login-form').reset();
+      }
     }
 
     // Email Update Action
@@ -865,10 +931,33 @@
       openModal('modal-register');
     }
 
+    // Handler บันทึกข้อมูลเจ้าหน้าที่ลงทะเบียนใหม่
     function handleRegister(e) {
       e.preventDefault();
-      alert('ลงทะเบียนเรียบร้อยแล้ว รอการอนุมัติสิทธิ์จากผู้ดูแลระบบ');
+      const fullname = document.getElementById('reg-fullname').value.trim();
+      const username = document.getElementById('reg-username').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const password = document.getElementById('reg-pass').value;
+
+      if (!username || !password) return;
+
+      const usersDB = getUsersDB();
+      usersDB[username] = {
+        fullname: fullname || username,
+        username: username,
+        email: email,
+        password: password
+      };
+
+      // บันทึกลงใน localStorage
+      localStorage.setItem('app_users_db', JSON.stringify(usersDB));
+
+      alert('ลงทะเบียนเรียบร้อยแล้ว! สามารถใช้ชื่อผู้ใช้และรหัสผ่านนี้ในการเข้าสู่ระบบได้ทันที');
       closeModal('modal-register');
+
+      // กรอกชื่อผู้ใช้และรหัสผ่านที่พึ่งสมัครให้อัตโนมัติในช่องล็อกอิน
+      document.getElementById('username').value = username;
+      document.getElementById('login-pass').value = password;
     }
 
     /* Hero Ambient Particle Canvas Effect */
