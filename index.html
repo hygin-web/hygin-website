@@ -315,7 +315,7 @@
   <!-- OTP Toast Notice -->
   <div id="otp-toast" class="otp-notification">
     <div class="otp-notification-title">
-      <span>💬 SMS แจ้งเตือน</span>
+      <span>✉️ อีเมลแจ้งเตือน</span>
       <span>เมื่อครู่นี้</span>
     </div>
     <div class="otp-notification-body">
@@ -537,7 +537,7 @@
                 <div>
                   <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 4px;">อีเมลติดต่อระบบ (Gmail)</label>
                   <div style="display: flex; gap: 8px;">
-                    <input type="email" id="email-input" class="form-control" value="admin@example.com" style="flex:1;">
+                    <input type="text" id="email-input" class="form-control" value="a***n@example.com" data-full-email="admin@example.com" style="flex:1;" onfocus="showFullEmail(this)" onblur="maskEmailInput(this)">
                     <button class="btn-secondary" onclick="updateEmail()">บันทึก</button>
                   </div>
                   <div id="email-alert" class="alert-msg"></div>
@@ -554,13 +554,6 @@
                 </div>
 
                 <div class="profile-grid" style="margin-top: 4px; border-top: 1px solid var(--border-color-light); padding-top: 14px;">
-                  <div class="profile-item" style="grid-column: span 2;">
-                    <label>IP Address ล่าสุด (เพื่อความปลอดภัย)</label>
-                    <div class="masked-input-group" style="margin-top: 4px; max-width: 260px;">
-                      <input type="password" id="ip-address" value="192.168.1.105" readonly>
-                      <span class="eye-icon" onclick="toggleVisibility('ip-address', this)">👁️</span>
-                    </div>
-                  </div>
                   <div class="profile-item">
                     <label>เข้าสู่ระบบล่าสุด</label>
                     <p style="font-size: 13px;">วันนี้, 09:15 น.</p>
@@ -663,14 +656,46 @@
         <button class="close-btn" onclick="closeModal('modal-forgot-password')">✕</button>
       </div>
       <div>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">กรอกเบอร์โทรศัพท์ที่ลงทะเบียนไว้ ระบบจะส่งรหัส OTP เพื่อยืนยันตัวตน</p>
-        <div class="form-group">
-          <label>เบอร์โทรศัพท์</label>
-          <input type="tel" id="forgot-phone" class="form-control" placeholder="08XXXXXXXX" required>
+        <div id="forgot-email-step">
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">กรอกอีเมลที่ลงทะเบียนไว้ ระบบจะส่งรหัส OTP เพื่อยืนยันตัวตน</p>
+          <div class="form-group">
+            <label>อีเมล</label>
+            <input type="email" id="forgot-email" class="form-control" placeholder="example@gmail.com" required autocomplete="email">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-secondary" onclick="closeModal('modal-forgot-password')">ยกเลิก</button>
+            <button type="button" class="btn-primary" style="width: auto; padding: 6px 16px;" onclick="triggerOtp()">ขอรับรหัส OTP</button>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn-secondary" onclick="closeModal('modal-forgot-password')">ยกเลิก</button>
-          <button type="button" class="btn-primary" style="width: auto; padding: 6px 16px;" onclick="triggerOtp()">ขอรับรหัส OTP</button>
+
+        <div id="forgot-otp-step" style="display: none;">
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">กรอกรหัส OTP 6 หลักที่ส่งไปยังอีเมลของคุณ</p>
+          <div class="form-group">
+            <label for="forgot-otp">รหัส OTP</label>
+            <input type="text" id="forgot-otp" class="form-control" placeholder="กรอกรหัส 6 หลัก" inputmode="numeric" autocomplete="one-time-code" maxlength="6">
+          </div>
+          <div id="forgot-otp-alert" class="alert-msg"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn-secondary" onclick="backToForgotEmail()">ย้อนกลับ</button>
+            <button type="button" class="btn-primary" style="width: auto; padding: 6px 16px;" onclick="verifyOtp()">ยืนยันรหัส OTP</button>
+          </div>
+        </div>
+
+        <div id="forgot-reset-step" style="display: none;">
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">ตั้งรหัสผ่านใหม่สำหรับบัญชีของคุณ</p>
+          <div class="form-group">
+            <label for="forgot-new-password">รหัสผ่านใหม่</label>
+            <input type="password" id="forgot-new-password" class="form-control" placeholder="อย่างน้อย 6 ตัวอักษร" minlength="6" autocomplete="new-password">
+          </div>
+          <div class="form-group">
+            <label for="forgot-confirm-password">ยืนยันรหัสผ่านใหม่</label>
+            <input type="password" id="forgot-confirm-password" class="form-control" placeholder="กรอกรหัสผ่านอีกครั้ง" minlength="6" autocomplete="new-password">
+          </div>
+          <div id="forgot-reset-alert" class="alert-msg"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn-secondary" onclick="closeModal('modal-forgot-password')">ยกเลิก</button>
+            <button type="button" class="btn-primary" style="width: auto; padding: 6px 16px;" onclick="resetForgottenPassword()">ตั้งรหัสผ่านใหม่</button>
+          </div>
         </div>
       </div>
     </div>
@@ -747,6 +772,32 @@
       }
     }
 
+    function maskEmail(email) {
+      const [localPart, domain] = email.trim().split('@');
+      if (!localPart || !domain) return email;
+      if (localPart.length <= 2) return `${localPart[0] || ''}*@${domain}`;
+      return `${localPart[0]}${'*'.repeat(localPart.length - 2)}${localPart[localPart.length - 1]}@${domain}`;
+    }
+
+    function showFullEmail(input) {
+      input.value = input.dataset.fullEmail || input.value;
+    }
+
+    function maskEmailInput(input) {
+      const email = input.value.trim();
+      if (email && email.includes('@') && !email.includes('*')) {
+        input.dataset.fullEmail = email;
+      }
+      input.value = maskEmail(input.dataset.fullEmail || email);
+    }
+
+    function setEmailDisplay(email) {
+      const emailInput = document.getElementById('email-input');
+      if (!emailInput || !email) return;
+      emailInput.dataset.fullEmail = email;
+      emailInput.value = maskEmail(email);
+    }
+
     // Screen Switcher (Login <-> App)
     function switchScreen(screenId) {
       document.querySelectorAll('.screen-section').forEach(s => s.classList.remove('active-screen'));
@@ -794,8 +845,8 @@
       // ตรวจสอบกับบัญชีใน DB หรือบัญชีทดสอบเริ่มต้น
       if (usersDB[usernameVal] && usersDB[usernameVal].password === passVal) {
         matchedUser = usersDB[usernameVal];
-      } else if (usernameVal === 'google_user' && passVal === '123456') {
-        matchedUser = { fullname: 'google_user', username: 'google_user' };
+      } else if (usernameVal === 'google_user' && passVal === (localStorage.getItem('default_google_password') || '123456')) {
+        matchedUser = { fullname: 'google_user', username: 'google_user', email: 'admin@example.com' };
       }
 
       // หากรหัสผ่านหรือชื่อผู้ใช้ไม่ถูกต้อง ให้แสดง error และห้ามเข้าสู่ระบบ
@@ -823,7 +874,7 @@
       // อัปเดต UI โปรไฟล์
       document.getElementById('display-name').textContent = matchedUser.fullname || usernameVal;
       document.getElementById('display-username').textContent = usernameVal;
-      if (matchedUser.email) document.getElementById('email-input').value = matchedUser.email;
+      if (matchedUser.email) setEmailDisplay(matchedUser.email);
 
       switchScreen('app-screen');
     }
@@ -856,9 +907,11 @@
 
     // Email Update Action
     function updateEmail() {
-      const emailVal = document.getElementById('email-input').value;
+      const emailInput = document.getElementById('email-input');
+      const emailVal = emailInput.value.includes('*') ? emailInput.dataset.fullEmail : emailInput.value.trim();
       const alertEl = document.getElementById('email-alert');
-      if (emailVal && emailVal.includes('@')) {
+      if (emailVal && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+        setEmailDisplay(emailVal);
         alertEl.className = 'alert-msg success';
         alertEl.textContent = 'บันทึกอีเมลสำเร็จเรียบร้อยแล้ว';
       } else {
@@ -905,26 +958,115 @@
     }
 
     function openForgotPasswordModal() {
+      backToForgotEmail();
       openModal('modal-forgot-password');
     }
 
+    let pendingForgotOtp = '';
+    let pendingForgotUsername = '';
+
+    function findUserByEmail(email) {
+      const normalizedEmail = email.toLowerCase();
+      const usersDB = getUsersDB();
+      const username = Object.keys(usersDB).find(key => (usersDB[key].email || '').toLowerCase() === normalizedEmail);
+      if (username) return { username, user: usersDB[username] };
+      if (normalizedEmail === 'admin@example.com') {
+        return { username: 'google_user', user: { fullname: 'google_user', email: 'admin@example.com' } };
+      }
+      return null;
+    }
+
     function triggerOtp() {
-      const phoneInput = document.getElementById('forgot-phone').value;
-      if (!phoneInput) {
-        alert('กรุณากรอกเบอร์โทรศัพท์');
+      const emailInput = document.getElementById('forgot-email').value.trim();
+      if (!emailInput || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput)) {
+        alert('กรุณากรอกอีเมลให้ถูกต้อง');
         return;
       }
-      closeModal('modal-forgot-password');
-      
+      const account = findUserByEmail(emailInput);
+      if (!account) {
+        alert('ไม่พบผู้ใช้ที่ลงทะเบียนด้วยอีเมลนี้');
+        return;
+      }
+      pendingForgotUsername = account.username;
       // Random 6-digit OTP Simulation
       const randomOtp = Math.floor(100000 + Math.random() * 900000);
+      pendingForgotOtp = String(randomOtp);
       document.getElementById('toast-otp-code').textContent = randomOtp;
+
+      document.getElementById('forgot-email-step').style.display = 'none';
+      document.getElementById('forgot-otp-step').style.display = 'block';
+      document.getElementById('forgot-otp').value = '';
+      document.getElementById('forgot-otp').focus();
       
       const toast = document.getElementById('otp-toast');
       toast.classList.add('show');
       setTimeout(() => {
         toast.classList.remove('show');
       }, 5000);
+    }
+
+    function backToForgotEmail() {
+      pendingForgotOtp = '';
+      document.getElementById('forgot-email-step').style.display = 'block';
+      document.getElementById('forgot-otp-step').style.display = 'none';
+      document.getElementById('forgot-otp-alert').textContent = '';
+      document.getElementById('forgot-otp-alert').className = 'alert-msg';
+      document.getElementById('forgot-reset-step').style.display = 'none';
+      document.getElementById('forgot-new-password').value = '';
+      document.getElementById('forgot-confirm-password').value = '';
+      document.getElementById('forgot-reset-alert').textContent = '';
+      document.getElementById('forgot-reset-alert').className = 'alert-msg';
+      pendingForgotUsername = '';
+    }
+
+    function verifyOtp() {
+      const otpInput = document.getElementById('forgot-otp').value.trim();
+      const alertEl = document.getElementById('forgot-otp-alert');
+      if (otpInput !== pendingForgotOtp) {
+        alertEl.textContent = 'รหัส OTP ไม่ถูกต้อง กรุณาตรวจสอบและลองใหม่อีกครั้ง';
+        alertEl.className = 'alert-msg error';
+        return;
+      }
+
+      document.getElementById('forgot-otp-step').style.display = 'none';
+      document.getElementById('forgot-reset-step').style.display = 'block';
+      document.getElementById('forgot-new-password').focus();
+    }
+
+    function resetForgottenPassword() {
+      const newPassword = document.getElementById('forgot-new-password').value;
+      const confirmPassword = document.getElementById('forgot-confirm-password').value;
+      const alertEl = document.getElementById('forgot-reset-alert');
+
+      if (newPassword.length < 6) {
+        alertEl.textContent = 'รหัสผ่านใหม่ต้องมีอย่างน้อย 6 ตัวอักษร';
+        alertEl.className = 'alert-msg error';
+        return;
+      }
+      if (newPassword !== confirmPassword) {
+        alertEl.textContent = 'รหัสผ่านใหม่และการยืนยันรหัสผ่านไม่ตรงกัน';
+        alertEl.className = 'alert-msg error';
+        return;
+      }
+
+      const usersDB = getUsersDB();
+      if (pendingForgotUsername === 'google_user') {
+        localStorage.setItem('default_google_password', newPassword);
+      } else if (usersDB[pendingForgotUsername]) {
+        usersDB[pendingForgotUsername].password = newPassword;
+        localStorage.setItem('app_users_db', JSON.stringify(usersDB));
+      } else {
+        alertEl.textContent = 'ไม่พบบัญชีผู้ใช้ กรุณาเริ่มขั้นตอนใหม่';
+        alertEl.className = 'alert-msg error';
+        return;
+      }
+
+      alertEl.textContent = 'ตั้งรหัสผ่านใหม่สำเร็จแล้ว';
+      alertEl.className = 'alert-msg success';
+      setTimeout(() => {
+        closeModal('modal-forgot-password');
+        backToForgotEmail();
+      }, 1200);
     }
 
     function openRegisterModal() {
