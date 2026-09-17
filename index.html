@@ -629,17 +629,18 @@
       </div>
       <form onsubmit="savePasswordChange(event)">
         <div class="form-group">
-          <label>รหัสผ่านปัจจุบัน</label>
-          <input type="password" class="form-control" required>
+          <label for="current-password">รหัสผ่านปัจจุบัน</label>
+          <input type="password" id="current-password" class="form-control" required autocomplete="current-password">
         </div>
         <div class="form-group">
-          <label>รหัสผ่านใหม่</label>
-          <input type="password" class="form-control" required minlength="6">
+          <label for="new-password">รหัสผ่านใหม่</label>
+          <input type="password" id="new-password" class="form-control" required minlength="6" autocomplete="new-password">
         </div>
         <div class="form-group">
-          <label>ยืนยันรหัสผ่านใหม่</label>
-          <input type="password" class="form-control" required minlength="6">
+          <label for="confirm-password">ยืนยันรหัสผ่านใหม่</label>
+          <input type="password" id="confirm-password" class="form-control" required minlength="6" autocomplete="new-password">
         </div>
+        <div id="change-password-alert" class="alert-msg"></div>
         <div class="modal-footer">
           <button type="button" class="btn-secondary" onclick="closeModal('modal-change-pass')">ยกเลิก</button>
           <button type="submit" class="btn-primary" style="width: auto; padding: 6px 16px;">อัปเดตรหัสผ่าน</button>
@@ -832,6 +833,8 @@
     }
 
     // Login Handler (พร้อมระบบตรวจสอบรหัสผ่าน)
+    let currentUsername = '';
+
     function handleLogin(e) {
       e.preventDefault();
       const usernameVal = document.getElementById('username').value.trim();
@@ -872,6 +875,7 @@
       }
 
       // อัปเดต UI โปรไฟล์
+      currentUsername = usernameVal;
       document.getElementById('display-name').textContent = matchedUser.fullname || usernameVal;
       document.getElementById('display-username').textContent = usernameVal;
       if (matchedUser.email) setEmailDisplay(matchedUser.email);
@@ -881,6 +885,7 @@
 
     // Social Login Simulation
     function loginWithSocial(provider) {
+      currentUsername = provider.toLowerCase() + '_user';
       document.getElementById('display-name').textContent = provider.toLowerCase() + '_user';
       document.getElementById('display-username').textContent = provider.toLowerCase() + '_user';
       switchScreen('app-screen');
@@ -948,13 +953,58 @@
     }
 
     function openPasswordModal() {
+      document.getElementById('current-password').value = '';
+      document.getElementById('new-password').value = '';
+      document.getElementById('confirm-password').value = '';
+      document.getElementById('change-password-alert').textContent = '';
+      document.getElementById('change-password-alert').className = 'alert-msg';
       openModal('modal-change-pass');
     }
 
     function savePasswordChange(e) {
       e.preventDefault();
-      alert('เปลี่ยนรหัสผ่านสำเร็จ!');
+      const currentPassword = document.getElementById('current-password').value;
+      const newPassword = document.getElementById('new-password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+      const alertEl = document.getElementById('change-password-alert');
+      const usersDB = getUsersDB();
+      const storedPassword = currentUsername === 'google_user'
+        ? (localStorage.getItem('default_google_password') || '123456')
+        : usersDB[currentUsername]?.password;
+
+      if (!storedPassword || currentPassword !== storedPassword) {
+        alertEl.textContent = 'รหัสผ่านปัจจุบันไม่ถูกต้อง';
+        alertEl.className = 'alert-msg error';
+        return;
+      }
+      if (newPassword.length < 6) {
+        alertEl.textContent = 'รหัสผ่านใหม่ต้องมีอย่างน้อย 6 ตัวอักษร';
+        alertEl.className = 'alert-msg error';
+        return;
+      }
+      if (newPassword !== confirmPassword) {
+        alertEl.textContent = 'รหัสผ่านใหม่และการยืนยันรหัสผ่านไม่ตรงกัน';
+        alertEl.className = 'alert-msg error';
+        return;
+      }
+
+      if (currentUsername === 'google_user') {
+        localStorage.setItem('default_google_password', newPassword);
+      } else if (usersDB[currentUsername]) {
+        usersDB[currentUsername].password = newPassword;
+        localStorage.setItem('app_users_db', JSON.stringify(usersDB));
+      }
+
+      localStorage.removeItem('remember_pass');
+      localStorage.setItem('remember_me', 'true');
       closeModal('modal-change-pass');
+      switchScreen('login-screen');
+      document.getElementById('username').value = currentUsername;
+      document.getElementById('login-pass').value = '';
+      document.getElementById('remember-me').checked = true;
+      document.getElementById('login-error').textContent = 'เปลี่ยนรหัสผ่านสำเร็จ กรุณากรอกรหัสผ่านใหม่เพื่อเข้าสู่ระบบ';
+      document.getElementById('login-error').className = 'alert-msg success';
+      currentUsername = '';
     }
 
     function openForgotPasswordModal() {
