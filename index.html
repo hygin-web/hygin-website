@@ -894,20 +894,20 @@
     // Logout Handler
     function handleLogout() {
       switchScreen('login-screen');
+      currentUsername = '';
       
       const loginErr = document.getElementById('login-error');
       loginErr.textContent = '';
       loginErr.className = 'alert-msg';
 
-      // ตรวจสอบว่าเปิด 'จำฉันไว้ในระบบ' หรือไม่
-      const isRemembered = localStorage.getItem('remember_me') === 'true';
-      if (isRemembered) {
-        document.getElementById('username').value = localStorage.getItem('remember_user') || '';
-        document.getElementById('login-pass').value = localStorage.getItem('remember_pass') || '';
-        document.getElementById('remember-me').checked = true;
-      } else {
-        document.getElementById('login-form').reset();
-      }
+      // Keep only the username; a password must always be entered again after logout.
+      const rememberedUsername = localStorage.getItem('remember_user') || document.getElementById('username').value;
+      localStorage.removeItem('remember_pass');
+      localStorage.setItem('remember_me', 'true');
+      document.getElementById('login-form').reset();
+      document.getElementById('username').value = rememberedUsername;
+      document.getElementById('login-pass').value = '';
+      document.getElementById('remember-me').checked = true;
     }
 
     // Email Update Action
