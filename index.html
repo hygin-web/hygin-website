@@ -738,4 +738,190 @@
 
             filtered.forEach(act => {
                 const card = document.createElement('div');
-                card.className = "bg-white rounded-2xl border border-slate-200 overflow-h... (15 KB left)
+                card.className = "bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col cursor-pointer hover:shadow-md transition-shadow";
+                card.innerHTML = `
+                    <img src="${escapeHtml(act.img)}" alt="${escapeHtml(act.title)}" class="w-full h-44 object-cover">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <span class="text-xs font-medium text-brand-700 mb-2">${escapeHtml(act.categoryName)}</span>
+                        <h3 class="font-bold text-slate-900 mb-2">${escapeHtml(act.title)}</h3>
+                        <p class="text-xs text-slate-500 mb-4">${escapeHtml(act.org)}</p>
+                        <div class="mt-auto flex items-center justify-between text-xs text-slate-600">
+                            <span><i class="fa-regular fa-calendar mr-1"></i>${escapeHtml(act.date)}</span>
+                            <span class="font-medium text-brand-700">${act.hours} ชม.</span>
+                        </div>
+                        <button type="button" class="mt-4 w-full py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg text-xs font-medium transition-colors">ดูรายละเอียดกิจกรรม</button>
+                    </div>`;
+                card.addEventListener('click', () => openActivityModal(act.id));
+                grid.appendChild(card);
+            });
+        }
+
+        function escapeHtml(value) {
+            return String(value).replace(/[&<>"']/g, character => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[character]);
+        }
+
+        function filterActivities() {
+            appState.searchQuery = document.getElementById('searchInput').value.trim();
+            renderActivities();
+        }
+
+        function setCategoryFilter(category) {
+            appState.activeFilterCat = category;
+            document.querySelectorAll('.cat-filter-btn').forEach(button => {
+                const selected = button.dataset.cat === category;
+                button.className = `cat-filter-btn px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${selected ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`;
+            });
+            renderActivities();
+        }
+
+        function renderHistory() {
+            const body = document.getElementById('historyTableBody');
+            body.innerHTML = '';
+            appState.history.forEach(item => {
+                const row = document.createElement('tr');
+                const statusClass = item.status === 'approved'
+                    ? 'bg-brand-50 text-brand-700'
+                    : 'bg-amber-50 text-amber-700';
+                row.innerHTML = `
+                    <td class="p-4"><div class="font-medium text-slate-800">${escapeHtml(item.title)}</div><div class="text-[10px] text-slate-400 mt-1">${escapeHtml(item.org)}</div></td>
+                    <td class="p-4 whitespace-nowrap">${escapeHtml(item.date)}</td>
+                    <td class="p-4">${item.hours} ชม.</td>
+                    <td class="p-4"><span class="px-2 py-1 rounded-full ${statusClass}">${escapeHtml(item.statusText)}</span></td>
+                    <td class="p-4 text-right"><button type="button" class="text-brand-700 hover:text-brand-800 font-medium" aria-label="ดูใบรับรอง"><i class="fa-solid fa-file-arrow-down"></i></button></td>`;
+                row.querySelector('button').addEventListener('click', generateSummaryCert);
+                body.appendChild(row);
+            });
+        }
+
+        function updateProfileUI() {
+            const user = appState.currentUser;
+            document.getElementById('headerName').textContent = user.name;
+            document.getElementById('profileName').textContent = user.name;
+            document.getElementById('profileRole').textContent = user.role;
+            document.getElementById('profileEmail').textContent = user.email;
+            document.getElementById('profilePhone').textContent = user.phone;
+            document.getElementById('headerHours').innerHTML = `<i class="fa-solid fa-award"></i> ${user.approvedHours} ชั่วโมง`;
+            document.getElementById('statApprovedHours').innerHTML = `${user.approvedHours} <span class="text-xs font-normal text-slate-500">ชม.</span>`;
+            document.getElementById('statPendingHours').innerHTML = `${user.pendingHours} <span class="text-xs font-normal text-slate-500">ชม.</span>`;
+            document.getElementById('headerAvatar').src = user.avatar;
+            document.getElementById('profileAvatar').src = user.avatar;
+        }
+
+        function openActivityModal(activityId) {
+            const activity = appState.activities.find(item => item.id === activityId);
+            if (!activity) return;
+            appState.selectedActivityId = activityId;
+            document.getElementById('modalImg').src = activity.img;
+            document.getElementById('modalBadge').textContent = activity.categoryName;
+            document.getElementById('modalTitle').textContent = activity.title;
+            document.getElementById('modalOrg').textContent = activity.org;
+            document.getElementById('modalDate').textContent = activity.date;
+            document.getElementById('modalHours').textContent = `${activity.hours} ชั่วโมง`;
+            document.getElementById('modalSeats').textContent = `${activity.seatsLeft} / ${activity.totalSeats} ที่`;
+            document.getElementById('modalDesc').textContent = activity.desc;
+            document.querySelector('#modalLocation span').textContent = activity.location;
+            openModal('activityModal');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            if (!document.querySelector('.fixed.inset-0.z-50:not(.hidden)')) {
+                document.body.classList.remove('overflow-hidden');
+            }
+        }
+
+        function registerCurrentActivity() {
+            const activity = appState.activities.find(item => item.id === appState.selectedActivityId);
+            if (!activity) return;
+            if (activity.seatsLeft <= 0) {
+                showToast('กิจกรรมนี้เต็มแล้ว', 'error');
+                return;
+            }
+            activity.seatsLeft -= 1;
+            appState.history.unshift({
+                id: Date.now(), title: activity.title,
+                date: activity.date.split(' (')[0], hours: activity.hours,
+                status: 'pending', statusText: 'รอตรวจสอบ', org: activity.org
+            });
+            appState.currentUser.pendingHours += activity.hours;
+            document.getElementById('statTotalJoined').innerHTML = `${appState.history.length} <span class="text-xs font-normal text-slate-500">โครงการ</span>`;
+            renderHistory();
+            updateProfileUI();
+            closeModal('activityModal');
+            showToast('ลงชื่อเข้าร่วมกิจกรรมเรียบร้อยแล้ว', 'success');
+        }
+
+        function openAuthModal() {
+            switchAuthTab('login');
+            openModal('authModal');
+        }
+
+        function switchAuthTab(tab) {
+            const loginSelected = tab === 'login';
+            document.getElementById('loginForm').classList.toggle('hidden', !loginSelected);
+            document.getElementById('registerForm').classList.toggle('hidden', loginSelected);
+            document.getElementById('authTabLogin').className = loginSelected
+                ? 'text-brand-600 border-b-2 border-brand-600 pb-1'
+                : 'text-slate-400 hover:text-slate-600 pb-1';
+            document.getElementById('authTabRegister').className = loginSelected
+                ? 'text-slate-400 hover:text-slate-600 pb-1'
+                : 'text-brand-600 border-b-2 border-brand-600 pb-1';
+        }
+
+        function handleAuthSubmit(event, mode) {
+            event.preventDefault();
+            closeModal('authModal');
+            showToast(mode === 'login' ? 'เข้าสู่ระบบเรียบร้อยแล้ว' : 'สมัครสมาชิกเรียบร้อยแล้ว', 'success');
+        }
+
+        function openEditProfileModal() {
+            const user = appState.currentUser;
+            document.getElementById('editNameInput').value = user.name;
+            document.getElementById('editEmailInput').value = user.email;
+            document.getElementById('editPhoneInput').value = user.phone;
+            document.getElementById('editRoleInput').value = user.role;
+            openModal('editProfileModal');
+        }
+
+        function saveProfile(event) {
+            event.preventDefault();
+            const user = appState.currentUser;
+            user.name = document.getElementById('editNameInput').value.trim();
+            user.email = document.getElementById('editEmailInput').value.trim();
+            user.phone = document.getElementById('editPhoneInput').value.trim();
+            user.role = document.getElementById('editRoleInput').value.trim();
+            updateProfileUI();
+            closeModal('editProfileModal');
+            showToast('บันทึกข้อมูลส่วนตัวเรียบร้อยแล้ว', 'success');
+        }
+
+        function generateSummaryCert() {
+            document.getElementById('certName').textContent = appState.currentUser.name;
+            document.getElementById('certDesc').textContent = `ได้ปฏิบัติงานอาสาสมัครเพื่อประโยชน์แก่สังคมและชุมชน รวม ${appState.currentUser.approvedHours} ชั่วโมง ด้วยความอุทิศตนและเสียสละ`;
+            openModal('certModal');
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            const color = type === 'error' ? 'bg-rose-600' : 'bg-slate-900';
+            toast.className = `${color} text-white px-4 py-3 rounded-lg shadow-lg text-sm pointer-events-auto`;
+            toast.textContent = message;
+            document.getElementById('toastContainer').appendChild(toast);
+            window.setTimeout(() => toast.remove(), 3000);
+        }
+
+        window.addEventListener('load', () => {
+            renderActivities();
+            renderHistory();
+            updateProfileUI();
+        });
+    </script>
+</body>
+</html>
