@@ -49,6 +49,98 @@
     <!-- Toast Notification Container -->
     <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
+    <!-- Sign-in screen -->
+    <section id="authScreen" class="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-slate-100 px-4 py-8 sm:px-6">
+        <div class="mx-auto flex min-h-[calc(100vh-4rem)] max-w-6xl items-center justify-center">
+            <div class="grid w-full overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5 lg:grid-cols-2">
+                <div class="relative hidden flex-col justify-between overflow-hidden bg-gradient-to-br from-emerald-800 via-brand-700 to-emerald-500 p-10 text-white lg:flex">
+                    <div class="absolute -bottom-16 -right-10 text-white/10">
+                        <i class="fa-solid fa-hands-holding-child text-[300px]"></i>
+                    </div>
+                    <div class="relative flex items-center gap-3">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 text-2xl">
+                            <i class="fa-solid fa-hand-holding-heart"></i>
+                        </div>
+                        <div>
+                            <p class="text-xl font-bold">Volunteer<span class="text-emerald-200">Hub</span></p>
+                            <p class="text-xs text-emerald-100">ระบบจิตอาสาเพื่อชุมชน</p>
+                        </div>
+                    </div>
+                    <div class="relative max-w-md py-12">
+                        <span class="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs">
+                            <i class="fa-solid fa-seedling"></i> ทุกการลงมือทำมีความหมาย
+                        </span>
+                        <h1 class="mb-4 text-4xl font-bold leading-tight">เริ่มต้นทำสิ่งดี ๆ ให้ชุมชนไปด้วยกัน</h1>
+                        <p class="leading-relaxed text-emerald-50">ค้นหากิจกรรมอาสาที่ใช่ บันทึกชั่วโมง และติดตามทุกความตั้งใจของคุณได้ในที่เดียว</p>
+                    </div>
+                    <p class="relative text-xs text-emerald-100">Volunteer Hub Thailand · พลังเล็ก ๆ ที่เปลี่ยนสังคมได้</p>
+                </div>
+
+                <div class="flex items-center justify-center p-6 sm:p-10 lg:p-12">
+                    <div class="w-full max-w-md">
+                        <div class="mb-8 flex items-center gap-3 lg:hidden">
+                            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-600 text-xl text-white">
+                                <i class="fa-solid fa-hand-holding-heart"></i>
+                            </div>
+                            <div>
+                                <p class="text-lg font-bold text-slate-900">Volunteer<span class="text-brand-600">Hub</span></p>
+                                <p class="text-xs text-slate-500">ระบบจิตอาสาเพื่อชุมชน</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <p id="authEyebrow" class="mb-2 text-xs font-semibold uppercase tracking-wider text-brand-700">ยินดีต้อนรับกลับ</p>
+                            <h2 id="authTitle" class="text-2xl font-bold text-slate-900 sm:text-3xl">เข้าสู่ระบบ</h2>
+                            <p id="authSubtitle" class="mt-2 text-sm text-slate-500">เข้าสู่ระบบเพื่อค้นหาและเข้าร่วมกิจกรรมอาสา</p>
+                        </div>
+
+                        <form id="gateLoginForm" onsubmit="handleGateAuth(event, 'login')" class="space-y-4">
+                            <div>
+                                <label for="gateLoginEmail" class="mb-1.5 block text-sm font-medium text-slate-700">อีเมล</label>
+                                <input id="gateLoginEmail" name="email" type="email" autocomplete="email" required placeholder="you@example.com" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10">
+                            </div>
+                            <div>
+                                <label for="gateLoginPassword" class="mb-1.5 block text-sm font-medium text-slate-700">รหัสผ่าน</label>
+                                <input id="gateLoginPassword" name="password" type="password" autocomplete="current-password" required placeholder="กรอกรหัสผ่าน" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10">
+                            </div>
+                            <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/20 transition hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-brand-500/20">
+                                เข้าสู่ระบบ <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </form>
+
+                        <form id="gateRegisterForm" onsubmit="handleGateAuth(event, 'register')" class="hidden space-y-4">
+                            <div>
+                                <label for="gateRegisterName" class="mb-1.5 block text-sm font-medium text-slate-700">ชื่อ-นามสกุล</label>
+                                <input id="gateRegisterName" name="name" type="text" autocomplete="name" required placeholder="ชื่อของคุณ" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10">
+                            </div>
+                            <div>
+                                <label for="gateRegisterEmail" class="mb-1.5 block text-sm font-medium text-slate-700">อีเมล</label>
+                                <input id="gateRegisterEmail" name="email" type="email" autocomplete="email" required placeholder="you@example.com" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10">
+                            </div>
+                            <div>
+                                <label for="gateRegisterPassword" class="mb-1.5 block text-sm font-medium text-slate-700">สร้างรหัสผ่าน</label>
+                                <input id="gateRegisterPassword" name="password" type="password" autocomplete="new-password" minlength="8" required placeholder="อย่างน้อย 8 ตัวอักษร" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10">
+                            </div>
+                            <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/20 transition hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-brand-500/20">
+                                สมัครสมาชิกอาสาสมัคร <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </form>
+
+                        <p class="mt-6 text-center text-sm text-slate-500">
+                            <span id="authSwitchPrompt">ยังไม่มีบัญชี?</span>
+                            <button id="authSwitchButton" type="button" onclick="switchGateAuthMode()" class="ml-1 font-semibold text-brand-700 hover:text-brand-800">สมัครสมาชิก</button>
+                        </p>
+                        <p class="mt-6 rounded-xl bg-amber-50 px-3 py-2.5 text-xs leading-relaxed text-amber-800">
+                            <i class="fa-solid fa-circle-info mr-1"></i>
+                            โหมดตัวอย่าง: ระบบยังไม่ได้เชื่อมต่อบริการตรวจสอบบัญชี กรอกข้อมูลเพื่อทดลองเข้าสู่หน้าแอปได้
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="appShell" class="hidden w-full flex-grow flex-col">
     <!-- Top Navigation Bar -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,8 +172,8 @@
 
                 <!-- Auth & User Info -->
                 <div class="flex items-center gap-3">
-                    <button id="authBtn" onclick="openAuthModal()" class="hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-all">
-                        <i class="fa-solid fa-arrow-right-to-bracket"></i> เข้าสู่ระบบ / สมัครสมาชิก
+                    <button id="authBtn" onclick="logoutUser()" class="flex items-center gap-2 rounded-lg bg-slate-100 px-3 py-2 text-sm font-medium text-slate-700 transition-all hover:bg-slate-200 sm:px-4">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i><span class="hidden sm:inline">ออกจากระบบ</span>
                     </button>
                     
                     <div id="userPill" class="flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-full pl-2 pr-3 py-1 cursor-pointer hover:border-slate-300 transition-all" onclick="switchTab('profile')">
@@ -471,57 +563,6 @@
         </div>
     </div>
 
-    <!-- Auth Modal (Login / Register Toggle) -->
-    <div id="authModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 space-y-4">
-            
-            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                <div class="flex gap-4 text-sm font-bold">
-                    <button id="authTabLogin" onclick="switchAuthTab('login')" class="text-brand-600 border-b-2 border-brand-600 pb-1">เข้าสู่ระบบ</button>
-                    <button id="authTabRegister" onclick="switchAuthTab('register')" class="text-slate-400 hover:text-slate-600 pb-1">ลงทะเบียนใหม่</button>
-                </div>
-                <button onclick="closeModal('authModal')" class="text-slate-400 hover:text-slate-600">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-
-            <!-- Login Form -->
-            <form id="loginForm" onsubmit="handleAuthSubmit(event, 'login')" class="space-y-3 text-xs">
-                <div>
-                    <label class="block text-slate-600 mb-1 font-medium">อีเมล / เบอร์โทร</label>
-                    <input type="text" placeholder="example@mail.com" required class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none">
-                </div>
-                <div>
-                    <label class="block text-slate-600 mb-1 font-medium">รหัสผ่าน</label>
-                    <input type="password" placeholder="••••••••" required class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none">
-                </div>
-                <button type="submit" class="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-lg transition-all shadow-md shadow-brand-600/20 mt-2">
-                    เข้าสู่ระบบ
-                </button>
-            </form>
-
-            <!-- Register Form (Hidden initially) -->
-            <form id="registerForm" onsubmit="handleAuthSubmit(event, 'register')" class="space-y-3 text-xs hidden">
-                <div>
-                    <label class="block text-slate-600 mb-1 font-medium">ชื่อ-นามสกุล</label>
-                    <input type="text" placeholder="นายจิตดี มีสุข" required class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none">
-                </div>
-                <div>
-                    <label class="block text-slate-600 mb-1 font-medium">อีเมล</label>
-                    <input type="email" placeholder="example@mail.com" required class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none">
-                </div>
-                <div>
-                    <label class="block text-slate-600 mb-1 font-medium">สร้างรหัสผ่าน</label>
-                    <input type="password" placeholder="••••••••" required class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none">
-                </div>
-                <button type="submit" class="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-lg transition-all shadow-md shadow-brand-600/20 mt-2">
-                    สมัครสมาชิกอาสาสมัคร
-                </button>
-            </form>
-
-        </div>
-    </div>
-
     <!-- Certificate Preview Modal -->
     <div id="certModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-2xl w-full p-8 shadow-2xl border-4 border-amber-300 relative text-center space-y-4">
@@ -555,6 +596,7 @@
         </div>
     </div>
 
+    </div>
 
     <!-- JavaScript Application Logic -->
     <script>
@@ -858,27 +900,48 @@
             showToast('ลงชื่อเข้าร่วมกิจกรรมเรียบร้อยแล้ว', 'success');
         }
 
-        function openAuthModal() {
-            switchAuthTab('login');
-            openModal('authModal');
+        function switchGateAuthMode() {
+            const showRegister = document.getElementById('gateLoginForm').classList.contains('hidden');
+            document.getElementById('gateLoginForm').classList.toggle('hidden', !showRegister);
+            document.getElementById('gateRegisterForm').classList.toggle('hidden', showRegister);
+            document.getElementById('authEyebrow').textContent = showRegister ? 'เข้าร่วมชุมชนอาสา' : 'ยินดีต้อนรับกลับ';
+            document.getElementById('authTitle').textContent = showRegister ? 'สร้างบัญชีใหม่' : 'เข้าสู่ระบบ';
+            document.getElementById('authSubtitle').textContent = showRegister
+                ? 'สมัครสมาชิกเพื่อเริ่มต้นทำกิจกรรมดี ๆ ไปด้วยกัน'
+                : 'เข้าสู่ระบบเพื่อค้นหาและเข้าร่วมกิจกรรมอาสา';
+            document.getElementById('authSwitchPrompt').textContent = showRegister ? 'มีบัญชีอยู่แล้ว?' : 'ยังไม่มีบัญชี?';
+            document.getElementById('authSwitchButton').textContent = showRegister ? 'เข้าสู่ระบบ' : 'สมัครสมาชิก';
         }
 
-        function switchAuthTab(tab) {
-            const loginSelected = tab === 'login';
-            document.getElementById('loginForm').classList.toggle('hidden', !loginSelected);
-            document.getElementById('registerForm').classList.toggle('hidden', loginSelected);
-            document.getElementById('authTabLogin').className = loginSelected
-                ? 'text-brand-600 border-b-2 border-brand-600 pb-1'
-                : 'text-slate-400 hover:text-slate-600 pb-1';
-            document.getElementById('authTabRegister').className = loginSelected
-                ? 'text-slate-400 hover:text-slate-600 pb-1'
-                : 'text-brand-600 border-b-2 border-brand-600 pb-1';
-        }
-
-        function handleAuthSubmit(event, mode) {
+        function handleGateAuth(event, mode) {
             event.preventDefault();
-            closeModal('authModal');
+            const form = event.currentTarget;
+            const formData = new FormData(form);
+            const email = formData.get('email').trim();
+            const name = mode === 'register'
+                ? formData.get('name').trim()
+                : sessionStorage.getItem('volunteerHubName') || appState.currentUser.name;
+
+            appState.currentUser.name = name;
+            appState.currentUser.email = email;
+            sessionStorage.setItem('volunteerHubName', name);
+            sessionStorage.setItem('volunteerHubEmail', email);
+            updateProfileUI();
+            document.getElementById('authScreen').classList.add('hidden');
+            document.getElementById('appShell').classList.remove('hidden');
+            document.getElementById('appShell').classList.add('flex');
             showToast(mode === 'login' ? 'เข้าสู่ระบบเรียบร้อยแล้ว' : 'สมัครสมาชิกเรียบร้อยแล้ว', 'success');
+        }
+
+        function logoutUser() {
+            sessionStorage.removeItem('volunteerHubName');
+            sessionStorage.removeItem('volunteerHubEmail');
+            document.getElementById('appShell').classList.add('hidden');
+            document.getElementById('appShell').classList.remove('flex');
+            document.getElementById('authScreen').classList.remove('hidden');
+            document.getElementById('gateLoginForm').reset();
+            document.getElementById('gateRegisterForm').reset();
+            switchGateAuthMode();
         }
 
         function openEditProfileModal() {
@@ -897,6 +960,8 @@
             user.email = document.getElementById('editEmailInput').value.trim();
             user.phone = document.getElementById('editPhoneInput').value.trim();
             user.role = document.getElementById('editRoleInput').value.trim();
+            sessionStorage.setItem('volunteerHubName', user.name);
+            sessionStorage.setItem('volunteerHubEmail', user.email);
             updateProfileUI();
             closeModal('editProfileModal');
             showToast('บันทึกข้อมูลส่วนตัวเรียบร้อยแล้ว', 'success');
@@ -920,6 +985,15 @@
         window.addEventListener('load', () => {
             renderActivities();
             renderHistory();
+            const email = sessionStorage.getItem('volunteerHubEmail');
+            const name = sessionStorage.getItem('volunteerHubName');
+            if (email) {
+                appState.currentUser.email = email;
+                if (name) appState.currentUser.name = name;
+                document.getElementById('authScreen').classList.add('hidden');
+                document.getElementById('appShell').classList.remove('hidden');
+                document.getElementById('appShell').classList.add('flex');
+            }
             updateProfileUI();
         });
     </script>
